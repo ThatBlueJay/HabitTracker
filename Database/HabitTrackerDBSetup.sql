@@ -45,3 +45,5 @@ CREATE TABLE Records (
     habit_id INT NOT NULL,
     FOREIGN KEY (habit_id) REFERENCES Habits(habit_id)
 );
+
+-- \i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/HabitTrackerDBSetup.sql
