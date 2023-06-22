@@ -1,5 +1,16 @@
 include interval;
 
+DROP DATABASE IF EXISTS habittracker;
+CREATE DATABASE habittracker;
+
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    email VARCHAR(250) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE
+);
+
 CREATE TABLE Class (
     class_id SERIAL PRIMARY KEY,
     name VARCHAR(120) NOT NULL,
