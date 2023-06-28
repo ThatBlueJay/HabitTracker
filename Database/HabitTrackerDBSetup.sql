@@ -1,5 +1,13 @@
 include interval;
 
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    email VARCHAR(250) UNIQUE NOT NULL,
+    phone VARCHAR(20) UNIQUE
+);
+
 CREATE TABLE Class (
     class_id SERIAL PRIMARY KEY,
     name VARCHAR(120) NOT NULL,
@@ -34,3 +42,5 @@ CREATE TABLE Records (
     habit_id INT NOT NULL,
     FOREIGN KEY (habit_id) REFERENCES Habits(habit_id)
 );
+
+-- \i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/HabitTrackerDBSetup.sql
