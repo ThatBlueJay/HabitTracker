@@ -29,7 +29,7 @@ CREATE TABLE Records (
     date_complete timestamp NOT NULL,
     due_date timestamp NOT NULL,
     complete bool NOT NULL,
-    complete_on_time bool NOT NULL,
+    complete_on_time bool,
     hours_spent INT NOT NULL,
     habit_id INT NOT NULL,
     FOREIGN KEY (habit_id) REFERENCES Habits(habit_id)
