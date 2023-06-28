@@ -43,9 +43,23 @@ const getHabit = () => {
   }) 
 }
 
+const getCurrentHabits = () => {
+  return new Promise(function(resolve, reject) {
+    const id = parseInt(request.params.id)
+    pool.query('SELECT * FROM records WHERE due_date >= (LAST_DAY(NOW()) + INTERVAL 1 DAY - INTERVAL 1 MONTH) AND due_date < (LAST_DAY(NOW()) + INTERVAL 1 DAY) AND habit_id = $1', [id], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(results.row);
+    })
+
+  })
+}
+
   
   module.exports = {
     createHabit,
     deleteHabit,
     getHabit,
+    getCurrentHabits,
   }
