@@ -33,7 +33,8 @@ const deleteHabit = () => {
 
 const getHabit = () => {
   return new Promise(function(resolve, reject) {
-    pool.query('SELECT * FROM habits ORDER BY id ASC', (error, results) => {
+    const id = parseInt(request.params.id)
+    pool.query('SELECT * FROM habits WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
