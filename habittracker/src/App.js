@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from './pages/Home';
+import Habits from './pages/Habits';
+import Calendar from './pages/Calendar';
+import Analytics from './pages/Analytics';
+import Profile from './pages/Profile';
+import { ChakraProvider } from '@chakra-ui/react'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Router>
+        <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Habits" element={<Habits />} />
+            <Route path="/Calendar" element={<Calendar />} />
+            <Route path="/Analytics" element={<Analytics />} />
+            <Route path="/Profile" element={<Profile />} />
+          </Routes>
+        <Footer />
+      </Router>
+    </ChakraProvider>
   );
 }
 
