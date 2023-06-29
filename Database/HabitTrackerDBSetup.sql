@@ -1,4 +1,9 @@
-include interval;
+--include interval;
+
+\c postgres
+DROP DATABASE IF EXISTS habittracker;
+CREATE DATABASE habittracker;
+\c habittracker
 
 CREATE TABLE Users (
     user_id SERIAL PRIMARY KEY,
@@ -21,20 +26,21 @@ CREATE TABLE Habits (
     habit_id SERIAL PRIMARY KEY,
     title VARCHAR(280) UNIQUE NOT NULL,
     description VARCHAR(512),
-    start_time timestamp,
-    end_time timestamp,
+    start_time time,
+    end_time time,
     category VARCHAR(100),
     recurring INTERVAL,
-    end_date timestamp,
+    start_date date NOT NULL,
+    end_date date,
     user_id INT NOT NULL,
-    class_id INT NOT NULL,
+    class_id INT,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (class_id) REFERENCES Class(class_id)
 );
 
 CREATE TABLE Records (
     record_id SERIAL PRIMARY KEY,
-    date_complete timestamp NOT NULL,
+    datet_complete timestamp,
     due_date timestamp NOT NULL,
     complete bool NOT NULL,
     complete_on_time bool,

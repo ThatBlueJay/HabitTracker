@@ -1,2 +1,0 @@
-DROP DATABASE IF EXISTS habittracker;
-CREATE DATABASE habittracker;
