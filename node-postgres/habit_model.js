@@ -56,6 +56,18 @@ const getCurrentHabits = () => {
   })
 }
 
+const confirmHabit = () => {
+  return new Promise(function(resolve, reject) {
+    const id = parseInt(request.params.id)
+    pool.query('UPDATE records set complete = true where record_id = $1', [id], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(`Record marked as complete: ${id}`)
+    })
+  }) 
+}
+
   
   module.exports = {
     createHabit,
