@@ -59,6 +59,16 @@ app.delete('/habits/:id', (req, res) => {
   })
 })
 
+app.put('/habits/:id', (req, res) => {
+  habit_model.confirmHabit(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
 //User Model
 
 app.get('/users/:id', (req, res) => {
