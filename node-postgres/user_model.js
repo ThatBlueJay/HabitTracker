@@ -5,7 +5,7 @@ const pool = new Pool({
   database: 'habittracker',
   password: 'db',
   port: 5432,
-});
+})
 
 const createUser = (body) => {
   return new Promise(function(resolve, reject) {
@@ -19,9 +19,8 @@ const createUser = (body) => {
   })
 }
 
-const deleteUser = () => {
+const deleteUser = (id) => {
   return new Promise(function(resolve, reject) {
-    const id = parseInt(request.params.id)
     pool.query('DELETE FROM users WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
@@ -31,9 +30,8 @@ const deleteUser = () => {
   })
 }
 
-const getUser = () => {
+const getUser = (id) => {
   return new Promise(function(resolve, reject) {
-    const id = parseInt(request.params.id)
     pool.query('SELECT * FROM users WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)

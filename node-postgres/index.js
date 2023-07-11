@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3001
+const port = 3000
 
 const habit_model = require('./habit_model')
 const user_model = require('./user_model')
@@ -14,6 +14,9 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.get('/', (request, response) => {
+  response.json({ info: 'Node.js, Express, and Postgres API' })
+})
 //Habit Model
 
 app.get('/habits/:id', (req, res) => {
@@ -55,9 +58,6 @@ app.delete('/habits/:id', (req, res) => {
     res.status(500).send(error);
   })
 })
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
-})
 
 //User Model
 
@@ -90,6 +90,7 @@ app.delete('/users/:id', (req, res) => {
     res.status(500).send(error);
   })
 })
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })

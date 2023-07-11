@@ -19,9 +19,8 @@ const createHabit = (body) => {
   })
 }
 
-const deleteHabit = () => {
+const deleteHabit = (id) => {
   return new Promise(function(resolve, reject) {
-    const id = parseInt(request.params.id)
     pool.query('DELETE FROM habits WHERE habit_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
@@ -31,9 +30,8 @@ const deleteHabit = () => {
   })
 }
 
-const getHabit = () => {
+const getHabit = (id) => {
   return new Promise(function(resolve, reject) {
-    const id = parseInt(request.params.id)
     pool.query('SELECT * FROM habits WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
@@ -56,9 +54,15 @@ const getCurrentHabits = () => {
   })
 }
 
-const confirmHabit = () => {
+const confirmHabit = (id) => {
   return new Promise(function(resolve, reject) {
-    const id = parseInt(request.params.id)
+    pool.query('SELECT * FROM records WHERE record_id = $1') , [id], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(results.row);
+    }
+
     pool.query('UPDATE records set complete = true where record_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
