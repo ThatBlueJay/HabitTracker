@@ -1,10 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-function Profile() {
+function Profile(props) {
+  const username = props.username;
+  const email = props.email;
+  const phone = props.phone;
+
   return(
     <ProfileContainer>
-      <Header>Welcome to Habit Tracker!</Header>
+      <Header>Profile</Header>
+      <Subheader>Username: {username}</Subheader>
+      <Subheader>Email: {email}</Subheader>
+      <Subheader>Phone: {phone}</Subheader>
     </ProfileContainer>
   );
 }
@@ -13,6 +20,7 @@ const ProfileContainer = styled.div`
   position: relative;
   overflow: hidden;
   display: block;
+  height: 80vh;
 `
 
 const Header = styled.h1`
