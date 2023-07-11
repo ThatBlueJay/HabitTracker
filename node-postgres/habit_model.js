@@ -41,9 +41,8 @@ const getHabit = (id) => {
   }) 
 }
 
-const getCurrentHabits = () => {
+const getCurrentHabits = (id) => {
   return new Promise(function(resolve, reject) {
-    const id = parseInt(request.params.id)
     pool.query('SELECT * FROM records WHERE due_date >= (LAST_DAY(NOW()) + INTERVAL 1 DAY - INTERVAL 1 MONTH) AND due_date < (LAST_DAY(NOW()) + INTERVAL 1 DAY) AND habit_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
@@ -87,6 +86,18 @@ const confirmHabit = (id) => {
   }) 
 }
 
+const generateRecords = () => {
+  return new Promise(function(resolve, reject) {
+    pool.query('SELECT recordGenerator()', (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve('Generated new set of records for the future');
+    })
+
+  })
+}
+
   
   module.exports = {
     createHabit,
@@ -94,4 +105,5 @@ const confirmHabit = (id) => {
     getHabit,
     getCurrentHabits,
     confirmHabit,
+    generateRecords,
   }
