@@ -56,19 +56,34 @@ const getCurrentHabits = () => {
 
 const confirmHabit = (id) => {
   return new Promise(function(resolve, reject) {
-    pool.query('SELECT * FROM records WHERE record_id = $1') , [id], (error, results) => {
+    pool.query('SELECT due_date FROM records WHERE record_id = $1') , [id], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(results.row);
+      pool.query('UPDATE records set complete = true where record_id = $1; UPDATE records set date_complete = $2; where record_id = $1; UPDATE records set hours_spent = $3' [id, Date.now, Math.abs(Math.round((Date.now.getTime() - results.getTime()) / 100) / (60*60))], (err, rests) => {
+        if (err) {
+          reject(err)
+        }
+  
+      }) 
+      if(results < Date.now) {
+        pool.query(' UPDATE records set complete_on_time = true where record_id = $1; ', (err, rests) => {
+          if (err) {
+            reject(err)
+          }
+          
+        })
+      }
+      else {
+        pool.query('UPDATE records set complete_on_time = false where record_id = $1', (err, rests) => {
+          if (err) {
+            reject(err)
+          }
+        })
+      }
     }
 
-    pool.query('UPDATE records set complete = true where record_id = $1', [id], (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(`Record marked as complete: ${id}`)
-    })
+    resolve(`Record marked as complete: ${id}`)
   }) 
 }
 
@@ -78,4 +93,5 @@ const confirmHabit = (id) => {
     deleteHabit,
     getHabit,
     getCurrentHabits,
+    confirmHabit,
   }
