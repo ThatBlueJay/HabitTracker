@@ -12,7 +12,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 /*
 Check to see if the user is logged in
 */
-var login = true;
+var login = false;
 var id = -1;
 
 function App() {
