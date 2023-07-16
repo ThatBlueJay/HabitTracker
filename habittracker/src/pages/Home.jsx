@@ -2,7 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 function verify(password){
-  
+  if(password.length < 8){
+    return false;
+  }
+  var hasUpperCase = /[A-Z]/.test(password);
+  if (!hasUpperCase) {
+    return false;
+  }
+  var hasNumeral = /\d/.test(password);
+  if (!hasNumeral) {
+    return false;
+  }
+  return true;
 }
 
 function Home() {
