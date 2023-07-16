@@ -12,7 +12,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 /*
 Check to see if the user is logged in
 */
-var login = false;
+var login = true;
 var id = -1;
 
 function App() {
@@ -23,9 +23,9 @@ function App() {
     data =  getUserData(id);
   }
 
-  var username = login ? data.username : "none";
-  var email = login ? data.email : "none";
-  var phone = login ? data.phone : "none";
+  //var username = login ? data.username : "none";
+  //var email = login ? data.email : "none";
+  //var phone = login ? data.phone : "none";
 
     return (
       <ChakraProvider>
@@ -36,7 +36,7 @@ function App() {
               <Route path="/Habits" element={login ? <Habits /> : <Home/>} />
               <Route path="/Calendar" element={login ? <Calendar data={getHabitData(id)}/> : <Home/>} />
               <Route path="/Analytics" element={login ? <Analytics /> : <Home/>} />
-              <Route path="/Profile" element={login ? <Profile username={username} email={email} phone={phone}/> : <Home/>} />
+              <Route path="/Profile" element={login ? <Profile username={"username"} email={"email"} phone={"911"}/> : <Home/>} />
             </Routes>
           <Footer />
         </Router>
