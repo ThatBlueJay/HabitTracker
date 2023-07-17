@@ -41,9 +41,9 @@ const getHabit = (id) => {
   }) 
 }
 
-const getCurrentHabits = (id) => {
+const getCurrentHabits = (id, begin, end) => {
   return new Promise(function(resolve, reject) {
-    pool.query('SELECT * FROM records WHERE due_date >= (LAST_DAY(NOW()) + INTERVAL 1 DAY - INTERVAL 1 MONTH) AND due_date < (LAST_DAY(NOW()) + INTERVAL 1 DAY) AND habit_id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM records WHERE due_date >= $2 AND due_date < $3 AND habit_id = $1', [id, begin, end], (error, results) => {
       if (error) {
         reject(error)
       }
