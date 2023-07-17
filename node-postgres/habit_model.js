@@ -41,8 +41,9 @@ const getHabit = (id) => {
   }) 
 }
 
-const getCurrentHabits = (id, begin, end) => {
+const getCurrentHabits = (body) => {
   return new Promise(function(resolve, reject) {
+    const {id, begin, end} = body
     pool.query('SELECT * FROM records WHERE due_date >= $2 AND due_date < $3 AND habit_id = $1', [id, begin, end], (error, results) => {
       if (error) {
         reject(error)
