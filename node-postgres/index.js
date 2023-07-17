@@ -29,7 +29,7 @@ app.get('/habits/:id', (req, res) => {
   })
 })
 
-app.get('/habits/:id', (req, res) => {
+app.get('/habits', (req, res) => {
   habit_model.getCurrentHabits(req.body)
   .then(response => {
     res.status(200).send(response);
