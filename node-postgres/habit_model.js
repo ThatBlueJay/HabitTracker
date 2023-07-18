@@ -14,7 +14,8 @@ const createHabit = (body) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
+      resolve(`A new habit has been added with ID:!`)
+      //resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
     })
   })
 }
