@@ -9,12 +9,12 @@ const pool = new Pool({
 
 const createHabit = (body) => {
   return new Promise(function(resolve, reject) {
-    const {habit_id, title, description, start_time, end_time, category, recurring, end_date, user_id, class_id} = body
-    pool.query('INSERT INTO habits (habit_id, title, description, start_time, end_time, category, recurring, end_date, user_id, class_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', [habit_id, title, description, start_time, end_time, category, recurring, end_date, user_id, class_id], (error, results) => {
+    const {habit_id, title, description, start_time, end_time, category, recurring, start_date, end_date, user_id, class_id} = body
+    pool.query('INSERT INTO habits (habit_id, title, description, start_time, end_time, category, recurring, start_date, end_date, user_id, class_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *', [habit_id, title, description, start_time, end_time, category, recurring, start_date, end_date, user_id, class_id], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new habit has been added added: ${results.rows[0]}`)
+      resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
     })
   })
 }
