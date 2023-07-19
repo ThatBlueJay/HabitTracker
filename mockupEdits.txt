@@ -1,0 +1,6 @@
+Some notes on the Mock Up
+- I think all text boxes in the Mock Up should be typeable for readability
+- The log in button on the login screen should redirect to the calendar
+- The "Log in with Google" button should probably be removed as we aren't doing that
+- The GitHub button in the bottom right should link to our repo if possible
+- It would be nice if the interval dropdown worked OR defaulted to "weeks" (for readabilty)

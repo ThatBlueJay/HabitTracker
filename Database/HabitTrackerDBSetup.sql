@@ -40,7 +40,7 @@ CREATE TABLE Habits (
 
 CREATE TABLE Records (
     record_id SERIAL PRIMARY KEY,
-    datet_complete timestamp,
+    date_complete timestamp,
     due_date timestamp NOT NULL,
     complete bool NOT NULL,
     complete_on_time bool,

@@ -13,7 +13,7 @@ DECLARE
     due_time time;
     years_to_add int;
 BEGIN
-    curr := 'June 1, 2023 00:00 AM';
+    curr := now();
     added := 0;
 
     -- each habit
