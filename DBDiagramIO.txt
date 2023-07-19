@@ -1,0 +1,96 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Posts {
+  id integer [primary key]
+  userid integer
+  boardid integer
+  message VARCHAR(200)
+  message_type integer
+  date timestamp
+  color integer
+  score integer
+  x integer
+  y integer
+}
+
+Table Boards {
+  id integer [primary key]
+  topic_name VARCHAR(50)
+  actions integer
+  reset interval
+}
+
+Table UserActions {
+  id integer [primary key]
+  postid integer
+  userid integer
+  boardid integer
+  action VARCHAR(10)
+  date timestamp 
+}
+
+TABLE UserStatus {
+  userid integer [primary key]
+  boardid integer [primary key]
+  role VARCHAR(10)
+}
+
+TABLE PostArchive {
+  id integer [primary key]
+  userid integer
+  boardid integer
+  message VARCHAR(200)
+  message_type integer
+  date timestamp
+  color integer
+  x integer
+  y integer
+}
+
+TABLE ActionArchive {
+  id integer [primary key]
+  postid integer
+  userid integer
+  boardid integer
+  action VARCHAR(10)
+  date timestamp
+}
+
+TABLE auth_user {
+	id integer [primary key]
+	password VARCHAR(128)
+	last_login timestamp
+	is_supervisor bool
+	username VARCHAR(150)
+	first_name VARCHAR(150)
+	last_name VARCHAR(150)
+	email VARCHAR(254)
+	is_staff bool
+	is_active bool
+	date_joined timestamp
+}
+
+Ref: auth_user.id < Posts.userid
+
+Ref: Boards.id < Posts.boardid
+
+Ref: auth_user.id < PostArchive.userid
+
+Ref: auth_user.id < ActionArchive.userid
+
+Ref: auth_user.id < UserActions.userid
+
+Ref: auth_user.id < UserStatus.userid
+
+Ref: Boards.id < PostArchive.boardid
+
+Ref: Boards.id < ActionArchive.boardid
+
+Ref: Boards.id < UserActions.boardid
+
+Ref: Posts.id < UserActions.postid
+
+Ref: Posts.id < ActionArchive.postid
+
+Ref: Boards.id < UserStatus.boardid
