@@ -4,7 +4,9 @@ import styled from "styled-components";
 function Habits() {
   return(
     <HabitContainer>
-      <Header>Habit Page</Header>
+      <Header>Add a habit here!</Header>
+      <Subheader>Please enter the days and times you would like to complete this habit</Subheader>
+      <br /> <br /> <p>Good Luck!</p>
     </HabitContainer>
   );
 }

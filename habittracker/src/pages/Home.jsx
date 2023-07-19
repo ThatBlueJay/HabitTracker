@@ -1,11 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 
+function verify(password){
+  if(password.length < 8){
+    return false;
+  }
+  var hasUpperCase = /[A-Z]/.test(password);
+  if (!hasUpperCase) {
+    return false;
+  }
+  var hasNumeral = /\d/.test(password);
+  if (!hasNumeral) {
+    return false;
+  }
+  return true;
+}
+
 function Home() {
   return(
     <HomeContainer>
       <Header>Welcome to Habit Tracker!</Header>
-      <Subheader>This is a work in progress..</Subheader>
+      <Subheader>Please enter your contact details to connect.</Subheader>
+      <p>Email</p>
+      <input type="email" placeholder="example@example.com" />
+      <p>Password</p>
+      <input type="password" placeholder="********" /><br />
+      <button>Sign In</button> <button>Forgot password?</button><br />
+      <button>Sign In With Google</button><br />
+      <p>Don't have an account? <button>Sign Up Here</button></p>
     </HomeContainer>
   );
 }
