@@ -41,9 +41,25 @@ const getUser = (id) => {
   }) 
 }
 
+const authorize = (body) => {
+  return new Promise(function(resolve, reject) {
+    const {email, password} = body
+    pool.query('SELECT user_id FROM users WHERE email = $1 AND password = $2', [email, password], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      else if(results.rowCount < 1) {
+        resolve("None")
+      }
+      else resolve(`${results.rows[0].user_id}`)
+    })
+  })
+}
+
   
   module.exports = {
     createUser,
     deleteUser,
     getUser,
+    authorize,
   }

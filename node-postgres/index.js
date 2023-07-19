@@ -111,6 +111,16 @@ app.delete('/users/:id', (req, res) => {
   })
 })
 
+app.get('/auth', (req, res) => {
+  user_model.authorize(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
