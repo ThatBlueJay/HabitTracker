@@ -9,12 +9,12 @@ const pool = new Pool({
 
 const createUser = (body) => {
   return new Promise(function(resolve, reject) {
-    const {user_id, username, password, email, phone} = body
-    pool.query('INSERT INTO users (user_id, username, password, email, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *', [user_id, username, password, email, phone], (error, results) => {
+    const {username, password, email, phone} = body
+    pool.query('INSERT INTO users (user_id, username, password, email, phone) VALUES (DEFAULT, $1, $2, $3, $4) RETURNING user_id', [username, password, email, phone], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new user has been added: ${results.rows[0].id}`)
+      resolve(`A new user has been added: ${results.rows[0].user_id}`)
     })
   })
 }
