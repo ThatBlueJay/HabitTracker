@@ -9,13 +9,13 @@ const pool = new Pool({
 
 const createHabit = (body) => {
   return new Promise(function(resolve, reject) {
-    const {habit_id, title, description, start_time, end_time, category, recurring, start_date, end_date, user_id, class_id} = body
-    pool.query('INSERT INTO habits (habit_id, title, description, start_time, end_time, category, recurring, start_date, end_date, user_id, class_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, null) RETURNING *', [habit_id, title, description, start_time, end_time, category, recurring, start_date, end_date, user_id], (error, results) => {
+    const {title, description, start_time, end_time, category, recurring, start_date, end_date, user_id, class_id} = body
+    pool.query('INSERT INTO habits VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, null) RETURNING habit_id', [title, description, start_time, end_time, category, recurring, start_date, end_date, user_id], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new habit has been added with ID:!`)
-      //resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
+      //resolve(`A new habit has been added with ID:!`)
+      resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
     })
   })
 }
@@ -45,11 +45,11 @@ const getHabit = (id) => {
 const getCurrentHabits = (body) => {
   return new Promise(function(resolve, reject) {
     const {id, begin, end} = body
-    pool.query('SELECT * FROM records WHERE due_date >= $2 AND due_date < $3 AND habit_id = $1', [id, begin, end], (error, results) => {
+    pool.query('SELECT * FROM records WHERE due_date >= $1 AND due_date < $2 AND habit_id = $3', [begin, end, id], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(results.row);
+      resolve(results.rows);
     })
 
   })
@@ -57,18 +57,32 @@ const getCurrentHabits = (body) => {
 
 const confirmHabit = (id) => {
   return new Promise(function(resolve, reject) {
-    pool.query('SELECT due_date FROM records WHERE record_id = $1') , [id], (error, results) => {
+    pool.query('SELECT due_date FROM records WHERE record_id = $1' , [id], (error, results) => {
       if (error) {
         reject(error)
       }
-      pool.query('UPDATE records set complete = true where record_id = $1; UPDATE records set date_complete = $2; where record_id = $1; UPDATE records set hours_spent = $3' [id, Date.now, Math.abs(Math.round((Date.now.getTime() - results.getTime()) / 100) / (60*60))], (err, rests) => {
+      var today = new Date();
+      pool.query('UPDATE records set complete = true where record_id = $1', [id], (err, rests) => {
         if (err) {
           reject(err)
         }
-  
+        
       }) 
-      if(results < Date.now) {
-        pool.query(' UPDATE records set complete_on_time = true where record_id = $1; ', (err, rests) => {
+      console.log(Math.abs(Math.round(((today.getTime() - results.rows[0].due_date.getTime()) / 1000) / (60*60))))
+      pool.query('UPDATE records set datet_complete = $2 where record_id = $1', [id, today], (err, rests) => {
+        if (err) {
+          reject(err)
+        }
+        
+      })
+      pool.query('UPDATE records set hours_spent = $2 where record_id = $1', [id, Math.abs(Math.round(((today.getTime() - results.rows[0].due_date.getTime()) / 1000) / (60*60)))], (err, rests) => {
+        if (err) {
+          reject(err)
+        }
+        
+      })
+      if(results.rows[0].due_date.getTime() > today.getTime()) {
+        pool.query('UPDATE records set complete_on_time = true where record_id = $1; ', [id], (err, rests) => {
           if (err) {
             reject(err)
           }
@@ -76,15 +90,14 @@ const confirmHabit = (id) => {
         })
       }
       else {
-        pool.query('UPDATE records set complete_on_time = false where record_id = $1', (err, rests) => {
+        pool.query('UPDATE records set complete_on_time = false where record_id = $1', [id], (err, rests) => {
           if (err) {
             reject(err)
           }
         })
       }
-    }
-
-    resolve(`Record marked as complete: ${id}`)
+      resolve(`Record marked as complete: ${id}`)
+    })
   }) 
 }
 
