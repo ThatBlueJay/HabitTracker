@@ -25,7 +25,7 @@ BEGIN
         IF(EXTRACT(DAYS FROM curr - event_date) > 365) THEN
             years_to_add := EXTRACT(DAYS FROM curr - event_date) / 365;
             event_date := event_date + CONCAT(CAST(years_to_add AS TEXT), CAST(' years' AS TEXT))::interval;
-            Raise notice 'Added % years to get %', years_to_add, event_date;
+            --Raise notice 'Added % years to get %', years_to_add, event_date;
         END IF;
 
         WHILE (EXTRACT(MONTH FROM event_date) != EXTRACT(MONTH FROM curr)) AND interval IS NOT NULL AND (EXTRACT(YEAR FROM event_date) = EXTRACT(YEAR FROM curr))LOOP
@@ -47,7 +47,11 @@ BEGIN
                 END IF;
             ELSE
                 --Raise notice 'breaking';
-                exit;
+                --exit;
+                IF interval IS NOT NULL THEN
+                    event_date := event_date + interval;
+                    --Raise notice 'adding';
+                END IF;
             END IF;
         END LOOP;
     END LOOP;
