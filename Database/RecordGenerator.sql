@@ -28,13 +28,14 @@ BEGIN
             Raise notice 'Added % years to get %', years_to_add, event_date;
         END IF;
 
-        WHILE (EXTRACT(MONTH FROM event_date) != EXTRACT(MONTH FROM curr)) AND interval IS NOT NULL LOOP
+        WHILE (EXTRACT(MONTH FROM event_date) != EXTRACT(MONTH FROM curr)) AND interval IS NOT NULL AND (EXTRACT(YEAR FROM event_date) = EXTRACT(YEAR FROM curr))LOOP
             event_date := event_date + interval;
+            --Raise notice 'event date is %', event_date;
         END LOOP;
 
         -- placing each habit
         SELECT end_date INTO habit_end_date FROM Habits WHERE habit_id = id;
-        WHILE ((habit_end_date IS NULL) OR (event_date <= habit_end_date)) AND (EXTRACT(MONTH FROM event_date) = EXTRACT(MONTH FROM curr) AND EXTRACT(YEAR FROM event_date) = EXTRACT(YEAR FROM curr)) LOOP
+        WHILE ((habit_end_date IS NULL) OR (event_date <= habit_end_date)) AND ((EXTRACT(MONTH FROM event_date) = EXTRACT(MONTH FROM curr) OR EXTRACT(WEEK FROM event_date) = EXTRACT(WEEK FROM date_trunc('month', curr) + interval '1 month - 1 day')) AND EXTRACT(YEAR FROM event_date) = EXTRACT(YEAR FROM curr)) LOOP
             SELECT COUNT(record_id) INTO exist FROM Records WHERE habit_id = id AND due_date = event_date;
             --Raise notice 'habit % date: %         current event date: %', id, habit_end_date, event_date;
             IF exist = 0 THEN 
