@@ -9,7 +9,7 @@ const pool = new Pool({
 
 const createHabit = (body) => {
   return new Promise(function(resolve, reject) {
-    const {title, description, start_time, end_time, category, recurring, start_date, end_date, user_id, class_id} = body
+    const {title, description, start_time, end_time, category, recurring, start_date, end_date, user_id} = body
     pool.query('INSERT INTO habits VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, null) RETURNING habit_id', [title, description, start_time, end_time, category, recurring, start_date, end_date, user_id], (error, results) => {
       if (error) {
         reject(error)
