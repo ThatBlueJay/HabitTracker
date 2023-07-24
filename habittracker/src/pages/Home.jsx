@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import homeImage from "../assets/homepage_image.jpg";
 
 function verify(password){
   if(password.length < 8){
@@ -19,6 +20,7 @@ function verify(password){
 function Home() {
   return(
     <HomeContainer>
+      <Column>
       <Header>Welcome to Habit Tracker!</Header>
       <Subheader>Please enter your contact details to connect.</Subheader>
       <p>Email</p>
@@ -28,6 +30,10 @@ function Home() {
       <button>Sign In</button> <button>Forgot password?</button><br />
       <button>Sign In With Google</button><br />
       <p>Don't have an account? <button>Sign Up Here</button></p>
+      </Column>
+      <Column>
+      <img src={homeImage} alt="Habit" />
+      </Column>
     </HomeContainer>
   );
 }
@@ -35,12 +41,18 @@ function Home() {
 const HomeContainer = styled.div`
   position: relative;
   overflow: hidden;
-  display: block;
+  display: flex;
+  flex-direction: row;
 `
 
 const Header = styled.h1`
   font-size: 40px;
   margin: auto;
+`
+
+const Column = styled.div`
+  flex: 1;
+  padding: 10px;
 `
 
 const Subheader = styled.h2`
