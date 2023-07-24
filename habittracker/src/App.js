@@ -17,6 +17,70 @@ var id = -1;
 
 function App() {
 
+  //This is for testing purposes only
+  const allHabits = [
+    {
+        "habit_id": 1,
+        "title": "amogus",
+        "description": "play",
+        "start_time": "16:00:00",
+        "end_time": "18:00:00",
+        "category": "alls",
+        "recurring": {
+            "days": 7
+        },
+        "start_date": "2023-06-01T04:00:00.000Z",
+        "end_date": "2023-07-15T04:00:00.000Z",
+        "user_id": 1,
+        "class_id": null
+    },
+    {
+        "habit_id": 2,
+        "title": "fortnite",
+        "description": "john wick",
+        "start_time": "16:00:00",
+        "end_time": "18:00:00",
+        "category": "alls",
+        "recurring": {
+            "days": 7
+        },
+        "start_date": "2023-06-01T04:00:00.000Z",
+        "end_date": "2023-07-15T04:00:00.000Z",
+        "user_id": 1,
+        "class_id": null
+    },
+    {
+        "habit_id": 6,
+        "title": "fnaf",
+        "description": "frazbear",
+        "start_time": "16:00:00",
+        "end_time": "18:00:00",
+        "category": "alls",
+        "recurring": {
+            "seconds": 7
+        },
+        "start_date": "2023-07-01T04:00:00.000Z",
+        "end_date": "2023-08-12T04:00:00.000Z",
+        "user_id": 1,
+        "class_id": null
+    },
+    {
+        "habit_id": 7,
+        "title": "revengeance",
+        "description": "play the game its fun",
+        "start_time": "10:00:00",
+        "end_time": "12:00:00",
+        "category": "alls",
+        "recurring": {
+            "days": 7
+        },
+        "start_date": "2023-07-19T04:00:00.000Z",
+        "end_date": "2023-08-19T04:00:00.000Z",
+        "user_id": 1,
+        "class_id": null
+    }
+  ];
+
   var data = null;
 
   if(login) {
@@ -34,7 +98,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Habits" element={login ? <Habits /> : <Home/>} />
-              <Route path="/Calendar" element={login ? <Calendar data={getHabitData(id)}/> : <Home/>} />
+              <Route path="/Calendar" element={login ? <Calendar data={allHabits}/> : <Home/>} />
               <Route path="/Analytics" element={login ? <Analytics /> : <Home/>} />
               <Route path="/Profile" element={login ? <Profile username={"username"} email={"email"} phone={"911"}/> : <Home/>} />
             </Routes>
@@ -44,20 +108,21 @@ function App() {
     );
   }
 
+/* */
 
-
-function getUserData(id) {
+async function getUserData(id) {
   if(login) {
-    fetch("/users/" + id)
+    await fetch("/users/" + id)
       .then(data => data.json())
       .then(success => {console.log(success)})
   }
 }
-  
+
+//This returns all of the habits for the specific user
 async function getHabitData(id) {
   await fetch("/habits/" + id)
     .then(data => data.json())
-    .then(success => {console.log(success);})
+    .then(success => {console.log(success)})
   }
 
 
