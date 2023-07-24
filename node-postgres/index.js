@@ -30,7 +30,7 @@ app.get('/habits/:id', (req, res) => {
 })
 
 app.get('/habits', (req, res) => {
-  habit_model.getCurrentHabits(req.body)
+  habit_model.getCurrentHabits(req.query)
   .then(response => {
     res.status(200).send(response);
   })
@@ -103,6 +103,16 @@ app.post('/users', (req, res) => {
 
 app.delete('/users/:id', (req, res) => {
   user_model.deleteUser(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+app.get('/auth', (req, res) => {
+  user_model.authorize(req.body)
   .then(response => {
     res.status(200).send(response);
   })

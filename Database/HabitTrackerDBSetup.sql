@@ -49,4 +49,10 @@ CREATE TABLE Records (
     FOREIGN KEY (habit_id) REFERENCES Habits(habit_id)
 );
 
+
+\i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/user_id_getter.sql
+\i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/RecordGenerator.sql
+\i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/generatorTest.sql
+
+
 -- \i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/HabitTrackerDBSetup.sql
