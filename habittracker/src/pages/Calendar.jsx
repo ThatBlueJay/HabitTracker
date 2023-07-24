@@ -43,10 +43,11 @@ function formatData(title, start, end, test) {
   ];
   let toAdd = [];
   for(let i = 0; i < data.length; i++) {
-    toAdd.append({
+    toAdd = toAdd.concat({
       text: title,
-      start: data[i].due_date.substring(0,11) + start + "0Z",
-      end: data[i].due_date
+      start: data[i].due_date.substring(0,11) + start,
+      end: data[i].due_date.substring(0,11) + end,
+      backColor: "#f1c232"
     });
   }
   return toAdd;
@@ -58,33 +59,19 @@ async function getHabits(props) {
   const start = getMonthName(today.getMonth()+1) + " " + 1 + ", " + today.getFullYear();
   const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
 
-  let allHabitsToPutOnCalendar = [];
+  var allHabitsToPutOnCalendar = [];
 
   for(let i = 0; i < props.data.length; i++) {
     const habitID = props.data[i].habit_id;
-    const body = {
-      "id": habitID,
-      "begin": start,
-      "end": end
-    };
-
     let data = [];
     allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
 
-    /*
-    await fetch("/habits", {
-      method: 'GET',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
-      console.log(data);
-    })
-    */
+    // await fetch("/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
+    //     console.log(data.json());
+    //   })
   }
   return allHabitsToPutOnCalendar;
 }
@@ -102,40 +89,16 @@ const Calendar = (props) => {
         startDate: args.day
       });
     }
-  
-    //const { habits } = getHabits(props);
-    getHabits(props);
 
     useEffect(() => {
-      const events = [
-        {
-          text: "Event 1",
-          start: "2023-10-02T10:30:00",
-          end: "2023-10-02T13:00:00"
-        },
-        {
-          text: "Event 2",
-          start: "2023-10-03T09:30:00",
-          end: "2023-10-03T11:30:00",
-          backColor: "#6aa84f"
-        },
-        {
-          text: "Event 3",
-          start: "2023-10-03T12:00:00",
-          end: "2023-10-03T15:00:00",
-          backColor: "#f1c232"
-        },
-        {
-          text: "Event 4",
-          start: "2023-10-01T11:30:00",
-          end: "2023-10-01T14:30:00",
-          backColor: "#cc4125"
-        },
-      ];
-  
-      const startDate = "2023-10-02";
-  
-      calendarRef.current.control.update({startDate, events});
+      //const habits = Object.keys(getHabits(props));
+      async function updateCalendar() {
+        const events = await getHabits(props);
+        const startDate = new Date();
+        console.log(startDate);
+        calendarRef.current.control.update({startDate, events});
+      }
+      updateCalendar();
     }, []);
 
     return (
