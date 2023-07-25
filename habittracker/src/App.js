@@ -8,17 +8,24 @@ import Calendar from './pages/Calendar';
 import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
 import { ChakraProvider } from '@chakra-ui/react'
+import React, { useState } from "react";
+
 
 /*
 Check to see if the user is logged in
 */
 var login = true;
 var id = -1;
-
+var data;
 function App() {
 
-  var data = null;
+  const [login, setLogin] = useState(false);
+  const [id, setId] = useState(null);
 
+  const handleLogin = (userId) => {
+    setLogin(true);
+    setId(userId);
+  };
   if(login) {
     data =  getUserData(id);
   }
