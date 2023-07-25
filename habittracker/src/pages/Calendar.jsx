@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
 import { DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 import styled from "styled-components";
-import { LoginContext } from "../App.js"; // adjust the import path as necessary
+import { LoginContext } from "../App.js"; 
 import { Navigate } from "react-router-dom";
 
 const styles = {

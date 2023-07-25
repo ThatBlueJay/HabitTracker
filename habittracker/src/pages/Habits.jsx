@@ -2,7 +2,7 @@
 import styled from "styled-components";
 //  const {title, description, start_time, end_time, category, recurring, start_date, end_date, user_id} = body
 import React, { useContext } from "react";
-import { LoginContext } from "../App.js"; // adjust the import path as necessary
+import { LoginContext } from "../App.js"; 
 import { Navigate } from "react-router-dom";
 
 function Habits() {

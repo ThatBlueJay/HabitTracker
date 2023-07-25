@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import homeImage from "../assets/homepage_image.jpg";
-import { LoginContext } from "../App.js"; // adjust the import path as necessary
+import { LoginContext } from "../App.js";
 
 function verify(password){
   if(password.length < 8){
