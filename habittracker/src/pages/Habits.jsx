@@ -17,10 +17,10 @@ function Habits() {
   const [endDate, setEndDate] = useState('');
 
   // if the user is not logged in, redirect them to the home page
-  /*
+  
   if (!login) {
     return <Navigate to="/" />
-  }*/
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
