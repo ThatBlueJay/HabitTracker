@@ -20,9 +20,7 @@ const Calendar = () => {
   const { login } = useContext(LoginContext);
 
   // if the user is not logged in, redirect them to the home page
-  if (!login) {
-    return <Navigate to="/" />
-  }
+  
 
     const [config, setConfig] = useState({
       viewType: "Week",
@@ -35,6 +33,9 @@ const Calendar = () => {
       calendarRef.current.control.update({
         startDate: args.day
       });
+    }
+    if (!login) {
+      return <Navigate to="/" />
     }
 
     return (
