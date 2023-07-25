@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import homeImage from "../assets/homepage_image.jpg";
+import { LoginContext } from "../App.js"; // adjust the import path as necessary
 
 function verify(password){
   if(password.length < 8){
@@ -17,17 +18,24 @@ function verify(password){
   return true;
 }
 
-function Home({ onLogin}) {
-   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function authorize({ email, password }) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "localhost:3000/auth?email=" + email + "&password=" + password);
+  xhttp.send();
+}
 
-  const handleLogin = async () => {
+function Home() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login, handleLogin } = useContext(LoginContext);
+
+  const onLogin = async () => {
     // Implement validation
     if (verify(password)) {
       try {
-        const userId = await authorize({ email, password });
+       const userId = JSON.stringify(authorize({ email, password }));
         if (userId !== "None") {
-          onLogin(userId);
+          handleLogin(userId);
         } else {
           alert("Invalid credentials");
         }
@@ -38,28 +46,7 @@ function Home({ onLogin}) {
       alert("Password should be at least 8 characters long, contains at least one uppercase letter and at least one number");
     }
   };
-  const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'habittracker',
-  password: 'db',
-  port: 5432,
-})
-  const authorize = (body) => {
-    return new Promise(function(resolve, reject) {
-      const {email, password} = body
-      pool.query('SELECT user_id FROM users WHERE email = $1 AND password = $2', [email, password], (error, results) => {
-        if (error) {
-          reject(error)
-        }
-        else if(results.rowCount < 1) {
-          resolve("None")
-        }
-        else resolve(`${results.rows[0].user_id}`)
-      })
-    })
-  };
+
   return(
     <HomeContainer>
       <Column>
@@ -79,10 +66,9 @@ const pool = new Pool({
         value={password}
         onChange={e => setPassword(e.target.value)}
       /><br />
-      <button onClick={handleLogin}>Sign In</button>
+      <button onClick={onLogin}>Sign In</button><br />
       <button>Forgot password?</button><br />
-      <button>Sign In With Google</button><br />
-      <p>Don't have an account? <button>Sign Up Here</button></p>
+      <p>Don't have an account?<button>Sign Up Here</button></p>
       </Column>
       <Column>
       <img src={homeImage} alt="Habit" />

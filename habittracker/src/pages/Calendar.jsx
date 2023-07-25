@@ -1,6 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 import styled from "styled-components";
+import { LoginContext } from "../App.js"; // adjust the import path as necessary
+import { Navigate } from "react-router-dom";
 
 const styles = {
   wrap: {
@@ -15,6 +17,13 @@ const styles = {
 };
 
 const Calendar = () => {
+  const { login } = useContext(LoginContext);
+
+  // if the user is not logged in, redirect them to the home page
+  if (!login) {
+    return <Navigate to="/" />
+  }
+
     const [config, setConfig] = useState({
       viewType: "Week",
       durationBarVisible: false

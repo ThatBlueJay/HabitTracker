@@ -8,17 +8,12 @@ import Calendar from './pages/Calendar';
 import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
 import { ChakraProvider } from '@chakra-ui/react'
-import React, { useState } from "react";
+import { useContext, createContext, useState } from "react";
 
+export const LoginContext = createContext();
+export const IdContext = createContext();
 
-/*
-Check to see if the user is logged in
-*/
-var login = true;
-var id = -1;
-var data;
-function App() {
-
+function AppProvider({ children }) {
   const [login, setLogin] = useState(false);
   const [id, setId] = useState(null);
 
@@ -26,33 +21,40 @@ function App() {
     setLogin(true);
     setId(userId);
   };
-  if(login) {
-    data =  getUserData(id);
-  }
 
-  //var username = login ? data.username : "none";
-  //var email = login ? data.email : "none";
-  //var phone = login ? data.phone : "none";
-
+  return (
+    <LoginContext.Provider value={{ login, handleLogin }}>
+      <IdContext.Provider value={{ id, setId }}>
+        {children}
+      </IdContext.Provider>
+    </LoginContext.Provider>
+  );
+}
+var data;
+function App() {
+  //const { login } = useContext(LoginContext);
+  //const {id} = useContext(IdContext);
     return (
+      <AppProvider>
       <ChakraProvider>
         <Router>
           <Header />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/Habits" element={login ? <Habits /> : <Home/>} />
-              <Route path="/Calendar" element={login ? <Calendar data={getHabitData(id)}/> : <Home/>} />
-              <Route path="/Analytics" element={login ? <Analytics /> : <Home/>} />
-              <Route path="/Profile" element={login ? <Profile username={"username"} email={"email"} phone={"911"}/> : <Home/>} />
+              <Route path="/Habits" element={<Habits />} />
+              <Route path="/Calendar" element={<Calendar data={getHabitData(id)}/>} />
+              <Route path="/Analytics" element={<Analytics />} />
+              <Route path="/Profile" element={<Profile username={"username"} email={"email"} phone={"911"}/>} />
             </Routes>
           <Footer />
         </Router>
       </ChakraProvider>
+      </AppProvider>
     );
   }
 
 
-
+/*
 function getUserData(id) {
   if(login) {
     fetch("/users/" + id)
@@ -66,7 +68,7 @@ async function getHabitData(id) {
     .then(data => data.json())
     .then(success => {console.log(success);})
   }
-
+*/
 
 
 export default App;
