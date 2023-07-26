@@ -2,8 +2,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-const habit_model = require('./habit_model')
-const user_model = require('./user_model')
+const habit_model = require('./habit_model.js')
+const user_model = require('./user_model.js')
+const analyzer_model = require('./analysis_model.js')
 
 
 app.use(express.json())
@@ -112,7 +113,19 @@ app.delete('/users/:id', (req, res) => {
 })
 
 app.get('/auth', (req, res) => {
-  user_model.authorize(req.body)
+  user_model.authorize(req.query)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+//Analysis Model
+
+app.get('/analysis/:id', (req, res) => {
+  analyzer_model.getHabitAverage(req.params.id)
   .then(response => {
     res.status(200).send(response);
   })

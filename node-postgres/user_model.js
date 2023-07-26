@@ -14,7 +14,7 @@ const createUser = (body) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new user has been added: ${results.rows[0].user_id}`)
+      resolve(`${results.rows[0].user_id}`)
     })
   })
 }
@@ -41,9 +41,9 @@ const getUser = (id) => {
   }) 
 }
 
-const authorize = (body) => {
+const authorize = (query) => {
   return new Promise(function(resolve, reject) {
-    const {email, password} = body
+    const {email, password} = query
     pool.query('SELECT user_id FROM users WHERE email = $1 AND password = $2', [email, password], (error, results) => {
       if (error) {
         reject(error)

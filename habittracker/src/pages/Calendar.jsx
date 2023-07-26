@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 import styled from "styled-components";
+import { LoginContext } from "../App.js"; 
+import { Navigate } from "react-router-dom";
 
 const styles = {
   wrap: {
@@ -13,13 +15,7 @@ const styles = {
     flexGrow: "1"
   }
 };
-
-function getMonthName(monthNumber) {
-  const date = new Date();
-  date.setMonth(monthNumber - 1);
-  return date.toLocaleString('en-US', { month: 'long' });
-}
-
+  
 function formatData(title, start, end, data) {
   // const data = [
   //   {
@@ -77,6 +73,8 @@ async function getHabits(props) {
 }
 
 const Calendar = (props) => {
+    const { login } = useContext(LoginContext);
+
     const [config, setConfig] = useState({
       viewType: "Week",
       durationBarVisible: false
@@ -89,17 +87,9 @@ const Calendar = (props) => {
         startDate: args.day
       });
     }
-
-    useEffect(() => {
-      //const habits = Object.keys(getHabits(props));
-      async function updateCalendar() {
-        const events = await getHabits(props);
-        const startDate = new Date();
-        console.log(startDate);
-        calendarRef.current.control.update({startDate, events});
-      }
-      updateCalendar();
-    }, []);
+    if (!login) {
+      return <Navigate to="/" />
+    }
 
     return (
       <CalendarContainer>
