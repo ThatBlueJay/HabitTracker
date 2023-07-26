@@ -24,7 +24,7 @@ CREATE TABLE Class (
 
 CREATE TABLE Habits (
     habit_id SERIAL PRIMARY KEY,
-    title VARCHAR(280) UNIQUE NOT NULL,
+    title VARCHAR(280) NOT NULL,
     description VARCHAR(512),
     start_time time,
     end_time time,

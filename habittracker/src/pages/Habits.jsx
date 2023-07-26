@@ -87,7 +87,7 @@ function Habits() {
         every   
         <input 
           type="text" 
-          placeholder="Wednesday"
+          placeholder="hours, days, weeks, years"
           value={category}
           onChange={e => setCategory(e.target.value)}
         />
