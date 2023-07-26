@@ -62,7 +62,7 @@ async function getHabits(props) {
   const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
   var allHabitsToPutOnCalendar = [];
 
-  if (props.data != NULL) {
+  if (props.data != null) {
     for(let i = 0; i < props.data.length; i++) {
       const habitID = props.data[i].habit_id;
       //let data = [];
