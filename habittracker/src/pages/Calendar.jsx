@@ -20,27 +20,29 @@ function getMonthName(monthNumber) {
   return date.toLocaleString('en-US', { month: 'long' });
 }
 
-function formatData(title, start, end, test) {
-  const data = [
-    {
-        "record_id": 385484,
-        "datet_complete": null,
-        "due_date": "2023-07-19T16:00:00.000Z",
-        "complete": false,
-        "complete_on_time": null,
-        "hours_spent": 0,
-        "habit_id": 7
-    },
-    {
-        "record_id": 385485,
-        "datet_complete": "2023-07-20T01:09:07.702Z",
-        "due_date": "2023-07-26T16:00:00.000Z",
-        "complete": true,
-        "complete_on_time": true,
-        "hours_spent": 159,
-        "habit_id": 7
-    }
-  ];
+  
+function formatData(title, start, end, data) {
+  // const data = [
+  //   {
+  //       "record_id": 385484,
+  //       "datet_complete": null,
+  //       "due_date": "2023-07-19T16:00:00.000Z",
+  //       "complete": false,
+  //       "complete_on_time": null,
+  //       "hours_spent": 0,
+  //       "habit_id": 7
+  //   },
+  //   {
+  //       "record_id": 385485,
+  //       "datet_complete": "2023-07-20T01:09:07.702Z",
+  //       "due_date": "2023-07-26T16:00:00.000Z",
+  //       "complete": true,
+  //       "complete_on_time": true,
+  //       "hours_spent": 159,
+  //       "habit_id": 7
+  //   }
+  // ];
+
   let toAdd = [];
   for(let i = 0; i < data.length; i++) {
     toAdd = toAdd.concat({
@@ -58,20 +60,19 @@ async function getHabits(props) {
 
   const start = getMonthName(today.getMonth()+1) + " " + 1 + ", " + today.getFullYear();
   const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
-
   var allHabitsToPutOnCalendar = [];
 
   for(let i = 0; i < props.data.length; i++) {
     const habitID = props.data[i].habit_id;
-    let data = [];
-    allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
+    //let data = [];
+    //allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
 
-    // await fetch("/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
-    //     console.log(data.json());
-    //   })
+     await fetch("/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
+       .then(response => response.json())
+       .then(data => {
+         allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
+         console.log(data.json());
+    })
   }
   return allHabitsToPutOnCalendar;
 }
@@ -100,6 +101,10 @@ const Calendar = (props) => {
       }
       updateCalendar();
     }, []);
+
+    if (!login) {
+      return <Navigate to="/" />
+    }
 
     return (
       <CalendarContainer>
