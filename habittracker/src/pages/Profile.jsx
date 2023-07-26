@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Image, Box, Flex, Text, HStack } from '@chakra-ui/react';
+import { Navigate } from "react-router-dom";
 
 function Profile(props) {
+  const { login } = useContext(LoginContext);
+
   const username = props.username;
   const email = props.email;
   const phone = props.phone;
-
+  if(!login) {
+    return <Navigate to="/" />
+  }
   return(
     <ProfileContainer>
       <Flex bg="#edf3f8"

@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 import styled from "styled-components";
+import { Navigate } from "react-router-dom";
+
 
 const styles = {
   wrap: {
@@ -57,7 +59,7 @@ function formatData(title, start, end, data) {
 
 async function getHabits(props) {
   const today = new Date();
-
+  
   const start = getMonthName(today.getMonth()+1) + " " + 1 + ", " + today.getFullYear();
   const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
   var allHabitsToPutOnCalendar = [];
@@ -78,6 +80,8 @@ async function getHabits(props) {
 }
 
 const Calendar = (props) => {
+  
+const { login } = useContext(LoginContext);
     const [config, setConfig] = useState({
       viewType: "Week",
       durationBarVisible: false
