@@ -15,6 +15,12 @@ const styles = {
     flexGrow: "1"
   }
 };
+
+function getMonthName(monthNumber) {
+  const date = new Date();
+  date.setMonth(monthNumber - 1);
+  return date.toLocaleString('en-US', { month: 'long' });
+}
   
 function formatData(title, start, end, data) {
   // const data = [
@@ -59,7 +65,7 @@ async function getHabits(props) {
 
   for(let i = 0; i < props.data.length; i++) {
     const habitID = props.data[i].habit_id;
-    let data = [];
+    //let data = [];
     //allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
 
     await fetch("/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
@@ -87,6 +93,18 @@ const Calendar = (props) => {
         startDate: args.day
       });
     }
+
+    useEffect(() => {
+      //const habits = Object.keys(getHabits(props));
+      async function updateCalendar() {
+        const events = await getHabits(props);
+        const startDate = new Date();
+        console.log(startDate);
+        calendarRef.current.control.update({startDate, events});
+      }
+      updateCalendar();
+    }, []);
+    
     if (!login) {
       return <Navigate to="/" />
     }

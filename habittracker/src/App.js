@@ -31,7 +31,7 @@ function AppProvider({ children }) {
     </LoginContext.Provider>
   );
 }
-var data;
+
 function App() {
 
   // //This is for testing purposes only
@@ -98,11 +98,11 @@ function App() {
   //   }
   // ];
 
-  var data = null;
+  // var data = null;
 
-  if(login) {
-    data =  getUserData(id);
-  }
+  // if(login) {
+  //   data =  getUserData(id);
+  // }
 
   //var username = login ? data.username : "none";
   //var email = login ? data.email : "none";
@@ -118,7 +118,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Habits" element={<Habits />} />
-              <Route path="/Calendar" element={<Calendar data={getHabitData(id)}/>} />
+              <Route path="/Calendar" element={<Calendar/>} />
               <Route path="/Analytics" element={<Analytics />} />
               <Route path="/Profile" element={<Profile username={"username"} email={"email"} phone={"911"}/>} />
               <Route path="/Signup" element={<Signup />} />
