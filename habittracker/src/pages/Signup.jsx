@@ -5,9 +5,6 @@ import { Navigate } from "react-router-dom";
 
 
 function verify(password, confirmPassword){
-    if(password !== confirmPassword){
-      return false;
-    }
     if(password.length < 8){
       return false;
     }
