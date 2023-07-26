@@ -22,16 +22,11 @@ const createHabit = (body) => {
 
 const deleteHabit = (id) => {
   return new Promise(function(resolve, reject) {
-    pool.query('DELETE FROM records WHERE habit_id = $1', [id], (error, rez) => {
+    pool.query('DELETE FROM habits WHERE habit_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
-      pool.query('DELETE FROM habits WHERE habit_id = $1', [id], (error, results) => {
-        if (error) {
-          reject(error)
-        }
-        resolve(`Habit deleted with ID: ${id}`)
-      })
+      resolve(`Habit deleted with ID: ${id}`)
     })
   })
 }
