@@ -14,7 +14,7 @@ const createUser = (body) => {
       if (error) {
         reject(error)
       }
-      resolve(`A new user has been added: ${results.rows[0].user_id}`)
+      resolve(`${results.rows[0].user_id}`)
     })
   })
 }
