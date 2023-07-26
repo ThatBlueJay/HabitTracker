@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginContext } from "../App.js";
+import { Navigate } from "react-router-dom";
+
 
 function verify(password, confirmPassword){
     if(password !== confirmPassword){
@@ -59,7 +61,8 @@ function SignUp() {
           // change createUser according to your needs
           const response = await createUser({ username, password, email, phone }); 
           if(response === "Success") {
-            // handle user creation success (like redirecting to login/home page)
+            alert("Account created successfully!");
+            return <Navigate to="/Profile"/>;
           }
           else {
             alert("Failed to create account");
