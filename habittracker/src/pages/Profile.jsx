@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import { Image, Box, Flex, Text, HStack } from '@chakra-ui/react';
+import { LoginContext } from "../App.js"; 
+import { Navigate } from "react-router-dom";
 
 function Profile(props) {
+  const { login } = useContext(LoginContext);
+
+  // if the user is not logged in, redirect them to the home page
+  if (!login) {
+    return <Navigate to="/" />
+  }
+
   const username = props.username;
   const email = props.email;
   const phone = props.phone;

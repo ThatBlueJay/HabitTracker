@@ -31,20 +31,10 @@ function AppProvider({ children }) {
     </LoginContext.Provider>
   );
 }
-
+var data;
 function App() {
-  // var data = null;
-
-  // if(login) {
-  //   data =  getUserData(id);
-  // }
-
-  //var username = login ? data.username : "none";
-  //var email = login ? data.email : "none";
-  //var phone = login ? data.phone : "none";
-
   //const { login } = useContext(LoginContext);
-  //const { id } = useContext(IdContext);
+  //const {id} = useContext(IdContext);
     return (
       <AppProvider>
       <ChakraProvider>
@@ -53,7 +43,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Habits" element={<Habits />} />
-              <Route path="/Calendar" element={<Calendar/>} />
+              <Route path="/Calendar" element={<Calendar data={getHabitData(id)}/>} />
               <Route path="/Analytics" element={<Analytics />} />
               <Route path="/Profile" element={<Profile username={"username"} email={"email"} phone={"911"}/>} />
               <Route path="/Signup" element={<Signup />} />
