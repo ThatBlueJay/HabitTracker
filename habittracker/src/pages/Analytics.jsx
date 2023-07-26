@@ -1,17 +1,7 @@
-import React, {useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { LoginContext } from "../App.js"; 
-import { Navigate } from "react-router-dom";
-
-
 function Analytics() {
-  const { login } = useContext(LoginContext);
-
-  // if the user is not logged in, redirect them to the home page
-  if (!login) {
-    return <Navigate to="/" />
-  }
   return(
     <AnalyticsContainer>
       <Header>Analytics Page</Header>
