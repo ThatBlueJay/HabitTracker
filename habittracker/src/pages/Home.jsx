@@ -20,11 +20,19 @@ function verify(password){
   return true;
 }
 
-function authorize({ email, password }) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "localhost:3000/auth?email=" + email + "&password=" + password);
-  xhttp.send();
+async function authorize({ email, password }) {
+  const response = await fetch(`http://localhost:3000/auth?email=${email}&password=${password}`, {
+    method: 'GET',
+  });
+  if (response.ok) {
+    const json = await response.json();
+    return json;
+  } else {
+    console.error(`Server error: ${response.status}`);
+    return null;
+  }
 }
+
 
 function Home() {
 
@@ -37,7 +45,7 @@ function Home() {
     // Implement validation
     if (verify(password)) {
       try {
-       const userId = JSON.stringify(authorize({ email, password }));
+       const userId = JSON.stringify(await authorize({ email, password }));
         if (userId !== "None") {
           handleLogin(userId);
           alert("Login successful!");
