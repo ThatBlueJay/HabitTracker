@@ -7,6 +7,7 @@ import Habits from './pages/Habits';
 import Calendar from './pages/Calendar';
 import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
+import Signup from './pages/Signup';
 import { ChakraProvider } from '@chakra-ui/react'
 import { useContext, createContext, useState } from "react";
 
@@ -45,6 +46,7 @@ function App() {
               <Route path="/Calendar" element={<Calendar data={getHabitData(id)}/>} />
               <Route path="/Analytics" element={<Analytics />} />
               <Route path="/Profile" element={<Profile username={"username"} email={"email"} phone={"911"}/>} />
+              <Route path="/Signup" element={<Signup />} />
             </Routes>
           <Footer />
         </Router>

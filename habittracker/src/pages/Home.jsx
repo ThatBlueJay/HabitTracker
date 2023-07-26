@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import homeImage from "../assets/homepage_image.jpg";
 import { LoginContext } from "../App.js";
+import { useNavigate } from 'react-router-dom';
+
 
 function verify(password){
   if(password.length < 8){
@@ -25,9 +27,11 @@ function authorize({ email, password }) {
 }
 
 function Home() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login, handleLogin } = useContext(LoginContext);
+  const navigate = useNavigate();
 
   const onLogin = async () => {
     // Implement validation
@@ -36,6 +40,7 @@ function Home() {
        const userId = JSON.stringify(authorize({ email, password }));
         if (userId !== "None") {
           handleLogin(userId);
+          alert("Login successful!");
         } else {
           alert("Invalid credentials");
         }
@@ -67,8 +72,7 @@ function Home() {
         onChange={e => setPassword(e.target.value)}
       /><br />
       <button onClick={onLogin}>Sign In</button><br />
-      <button>Forgot password?</button><br />
-      <p>Don't have an account?<button>Sign Up Here</button></p>
+      <p>Don't have an account? <br /> <button onClick={() => navigate('/Signup')}>Sign Up Here</button></p>
       </Column>
       <Column>
       <img src={homeImage} alt="Habit" />
