@@ -15,7 +15,13 @@ const createHabit = (body) => {
         reject(error)
       }
       //resolve(`A new habit has been added with ID:!`)
-      resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
+      pool.query('SELECT recordGenerator()', (error, rez) => {
+        if (error) {
+          reject(error)
+        }
+        resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
+      })
+      
     })
   })
 }
