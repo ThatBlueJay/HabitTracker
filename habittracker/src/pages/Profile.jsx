@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Image, Box, Flex, Text, HStack } from '@chakra-ui/react';
 import { Navigate } from "react-router-dom";
+import { LoginContext } from "../App.js";
+
 
 function Profile(props) {
   const { login } = useContext(LoginContext);

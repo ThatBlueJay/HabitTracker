@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 import styled from "styled-components";
 import { Navigate } from "react-router-dom";
+import { LoginContext } from "../App.js";
 
 
 const styles = {
