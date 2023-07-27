@@ -27,8 +27,8 @@ BEGIN
             event_date := event_date + CONCAT(CAST(years_to_add AS TEXT), CAST(' years' AS TEXT))::interval;
             --Raise notice 'Added % years to get %', years_to_add, event_date;
         END IF;
-
-        WHILE (EXTRACT(MONTH FROM event_date) != EXTRACT(MONTH FROM curr)) AND interval IS NOT NULL AND (EXTRACT(YEAR FROM event_date) = EXTRACT(YEAR FROM curr))LOOP
+        --EXTRACT(MONTH FROM event_date) != EXTRACT(MONTH FROM curr)
+        WHILE (event_date < curr) AND interval IS NOT NULL AND (EXTRACT(YEAR FROM event_date) = EXTRACT(YEAR FROM curr))LOOP
             event_date := event_date + interval;
             --Raise notice 'event date is %', event_date;
         END LOOP;
