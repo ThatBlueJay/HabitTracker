@@ -40,7 +40,7 @@ function Habits() {
     };
 
     try {
-      const response = await fetch('/habits', {
+      const response = await fetch('http://localhost:3000/habits', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ function Habits() {
   }
 
   return(
-    <HabitContainer onSubmit={handleSubmit}>
+    <HabitContainer>
       <Column>
       <Header>Add a habit here!</Header>
       <Subheader>Please enter the days and times you would like to complete this habit</Subheader>
@@ -121,7 +121,8 @@ function Habits() {
         value={description}
         onChange={e => setDescription(e.target.value)}
       /><br />
-      <button type="submit">Save Habit</button>
+      {/* <button type="submit">Save Habit</button> */}
+      <button onClick = {handleSubmit}>Save Habit</button><br />
       </Column>
     </HabitContainer>
   );

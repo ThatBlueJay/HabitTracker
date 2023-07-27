@@ -65,17 +65,19 @@ async function getHabits(props) {
   const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
   var allHabitsToPutOnCalendar = [];
 
-  for(let i = 0; i < props.data.length; i++) {
-    const habitID = props.data[i].habit_id;
-    //let data = [];
-    //allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
+  if (props.data != null) {
+    for(let i = 0; i < props.data.length; i++) {
+      const habitID = props.data[i].habit_id;
+      //let data = [];
+      //allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
 
-     await fetch("/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
-       .then(response => response.json())
-       .then(data => {
-         allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
-         console.log(data.json());
-    })
+      await fetch("/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
+        .then(response => response.json())
+        .then(data => {
+          allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
+          console.log(data.json());
+      })
+    }
   }
   return allHabitsToPutOnCalendar;
 }
