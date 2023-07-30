@@ -23,6 +23,7 @@ const AnalyticsContainer = styled.div`
   position: relative;
   overflow: hidden;
   display: block;
+  height: 95vh;
 `
 
 const Header = styled.h1`
