@@ -124,7 +124,7 @@ const ProfileContainer = styled.div`
   position: relative;
   overflow: hidden;
   display: block;
-  height: 80vh;
+  height: 95vh;
 `
 
 

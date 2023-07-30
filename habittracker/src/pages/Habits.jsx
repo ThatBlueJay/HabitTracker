@@ -132,6 +132,7 @@ const HabitContainer = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: row;
+  height: 95vh;
 `
 
 const Header = styled.h1`
