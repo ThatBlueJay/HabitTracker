@@ -52,6 +52,8 @@ async function getHabits(id) {
   const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
   var allHabitsToPutOnCalendar = [];
 
+  var allHabits = [];
+
   await fetch('http://localhost:3000/habits/' + id) 
   .then(data => data.json())
   .then(success => {
@@ -77,12 +79,25 @@ async function getHabits(id) {
 }
 
 async function updateHabit(id) {
-  await fetch("http://localhost:3000/habits/" + id, {
-    method: 'PUT'
-  });
-
-  const resData = await response.json();
-  return resData;
+  const url = "http://localhost:3000/habits/" + id;
+  await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }
 
 const Calendar = () => {
