@@ -60,30 +60,36 @@ function Home() {
     }
   };
 
-  return(
+  return (
     <HomeContainer>
       <Column>
-      <Header>Welcome to Habit Tracker!</Header>
-      <Subheader>Please enter your contact details to connect.</Subheader>
-      <p>Email</p>
-      <input
-        type="email"
-        placeholder="example@example.com"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <p>Password</p>
-      <input
-        type="password"
-        placeholder="********"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      /><br />
-      <button onClick={onLogin}>Sign In</button><br />
-      <p>Don't have an account? <br /> <button onClick={() => navigate('/Signup')}>Sign Up Here</button></p>
+        <Header>Welcome to Habit Tracker!</Header>
+        <Subheader>Please enter your contact details to connect.</Subheader>
+        <InputContainer>
+          <Label>Email</Label>
+          <StyledInput
+            type="email"
+            placeholder="example@example.com"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Password</Label>
+          <StyledInput
+            type="password"
+            placeholder="********"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </InputContainer>
+        <StyledButton onClick={onLogin}>Sign In</StyledButton>
+        <SignUpText>
+          Don't have an account? <SignUpLink onClick={() => navigate('/Signup')}>Sign Up Here</SignUpLink>
+        </SignUpText>
       </Column>
       <Column>
-      <img src={homeImage} alt="Habit" />
+        <Image src={homeImage} alt="Habit" />
       </Column>
     </HomeContainer>
   );
@@ -112,6 +118,60 @@ const Subheader = styled.h2`
   width: 60%;
   margin: auto;
   font-weight: normal;
+`
+
+const InputContainer = styled.div`
+  margin-bottom: 15px;
+`
+
+const Label = styled.p`
+  font-size: 14px;
+  margin-bottom: 5px;
+`
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`
+
+const StyledButton = styled.button`
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`
+
+const SignUpText = styled.p`
+  font-size: 14px;
+  text-align: center;
+`
+
+const SignUpLink = styled.button`
+  color: #007bff;
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+`
+
+const Image = styled.img`
+  width: 100%;
+  height: auto;
 `
 
 export default Home

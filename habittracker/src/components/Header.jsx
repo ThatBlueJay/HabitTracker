@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { FaGithubSquare } from "react-icons/fa";
-import { ButtonGroup,  IconButton } from '@chakra-ui/react';
 
 function Header() {
   return (
@@ -29,7 +27,6 @@ function Header() {
   );
 }
 
-
 const HeaderContainer = styled.nav`
   width: 100%;
   background-color: #F4D35E;
@@ -38,24 +35,24 @@ const HeaderContainer = styled.nav`
 `;
 
 const HeaderLeft = styled.div`
-  flex: 30%;
+  flex: 1;
   display: flex;
   justify-content: center;
 `;
 
 const HeaderCenter = styled.div`
-  flex: 40%;
+  flex: 1;
   display: flex;
   align-items: center;
 `;
 
 const HeaderRight = styled.div`
-  flex: 30%;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: end;
-  margin-right: 50px;
-`
+  justify-content: flex-end;
+  padding-right: 50px;
+`;
 
 const HeaderInnerContainer = styled.div`
   width: auto;
@@ -65,7 +62,9 @@ const HeaderInnerContainer = styled.div`
 
 const HeaderNavigationContainer = styled.div`
   display: flex;
-`; 
+  flex: 1;
+  justify-content: center;
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
