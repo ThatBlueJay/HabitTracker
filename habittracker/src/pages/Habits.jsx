@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { LoginContext, IdContext } from "../App.js"; 
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Habits() {
-  const { login } = useContext(LoginContext);
+  const login = true;
+  //const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
   const [title, setTitle] = useState('');
@@ -15,11 +16,40 @@ function Habits() {
   const [recurring, setRecurring] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [habits, setHabits] = useState([]);
 
   // if the user is not logged in, redirect them to the home page
   
-  if (!login) {
-    return <Navigate to="/" />
+  useEffect(() => {
+    if (!login) {
+      return; // Early return if the user is not logged in
+    }
+
+    async function fetchData() {
+      try {
+        const allHabits = await getAllHabits(id);
+        setHabits(allHabits);
+      } catch (error) {
+        console.error('Error fetching habits:', error);
+      }
+    }
+
+    fetchData();
+  }, [login, id]);
+
+  function getDataFromPromise(json) {
+    return json;
+  }
+
+  async function getAllHabits(id) {
+    var allHabits = [];
+    await fetch('http://localhost:3000/habits/' + id) 
+    .then(data => data.json())
+    .then(success => {
+      console.log(success);
+      allHabits = getDataFromPromise(success);
+    })
+    return allHabits;
   }
 
   const handleSubmit = async (event) => {
@@ -63,12 +93,14 @@ function Habits() {
 
   return(
     <HabitContainer>
-      <Column>
       <Header>Add a habit here!</Header>
-      <Subheader>Please enter the days and times you would like to complete this habit</Subheader>
-      <br /> <br /> <p>Good Luck!</p>
+      <Column>
+        <div>
+          {habits.map((item, index) => <li key={index}>{item}</li>)}
+        </div>
       </Column>
       <Column>
+      <Subheader>Please enter the days and times you would like to complete this habit</Subheader>
       <h1>Habit Name</h1>
       <input 
         type="text" 
