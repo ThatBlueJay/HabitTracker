@@ -128,7 +128,7 @@ app.get('/auth', (req, res) => {
 //Analysis Model
 
 app.get('/analysis/:id', (req, res) => {
-  analyzer_model.getHabitAverage(req.params.id)
+  analyzer_model.getHours(req.params.id)
   .then(response => {
     res.status(200).send(response);
   })
