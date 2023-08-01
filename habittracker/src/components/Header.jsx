@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Logo from '../assets/habittracker.png';
+import { FaUser } from "react-icons/fa";
+import { ButtonGroup,  IconButton } from '@chakra-ui/react'
+
 
 function Header() {
   return (
     <HeaderContainer>
       <HeaderInnerContainer>
         <HeaderLeft>
-          Logo goes here
+          <HabittrackerLogo src={Logo} alt="Logo" />
         </HeaderLeft>
         <HeaderCenter>
           <HeaderNavigationContainer>
@@ -19,7 +23,7 @@ function Header() {
         </HeaderCenter>
         <HeaderRight>
           <HeaderNavigationContainer>
-            <StyledLink to="/Profile">Profile</StyledLink>
+            <IconButton as="a" href="/Profile" aria-label="Profile" icon={<FaUser fontSize="1.25rem"/>} />
           </HeaderNavigationContainer>
         </HeaderRight>
       </HeaderInnerContainer>
@@ -51,7 +55,7 @@ const HeaderRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 50px;
+  padding-right: 10px;
 `;
 
 const HeaderInnerContainer = styled.div`
@@ -68,21 +72,20 @@ const HeaderNavigationContainer = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  font-weight: bolder;
+  font-weight: bold;
   color: #0D3B66;
   font-size: large;
   margin: 20px;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Arvo', serif;
   &:hover{
     color: white;
-    border-bottom: white solid 3px;
+    font-weight: bolder;
   }
 `;
 
-const Logo = styled.img`
-  margin: 10px;
-  height: auto;
-  max-width: 180px;
-`;
+const HabittrackerLogo = styled.img`
+  height: 50%;
+  margin: auto;
+`
 
 export default Header;

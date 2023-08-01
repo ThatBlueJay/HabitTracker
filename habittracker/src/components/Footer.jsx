@@ -29,8 +29,8 @@ const FooterContainer = styled.nav`
   flex-direction: column;
   color: #0D3B66;
   font-family: 'Work Sans', sans-serif;
-  position: absolute;
-  bottom: 0;
+  /* position: fixed;
+  bottom: 0; */
 `;
 
 const FooterInnerContainer = styled.div`

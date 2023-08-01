@@ -170,7 +170,9 @@ const HabitContainer = styled.div`
 const Header = styled.h1`
   font-size: 40px;
   margin: auto;
+  font-weight: bolder;
 `
+
 const Column = styled.div`
   flex: 1;
   padding: 20px;

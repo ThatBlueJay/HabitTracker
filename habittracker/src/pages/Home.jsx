@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import homeImage from "../assets/homepage_image.jpg";
 import { LoginContext } from "../App.js";
 import { useNavigate } from 'react-router-dom';
-
 
 function verify(password){
   if(password.length < 8){
@@ -100,23 +99,27 @@ const HomeContainer = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  height: 95vh;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 50px 20px 50px;
+  height: 100%;
 `
 
 const Header = styled.h1`
   font-size: 40px;
   margin: auto;
+  font-weight: bolder;
 `
 
 const Column = styled.div`
   flex: 1;
-  padding: 10px;
+  padding: 30px;
 `
 
 const Subheader = styled.h2`
   font-size: 15px;
   width: 60%;
-  margin: auto;
+  margin: 1em 0 1em 0;
   font-weight: normal;
 `
 
@@ -172,6 +175,7 @@ const SignUpLink = styled.button`
 const Image = styled.img`
   width: 100%;
   height: auto;
+  border-radius: 5em;
 `
 
 export default Home
