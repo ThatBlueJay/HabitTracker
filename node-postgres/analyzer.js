@@ -29,6 +29,13 @@ class Analyzer {
         }
         return sum/this.records.length;
     }
+
+    getHours() {
+        const pairs = this.records.map((record) => {
+            return {x: record.duedate, y: record.hoursspent};
+        });
+        return pairs;
+    }
 }
 
 module.exports = { Analyzer, Record};
