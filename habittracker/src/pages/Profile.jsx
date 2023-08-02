@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Image, Box, Flex, Text, HStack } from '@chakra-ui/react';
 import { Navigate } from "react-router-dom";

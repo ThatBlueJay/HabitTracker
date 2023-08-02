@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import homeImage from "../assets/homepage_image.jpg";
 import { LoginContext } from "../App.js";
 import { useNavigate } from 'react-router-dom';
+import { FaMailBulk , FaLock } from "react-icons/fa";
+import { IconButton } from '@chakra-ui/react'
 
 function verify(password){
   if(password.length < 8){
@@ -61,96 +62,107 @@ function Home() {
 
   return (
     <HomeContainer>
-      <Column>
-        <Header>Welcome to Habit Tracker!</Header>
-        <Subheader>Please enter your contact details to connect.</Subheader>
+      <Header>Welcome to Habit Tracker!</Header>
+      <InnerHomeContainer>
+        <Subheader>Create Account</Subheader>
         <InputContainer>
-          <Label>Email</Label>
+        <IconButton variant="none" as="a" href="/" aria-label="Home" icon={<FaMailBulk fontSize="1.75rem" color="#213a32"/>} />
+
           <StyledInput
             type="email"
-            placeholder="example@example.com"
+            placeholder="Email"
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
         </InputContainer>
         <InputContainer>
-          <Label>Password</Label>
+          <IconButton variant="none" as="a" href="/" aria-label="Home" icon={<FaLock fontSize="1.75rem" color="#213a32"/>} />
           <StyledInput
             type="password"
-            placeholder="********"
+            placeholder="Password"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
         </InputContainer>
         <StyledButton onClick={onLogin}>Sign In</StyledButton>
-        <SignUpText>
-          Don't have an account? <SignUpLink onClick={() => navigate('/Signup')}>Sign Up Here</SignUpLink>
-        </SignUpText>
-      </Column>
-      <Column>
-        <Image src={homeImage} alt="Habit" />
-      </Column>
+        <StyledButton onClick={() => navigate('/Signup')}>Sign Up Here</StyledButton>
+      </InnerHomeContainer>
     </HomeContainer>
   );
 }
 
 const HomeContainer = styled.div`
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc( 100vh - 200px );
+  background-color: #5B8E7D;
+  text-align: center;
+`
+
+const InnerHomeContainer = styled.div`
+  width: 35%;
+  background-color: #F4E285;
+  padding: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const Header = styled.h1`
+  font-size: 60px;
+  font-weight: bolder;
+  color: #FFFFFF;
+  margin: 20px;
+`
+const Subheader = styled.h2`
+  font-size: 30px;
+  width: 60%;
+  font-weight: bold;
+  margin: auto;
+  margin-bottom: 20px;
+  color: #213a32;
+`
+
+const InputContainer = styled.div`
+  margin-bottom: 15px 20px 15px 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 20px 50px 20px 50px;
-  height: 100%;
+  width: 100%;
 `
 
-const Header = styled.h1`
-  font-size: 40px;
-  margin: auto;
-  font-weight: bolder;
-`
-
-const Column = styled.div`
-  flex: 1;
-  padding: 30px;
-`
-
-const Subheader = styled.h2`
-  font-size: 15px;
-  width: 60%;
-  margin: 1em 0 1em 0;
-  font-weight: normal;
-`
-
-const InputContainer = styled.div`
-  margin-bottom: 15px;
-`
-
-const Label = styled.p`
-  font-size: 14px;
+const Label = styled.div`
   margin-bottom: 5px;
 `
 
 const StyledInput = styled.input`
-  width: 100%;
+  width: 60%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin: 12px 0 12px 0;
+  border-radius: 25px;
 `
 
 const StyledButton = styled.button`
   padding: 10px 15px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #cb696e;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
+  width: 50%;
+  margin: 15px 0 15px 0;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #BC4B51;
+    transform: scale(1.1);
   }
 `
 
@@ -176,6 +188,11 @@ const Image = styled.img`
   width: 100%;
   height: auto;
   border-radius: 5em;
+`
+
+const HomeGradient = styled.div`
+  height: 50px;
+  background-image: linear-gradient(#5B8E7D, #5B8E7D, #FFFFFF);
 `
 
 export default Home
