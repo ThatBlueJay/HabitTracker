@@ -9,7 +9,7 @@ import { Select } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
-  //const { login } = useContext(LoginContext);
+  const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
 
@@ -25,9 +25,6 @@ function Habits() {
   //This diplays the habit on the screen
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const login = true;
-
   console.log("habits page: ", login, id);
 
   // if the user is not logged in, redirect them to the home page
