@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import homeImage from "../assets/homepage_image.jpg";
 import { LoginContext } from "../App.js";
 import { useNavigate } from 'react-router-dom';
-
+import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
+import { EmailIcon, LockIcon } from '@chakra-ui/icons'
 
 function verify(password){
   if(password.length < 8){
@@ -60,57 +60,80 @@ function Home() {
     }
   };
 
-  return(
+  return (
     <HomeContainer>
-      <Column>
       <Header>Welcome to Habit Tracker!</Header>
-      <Subheader>Please enter your contact details to connect.</Subheader>
-      <p>Email</p>
-      <input
-        type="email"
-        placeholder="example@example.com"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <p>Password</p>
-      <input
-        type="password"
-        placeholder="********"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      /><br />
-      <button onClick={onLogin}>Sign In</button><br />
-      <p>Don't have an account? <br /> <button onClick={() => navigate('/Signup')}>Sign Up Here</button></p>
-      </Column>
-      <Column>
-      <img src={homeImage} alt="Habit" />
-      </Column>
+      <InnerHomeContainer>
+        <Subheader>Sign In</Subheader>
+
+        <Stack spacing={8}>
+          <InputGroup>
+            <InputLeftElement>
+              <EmailIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}/>
+          </InputGroup>
+
+          <InputGroup>
+            <InputLeftElement>
+              <LockIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}/>
+          </InputGroup>
+
+          <Button onClick={onLogin} backgroundColor='#cb696e'>Sign In</Button>
+          <Button onClick={() => navigate('/Signup')} backgroundColor='#cb696e'>Sign Up Here</Button>
+        </Stack>
+      </InnerHomeContainer>
     </HomeContainer>
   );
 }
 
 const HomeContainer = styled.div`
-  position: relative;
-  overflow: hidden;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc( 100vh - 200px );
+  background-color: #5B8E7D;
+  text-align: center;
+  padding: 30px;
+`
+
+const InnerHomeContainer = styled.div`
+  width: 30%;
+  background-color: #F4E285;
+  padding: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
 const Header = styled.h1`
-  font-size: 40px;
-  margin: auto;
-`
-
-const Column = styled.div`
-  flex: 1;
-  padding: 10px;
+  font-size: 50px;
+  font-weight: bolder;
+  color: #FFFFFF;
 `
 
 const Subheader = styled.h2`
-  font-size: 15px;
-  width: 60%;
+  font-size: 30px;
+  font-weight: bold;
   margin: auto;
-  font-weight: normal;
+  margin-bottom: 20px;
+  color: #213a32;
 `
 
 export default Home

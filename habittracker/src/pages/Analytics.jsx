@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 
 
 function Analytics() {
+  //const login = true;
   const { login } = useContext(LoginContext);
   
 
@@ -18,18 +19,25 @@ function Analytics() {
       <Header>Analytics Page</Header>
     </AnalyticsContainer>
   );
-}
+} 
+
 
 const AnalyticsContainer = styled.div`
   position: relative;
   overflow: hidden;
-  display: block;
-`
+  flex-direction: column;
+  min-height: calc( 100vh - 200px );
+  background-color: #F4E285;
+`;
 
 const Header = styled.h1`
-  font-size: 40px;
-  margin: auto;
-`
+  font-size: 50px;
+  margin: 20px;
+  font-weight: bolder;
+  color: #213a32;
+  width: 100%;
+  text-align: center;
+`;
 
 const Subheader = styled.h2`
   font-size: 15px;

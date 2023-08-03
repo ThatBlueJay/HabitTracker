@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Navigate } from "react-router-dom";
 import { IdContext, LoginContext } from "../App.js";
 
-
 const styles = {
   wrap: {
     display: "flex"
@@ -29,36 +28,17 @@ function getDataFromPromise(json) {
 
   
 function formatData(title, start, end, data) {
-  // const data = [
-  //   {
-  //       "record_id": 385484,
-  //       "datet_complete": null,
-  //       "due_date": "2023-07-19T16:00:00.000Z",
-  //       "complete": false,
-  //       "complete_on_time": null,
-  //       "hours_spent": 0,
-  //       "habit_id": 7
-  //   },
-  //   {
-  //       "record_id": 385485,
-  //       "datet_complete": "2023-07-20T01:09:07.702Z",
-  //       "due_date": "2023-07-26T16:00:00.000Z",
-  //       "complete": true,
-  //       "complete_on_time": true,
-  //       "hours_spent": 159,
-  //       "habit_id": 7
-  //   }
-  // ];
 
   var colorCounter = ["#780116", "#F7B538", "#DB7C26", "#D8572A", "#C32F27"];
   let toAdd = [];
   for(let i = 0; i < data.length; i++) {
     let num = Math.floor(Math.random() * 5);
     toAdd = toAdd.concat({
+      id: data[i].record_id, 
       text: title,
       start: data[i].due_date.substring(0,11) + start,
       end: data[i].due_date.substring(0,11) + end,
-      backColor: colorCounter[num]
+      backColor: colorCounter[num],
     });
   }
   return toAdd;
@@ -80,14 +60,11 @@ async function getHabits(id) {
     allHabits = getDataFromPromise(success);
   })
 
-  console.log(allHabits.length);
-
   if (allHabits != null) {
     for(let i = allHabits.length-1; i >= 0; i--) {
-      console.log(i);
       const habitID = allHabits[i].habit_id;
-      //let data = [];
-      //allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(props.data[i].title, props.data[i].start_time, props.data[i].end_time, data));
+      // let data = [];
+      // allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(allHabits[i].title, allHabits[i].start_time, allHabits[i].end_time, data));
 
       await fetch("http://localhost:3000/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
         .then(response => response.json())
@@ -96,12 +73,35 @@ async function getHabits(id) {
       })
     }
   }
-  console.log(allHabitsToPutOnCalendar);
+  //console.log(allHabitsToPutOnCalendar);
   return allHabitsToPutOnCalendar;
 }
 
+async function updateHabit(id) {
+  const url = "http://localhost:3000/habits/" + id;
+  await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      alert("Confirmed! Good job!");
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
 const Calendar = () => {
-  
+
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
   
@@ -119,12 +119,17 @@ const Calendar = () => {
       });
     }
 
+    const handleEventClick = (args) => {
+      console.log(args.e.data.id);
+      updateHabit(args.e.data.id);
+    }
+
     useEffect(() => {
       async function updateCalendar() {
         const events = await getHabits(id);
         console.log(events);
         const startDate = new Date();
-        calendarRef.current.control.update({startDate, events});
+        calendarRef.current?.control.update({startDate, events});
       }
       updateCalendar();
     }, []);
@@ -133,8 +138,11 @@ const Calendar = () => {
       return <Navigate to="/" />
     }
 
+
     return (
       <CalendarContainer>
+        <Header>Calendar</Header>
+        <Subheader>Click on a habit to confirm completion</Subheader>
         <div style={styles.wrap}>
             <div style={styles.left}>
                 <DayPilotNavigator
@@ -145,7 +153,7 @@ const Calendar = () => {
                 />
             </div>
             <div style={styles.main}>
-                <DayPilotCalendar {...config} ref={calendarRef} />
+                <DayPilotCalendar {...config} ref={calendarRef} onEventClick={handleEventClick}/>
             </div>
         </div>
       </CalendarContainer>
@@ -155,5 +163,28 @@ const Calendar = () => {
 export default Calendar;
 
 const CalendarContainer = styled.div`
-  padding: 2em;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  min-height: calc( 100vh - 200px );
+  background-color: #F4E285;
+  padding: 3em;
+`
+
+const Header = styled.h1`
+  font-size: 50px;
+  font-weight: bolder;
+  color: #213a32;
+  width: 100%;
+  text-align: center;
+`;
+
+const Subheader = styled.h2`
+  font-size: 30px;
+  font-weight: bold;
+  margin: auto;
+  margin-bottom: 20px;
+  color: #213a32;
+  text-align: center;
+
 `
