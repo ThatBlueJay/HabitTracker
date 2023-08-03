@@ -9,10 +9,10 @@ import { Select } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
-  const { login } = useContext(LoginContext);
+  //const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
-  console.log("habits page: ", login, id);
+
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -22,7 +22,13 @@ function Habits() {
   const [recurring, setRecurring] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  //This diplays the habit on the screen
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  const login = true;
+
+  console.log("habits page: ", login, id);
 
   // if the user is not logged in, redirect them to the home page
   if (!login) {
@@ -52,59 +58,18 @@ function Habits() {
       });
   }
 
-  function getDataFromPromise(json) {
-    return json;
-  }
-  
-  async function renderHabits() {
-    var allHabits = [];
-    await fetch('http://localhost:3000/habits/' + id) 
-      .then(data => data.json())
-      .then(success => {
-        console.log(success);
-        allHabits = getDataFromPromise(success);
-      })
-
-    var habitBlocks = null;
-    if(allHabits != null) {
-      habitBlocks = allHabits.map(
-        (element) => {
-          return (
-            <Card variant='elevated'>
-              <Stack>
-                <CardBody>
-                  <Heading size='md'>{element.title}</Heading>
-                  <Text py='2'>
-                    {element.description}
-                  </Text>
-                </CardBody>
-                <CardFooter>
-                  <Button variant='solid' colorScheme='blue' onClick={deleteHabit(element.habit_id)}>
-                    Delete habit
-                  </Button>
-                </CardFooter>
-              </Stack>
-            </Card>
-          )
-        }
-      )
+  const fetchHabits = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost:3000/habits/' + id);
+      const data = await response.json();
+      setData(data);
+      setLoading(false); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setLoading(false);
     }
-
-    if(habitBlocks != null) {
-      return habitBlocks;
-    }
-    else {
-      return (
-        <Card variant='elevated'>
-        <Stack>
-          <CardBody>
-            <Heading size='md'>You have no habits.</Heading>
-          </CardBody>
-        </Stack>
-      </Card>
-      )
-    }
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -152,8 +117,25 @@ function Habits() {
         <Column>
           <HabitsDisplay>
             <HabitsDisplayText>All Habits</HabitsDisplayText>
+            <Button onClick={fetchHabits} isLoading={loading} loadingText="Loading...">Show Habits</Button>
             <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-              {renderHabits()}
+              {data.map((item) => (
+                <Card variant='elevated'>
+                  <Stack>
+                    <CardBody>
+                      <Heading size='md'>{item.title}</Heading>
+                      <Text py='2'>
+                        {item.description}
+                      </Text>
+                  </CardBody>
+                  <CardFooter>
+                    <Button variant='solid' colorScheme='blue' onClick={() => deleteHabit(item.habit_id)}>
+                      Delete habit
+                    </Button>
+                  </CardFooter>
+                </Stack>
+              </Card>
+              ))}
             </SimpleGrid>
           </HabitsDisplay>
         </Column>
