@@ -57,12 +57,13 @@ const deleteHabit = (id) => {
 
 const getHabit = (id) => {
   return new Promise(function(resolve, reject) {
+    if(id == null) resolve(`${-1}`)
     pool.query('SELECT * FROM habits WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
       if(results == null) resolve(`${-1}`)
-      if(results.rowCount < 1) {
+      else if(results.rowCount < 1) {
         resolve(`${-1}`)
       }
       else resolve(results.rows);
