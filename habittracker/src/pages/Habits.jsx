@@ -7,6 +7,8 @@ function Habits() {
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
+  
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startTime, setStartTime] = useState('');

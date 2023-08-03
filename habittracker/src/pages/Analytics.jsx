@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 
 function Analytics() {
   const { login } = useContext(LoginContext);
+  
 
   // if the user is not logged in, redirect them to the home page
   if (!login) {
