@@ -101,8 +101,11 @@ class Analyzer {
     getAveragedData() {
         const resultPairs = [];
         for(let position  = 0; position  <= 1; position  += 0.1) {
-            const lowerBound  = position - 0.05;
-            const upperBound  = position + 0.05;
+
+            const range = 0.05 * (1 - position ** 2) + 0.01;
+
+            const lowerBound = Math.max(0, position - range);
+            const upperBound = Math.min(1, position + range);
 
             const filteredPairs = this.getRawData().filter((pair) => {
                 const pairPosition = pair.x;
