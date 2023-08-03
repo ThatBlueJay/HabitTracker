@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { LoginContext, IdContext } from "../App.js"; 
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Stack, InputLeftAddon, Input, InputGroup, Heading, Text, VStack, HStack} from '@chakra-ui/react'
-import { Card, CardHeader, CardBody, CardFooter, SimpleGrid } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, SimpleGrid } from '@chakra-ui/react'
 import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react'
 import { Select } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
@@ -11,8 +11,6 @@ import { Textarea } from '@chakra-ui/react'
 function Habits() {
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
-
-  
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -28,23 +26,6 @@ function Habits() {
   if (!login) {
     return <Navigate to="/" />
   }
-
-  function getDataFromPromise(json) {
-    return json;
-  }
-
-  async function getAllHabits(id) {
-    var allHabits = [];
-    await fetch('http://localhost:3000/habits/' + id) 
-    .then(data => data.json())
-    .then(success => {
-      console.log(success);
-      allHabits = getDataFromPromise(success);
-    })
-    return allHabits;
-  }
-
-  const habits = getAllHabits(id);
 
   async function deleteHabit(id) {
     const url = "http://localhost:3000/habits/" + id;
@@ -69,27 +50,59 @@ function Habits() {
       });
   }
 
-  const renderHabits = habits.map(
-    (element) => {
-      return (
-        <Card variant='elevated'>
-          <Stack>
-            <CardBody>
-              <Heading size='md'>{element.title}</Heading>
-              <Text py='2'>
-                {element.description}
-              </Text>
-            </CardBody>
-            <CardFooter>
-              <Button variant='solid' colorScheme='blue' onClick={deleteHabit(element.habit_id)}>
-                Delete habit
-              </Button>
-            </CardFooter>
-          </Stack>
-        </Card>
+  function getDataFromPromise(json) {
+    return json;
+  }
+  
+  async function renderHabits() {
+    var allHabits = [];
+    await fetch('http://localhost:3000/habits/' + id) 
+      .then(data => data.json())
+      .then(success => {
+        console.log(success);
+        allHabits = getDataFromPromise(success);
+      })
+
+    var habitBlocks = null;
+    if(allHabits != null) {
+      habitBlocks = allHabits.map(
+        (element) => {
+          return (
+            <Card variant='elevated'>
+              <Stack>
+                <CardBody>
+                  <Heading size='md'>{element.title}</Heading>
+                  <Text py='2'>
+                    {element.description}
+                  </Text>
+                </CardBody>
+                <CardFooter>
+                  <Button variant='solid' colorScheme='blue' onClick={deleteHabit(element.habit_id)}>
+                    Delete habit
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+          )
+        }
       )
     }
-  )
+
+    if(habitBlocks != null) {
+      return habitBlocks;
+    }
+    else {
+      return (
+        <Card variant='elevated'>
+        <Stack>
+          <CardBody>
+            <Heading size='md'>You have no habits.</Heading>
+          </CardBody>
+        </Stack>
+      </Card>
+      )
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -138,7 +151,7 @@ function Habits() {
           <HabitsDisplay>
             <HabitsDisplayText>All Habits</HabitsDisplayText>
             <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-              {renderHabits}
+              {renderHabits()}
             </SimpleGrid>
           </HabitsDisplay>
         </Column>

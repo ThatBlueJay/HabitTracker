@@ -1,27 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import Logo from '../assets/habittracker.png';
 import { FaDoorOpen, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator} from "react-icons/fa";
 import { IconButton } from '@chakra-ui/react'
-import { LoginContext } from "../App";
 
 function Header() {
-  const { login, handleLogin } = useContext(LoginContext);
-
   return (
     <HeaderContainer>
       <HeaderInnerContainer>
         <HeaderLeft>
           <HabittrackerLogo src={Logo} alt="Logo" />
         </HeaderLeft>
-        <HeaderCenter>
-          {/* <HeaderNavigationContainer>
-            <StyledLink to="/">Home</StyledLink>
-            <StyledLink to="/Habits">Habits</StyledLink>
-            <StyledLink to="/Calendar">Calendar</StyledLink>
-            <StyledLink to="/Analytics">Analytics</StyledLink>
-          </HeaderNavigationContainer> */}
-        </HeaderCenter>
         <HeaderRight>
           <HeaderNavigationContainer>
             <ButtonGroup>
@@ -45,7 +34,7 @@ function Header() {
             </ButtonGroup>
 
             <ButtonGroup>
-              <IconButton onClick={handleLogin(false)} variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
+              <IconButton variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Log Out</TextA>
             </ButtonGroup>
 
@@ -68,12 +57,6 @@ const HeaderLeft = styled.div`
   display: flex;
   justify-content: center;
   padding-left: 10px;
-`;
-
-const HeaderCenter = styled.div`
-  flex: 3;
-  display: flex;
-  align-items: center;
 `;
 
 const HeaderRight = styled.div`

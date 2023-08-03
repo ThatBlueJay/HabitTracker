@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginContext } from "../App.js";
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
 import { EmailIcon, LockIcon } from '@chakra-ui/icons'
 
@@ -40,6 +40,10 @@ function Home() {
   const [password, setPassword] = useState('');
   const { login, handleLogin } = useContext(LoginContext);
   const navigate = useNavigate();
+
+  if (login) {
+    return <Navigate to="/Habits" />
+  }
 
   const onLogin = async () => {
     // Implement validation

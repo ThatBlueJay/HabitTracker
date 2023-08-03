@@ -8,7 +8,7 @@ import Calendar from './pages/Calendar';
 import Analytics from './pages/Analytics';
 import Signup from './pages/Signup';
 import { ChakraProvider } from '@chakra-ui/react'
-import { useContext, createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 export const LoginContext = createContext();
 export const IdContext = createContext();
