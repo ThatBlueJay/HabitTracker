@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Navigate } from "react-router-dom";
 import { IdContext, LoginContext } from "../App.js";
 
-
 const styles = {
   wrap: {
     display: "flex"
@@ -94,6 +93,7 @@ async function updateHabit(id) {
     })
     .then(data => {
       console.log(data);
+      alert("Confirmed! Good job!");
     })
     .catch(error => {
       console.error('Error:', error);
@@ -101,7 +101,7 @@ async function updateHabit(id) {
 }
 
 const Calendar = () => {
-  
+
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
@@ -140,6 +140,8 @@ const Calendar = () => {
 
     return (
       <CalendarContainer>
+        <Header>Calendar</Header>
+        <Subheader>Click on a habit to confirm completion</Subheader>
         <div style={styles.wrap}>
             <div style={styles.left}>
                 <DayPilotNavigator
@@ -160,6 +162,28 @@ const Calendar = () => {
 export default Calendar;
 
 const CalendarContainer = styled.div`
-  padding: 2em;
-  height: 95vh;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  min-height: calc( 100vh - 200px );
+  background-color: #F4E285;
+  padding: 3em;
+`
+
+const Header = styled.h1`
+  font-size: 50px;
+  font-weight: bolder;
+  color: #213a32;
+  width: 100%;
+  text-align: center;
+`;
+
+const Subheader = styled.h2`
+  font-size: 30px;
+  font-weight: bold;
+  margin: auto;
+  margin-bottom: 20px;
+  color: #213a32;
+  text-align: center;
+
 `

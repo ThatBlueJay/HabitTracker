@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import homeImage from "../assets/homepage_image.jpg";
 import { LoginContext } from "../App.js";
 import { useNavigate } from 'react-router-dom';
-
+import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
+import { EmailIcon, LockIcon } from '@chakra-ui/icons'
 
 function verify(password){
   if(password.length < 8){
@@ -62,116 +62,78 @@ function Home() {
 
   return (
     <HomeContainer>
-      <Column>
-        <Header>Welcome to Habit Tracker!</Header>
-        <Subheader>Please enter your contact details to connect.</Subheader>
-        <InputContainer>
-          <Label>Email</Label>
-          <StyledInput
-            type="email"
-            placeholder="example@example.com"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </InputContainer>
-        <InputContainer>
-          <Label>Password</Label>
-          <StyledInput
-            type="password"
-            placeholder="********"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-        </InputContainer>
-        <StyledButton onClick={onLogin}>Sign In</StyledButton>
-        <SignUpText>
-          Don't have an account? <SignUpLink onClick={() => navigate('/Signup')}>Sign Up Here</SignUpLink>
-        </SignUpText>
-      </Column>
-      <Column>
-        <Image src={homeImage} alt="Habit" />
-      </Column>
+      <Header>Welcome to Habit Tracker!</Header>
+      <InnerHomeContainer>
+        <Subheader>Create Account</Subheader>
+
+        <Stack spacing={8}>
+          <InputGroup>
+            <InputLeftElement>
+              <EmailIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}/>
+          </InputGroup>
+
+          <InputGroup>
+            <InputLeftElement>
+              <LockIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}/>
+          </InputGroup>
+
+          <Button onClick={onLogin} backgroundColor='#cb696e'>Sign In</Button>
+          <Button onClick={() => navigate('/Signup')} backgroundColor='#cb696e'>Sign Up Here</Button>
+        </Stack>
+      </InnerHomeContainer>
     </HomeContainer>
   );
 }
 
 const HomeContainer = styled.div`
-  position: relative;
-  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  height: 95vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc( 100vh - 200px );
+  background-color: #5B8E7D;
+  text-align: center;
+  padding: 30px;
+`
+
+const InnerHomeContainer = styled.div`
+  width: 30%;
+  background-color: #F4E285;
+  padding: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
 const Header = styled.h1`
-  font-size: 40px;
-  margin: auto;
-`
-
-const Column = styled.div`
-  flex: 1;
-  padding: 10px;
+  font-size: 50px;
+  font-weight: bolder;
+  color: #FFFFFF;
 `
 
 const Subheader = styled.h2`
-  font-size: 15px;
-  width: 60%;
+  font-size: 30px;
+  font-weight: bold;
   margin: auto;
-  font-weight: normal;
-`
-
-const InputContainer = styled.div`
-  margin-bottom: 15px;
-`
-
-const Label = styled.p`
-  font-size: 14px;
-  margin-bottom: 5px;
-`
-
-const StyledInput = styled.input`
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`
-
-const StyledButton = styled.button`
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`
-
-const SignUpText = styled.p`
-  font-size: 14px;
-  text-align: center;
-`
-
-const SignUpLink = styled.button`
-  color: #007bff;
-  border: none;
-  background: none;
-  font-size: 14px;
-  cursor: pointer;
-  text-decoration: underline;
-
-  &:hover {
-    text-decoration: none;
-  }
-`
-
-const Image = styled.img`
-  width: 100%;
-  height: auto;
+  margin-bottom: 20px;
+  color: #213a32;
 `
 
 export default Home

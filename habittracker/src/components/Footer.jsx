@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { FaFacebookSquare, FaLinkedin, FaGithubSquare, FaInstagram} from "react-icons/fa";
-import { ButtonGroup,  IconButton } from '@chakra-ui/react'
+import { FaGithubSquare } from "react-icons/fa";
+import { IconButton } from '@chakra-ui/react'
 
 function Footer() {
   return (
     <FooterContainer>
       <FooterInnerContainer>
         <FooterLeft>
-          <FooterText>A Software Design and Documentation Project</FooterText>
+          <CenteredText>A Software Design and Documentation Project</CenteredText>
         </FooterLeft>
         <FooterRight>
-          <FooterText>Created by Ascension:</FooterText>
-          <ButtonGroup variant="ghost">
-            <IconButton as="a" href="/" aria-label="Github" icon={<FaGithubSquare fontSize="1.25rem" />} />
-          </ButtonGroup>
+          <Created>
+            <FooterText>Created by Ascension:</FooterText>
+            <IconButton variant="none" as="a" href="/" aria-label="Github" icon={<FaGithubSquare fontSize="1.5rem" color="#FFFFFF" />} />
+          </Created>
         </FooterRight>
       </FooterInnerContainer>
     </FooterContainer>
@@ -24,13 +24,11 @@ function Footer() {
 const FooterContainer = styled.nav`
   width: 100%;
   height: 80px;
-  background-color: #F4D35E;
-  display: flex;
+  background-color: white;
+  display: block;
   flex-direction: column;
-  color: #0D3B66;
+  color: #BC4B51;
   font-family: 'Work Sans', sans-serif;
-  position: absolute;
-  bottom: 0;
 `;
 
 const FooterInnerContainer = styled.div`
@@ -45,7 +43,9 @@ const FooterInnerContainer = styled.div`
 const FooterLeft = styled.div`
   display: flex;
   flex: 50%;
-  padding-left: 5%;
+  align-items: center;
+  height: 100%; /* Take full height of the FooterContainer */
+  padding-left: 3vw;
 `;
 
 const FooterRight = styled.div`
@@ -58,11 +58,21 @@ const FooterRight = styled.div`
   position: relative;
 `;
 
-
 const FooterText = styled.p`
-  margin: auto;
-  opacity: 0.7;
+`;
+
+const CenteredText = styled.p`
   font-weight: bold;
+`;
+
+const Created = styled.div`
+  background-color: #BC4B51;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+  height: 100%;
+  color: white;
 `
 
 export default Footer;

@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginContext } from "../App.js";
 import { Navigate } from "react-router-dom";
-
+import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
+import { EmailIcon, LockIcon, StarIcon, PhoneIcon } from '@chakra-ui/icons'
 
 function verify(password, confirmPassword){
     if(password.length < 8){
@@ -43,7 +44,6 @@ async function createUser({ username, password, email, phone }) {
 }
 
 
-
 function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -77,74 +77,107 @@ function SignUp() {
 
   return(
     <SignUpContainer>
-      <Column>
       <Header>Welcome to Habit Tracker!</Header>
-      <Subheader>Please enter your details to sign up.</Subheader>
-      <p>Username</p>
-      <input
-        type="text"
-        placeholder="Enter Username"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-      />
-      <p>Email</p>
-      <input
-        type="email"
-        placeholder="example@example.com"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <p>Password</p>
-      <input
-        type="password"
-        placeholder="Enter Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-      <p>Confirm Password</p>
-      <input
-        type="password"
-        placeholder="Re-enter Password"
-        value={confirmPassword}
-        onChange={e => setConfirmPassword(e.target.value)}
-      />
-      <p>Phone</p>
-      <input
-        type="text"
-        placeholder="Enter Phone Number"
-        value={phone}
-        onChange={e => setPhone(e.target.value)}
-      />
-      <br />
-      <button onClick={onSignUp}>Sign Up</button><br />
-      </Column>
+      <InnerSignupContainer>
+        <Subheader>Sign Up</Subheader>
+        <Stack spacing={8}>
+          <InputGroup>
+            <InputLeftElement>
+              <StarIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={e => setUsername(e.target.value)}/>
+          </InputGroup>
+
+          <InputGroup>
+            <InputLeftElement>
+              <EmailIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="email"
+              placeholder="Email"
+              value={password}
+              onChange={e => setEmail(e.target.value)}/>
+          </InputGroup>
+
+          <InputGroup>
+            <InputLeftElement>
+              <LockIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}/>
+          </InputGroup>
+
+          <InputGroup>
+            <InputLeftElement>
+              <LockIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="password"
+              placeholder="Re-enter Password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}/>
+          </InputGroup>
+          <InputGroup>
+            <InputLeftElement>
+              <PhoneIcon color='#cb696e'/>
+            </InputLeftElement>
+            <Input 
+              variant='filled'
+              type="tel"
+              placeholder="Phone Number"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}/>
+          </InputGroup>
+          <Button onClick={onSignUp} backgroundColor='#cb696e'>Sign Up</Button>
+        </Stack>
+      </InnerSignupContainer>
     </SignUpContainer>
   );
 }
 
 const SignUpContainer = styled.div`
-  position: relative;
-  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  height: 95vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc( 100vh - 200px );
+  background-color: #5B8E7D;
+  text-align: center;
+  padding: 30px;
 `
 
+const InnerSignupContainer = styled.div`
+  width: 30%;
+  background-color: #F4E285;
+  padding: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 const Header = styled.h1`
-  font-size: 40px;
-  margin: auto;
+  font-size: 50px;
+  font-weight: bolder;
+  color: #FFFFFF;
 `
-
-const Column = styled.div`
-  flex: 1;
-  padding: 10px;
-`
-
 const Subheader = styled.h2`
-  font-size: 15px;
-  width: 60%;
+  font-size: 30px;
+  font-weight: bold;
   margin: auto;
-  font-weight: normal;
+  margin-bottom: 20px;
+  color: #213a32;
 `
-
 export default SignUp

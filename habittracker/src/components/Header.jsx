@@ -1,25 +1,54 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Logo from '../assets/habittracker.png';
+import { FaDoorOpen, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator} from "react-icons/fa";
+import { IconButton } from '@chakra-ui/react'
+import { LoginContext } from "../App";
 
 function Header() {
+  const { login, handleLogin } = useContext(LoginContext);
+
   return (
     <HeaderContainer>
       <HeaderInnerContainer>
         <HeaderLeft>
-          Logo goes here
+          <HabittrackerLogo src={Logo} alt="Logo" />
         </HeaderLeft>
         <HeaderCenter>
-          <HeaderNavigationContainer>
+          {/* <HeaderNavigationContainer>
             <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/Habits">Habits</StyledLink>
             <StyledLink to="/Calendar">Calendar</StyledLink>
             <StyledLink to="/Analytics">Analytics</StyledLink>
-          </HeaderNavigationContainer>
+          </HeaderNavigationContainer> */}
         </HeaderCenter>
         <HeaderRight>
           <HeaderNavigationContainer>
-            <StyledLink to="/Profile">Profile</StyledLink>
+            <ButtonGroup>
+              <IconButton variant="none" as="a" href="/" aria-label="Home" icon={<FaHome fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Home</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <IconButton variant="none" as="a" href="/Habits" aria-label="Habits" icon={<FaGripHorizontal fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Habits</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <IconButton variant="none" as="a" href="/Calendar" aria-label="Calendar" icon={<FaCalendarDay fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Calendar</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <IconButton variant="none" as="a" href="/Analytics" aria-label="Analytics" icon={<FaCalculator fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Analytics</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <IconButton onClick={handleLogin(false)} variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Log Out</TextA>
+            </ButtonGroup>
+
           </HeaderNavigationContainer>
         </HeaderRight>
       </HeaderInnerContainer>
@@ -29,7 +58,7 @@ function Header() {
 
 const HeaderContainer = styled.nav`
   width: 100%;
-  background-color: #F4D35E;
+  background-color: #5B8E7D;
   display: flex;
   flex-direction: column;
 `;
@@ -38,10 +67,11 @@ const HeaderLeft = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
+  padding-left: 10px;
 `;
 
 const HeaderCenter = styled.div`
-  flex: 1;
+  flex: 3;
   display: flex;
   align-items: center;
 `;
@@ -51,12 +81,12 @@ const HeaderRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 50px;
+  padding-right: 40px;
 `;
 
 const HeaderInnerContainer = styled.div`
   width: auto;
-  height: 80px;
+  height: 120px;
   display: flex;
 `;
 
@@ -66,23 +96,41 @@ const HeaderNavigationContainer = styled.div`
   justify-content: center;
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-weight: bolder;
-  color: #0D3B66;
-  font-size: large;
-  margin: 20px;
-  font-family: 'Work Sans', sans-serif;
-  &:hover{
-    color: white;
-    border-bottom: white solid 3px;
-  }
+const TextA = styled.h1`
 `;
 
-const Logo = styled.img`
-  margin: 10px;
-  height: auto;
-  max-width: 180px;
-`;
+const HabittrackerLogo = styled.img`
+  margin: auto;
+  margin-left: 5vw;
+  padding: 10px;
+  &:hover {
+    background-color: #BC4B51;
+    border-radius: 25px;
+    transform: scale(1.2);
+  }
+`
+
+const ButtonGroup = styled.div`
+  padding: 6px 15px 6px 5px;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFFFFF00;
+  font-family: 'Arvo', serif;
+  opacity: 1!important;
+  &:hover {
+    background-color: #BC4B51; 
+    border-radius: 25px;
+    color: #FFFFFF;
+    opacity: 1;
+    transform: scale(1.2);
+    margin: 10px;
+  }
+
+`
 
 export default Header;
