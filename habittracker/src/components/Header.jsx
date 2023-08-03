@@ -1,11 +1,12 @@
-import React from "react";
-import styled, {keyframes }from "styled-components";
+import React, { useContext } from "react";
+import styled from "styled-components";
 import Logo from '../assets/habittracker.png';
-import { FaUser, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator} from "react-icons/fa";
+import { FaDoorOpen, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator} from "react-icons/fa";
 import { IconButton } from '@chakra-ui/react'
-
+import { LoginContext } from "../App";
 
 function Header() {
+  const { login, handleLogin } = useContext(LoginContext);
 
   return (
     <HeaderContainer>
@@ -44,8 +45,8 @@ function Header() {
             </ButtonGroup>
 
             <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Profile" aria-label="Profile" icon={<FaUser fontSize="1.7rem" color="#FFFFFF"/>} />
-              <TextA>Profile</TextA>
+              <IconButton onClick={handleLogin(false)} variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Log Out</TextA>
             </ButtonGroup>
 
           </HeaderNavigationContainer>
