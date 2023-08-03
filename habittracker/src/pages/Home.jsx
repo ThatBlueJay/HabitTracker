@@ -96,13 +96,14 @@ const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc( 100vh - 200px );
+  min-height: calc( 100vh - 200px );
   background-color: #5B8E7D;
   text-align: center;
+  padding: 30px;
 `
 
 const InnerHomeContainer = styled.div`
-  width: 35%;
+  width: 40%;
   background-color: #F4E285;
   padding: 30px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
@@ -114,11 +115,11 @@ const InnerHomeContainer = styled.div`
 `
 
 const Header = styled.h1`
-  font-size: 60px;
+  font-size: 50px;
   font-weight: bolder;
   color: #FFFFFF;
-  margin: 20px;
 `
+
 const Subheader = styled.h2`
   font-size: 30px;
   width: 60%;

@@ -24,27 +24,27 @@ function Header() {
         <HeaderRight>
           <HeaderNavigationContainer>
             <ButtonGroup>
-              <IconButton variant="none" as="a" href="/" aria-label="Home" icon={<FaHome fontSize="1.75rem" color="#FFFFFF"/>} />
+              <IconButton variant="none" as="a" href="/" aria-label="Home" icon={<FaHome fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Home</TextA>
             </ButtonGroup>
 
             <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Habits" aria-label="Habits" icon={<FaGripHorizontal fontSize="1.75rem" color="#FFFFFF"/>} />
+              <IconButton variant="none" as="a" href="/Habits" aria-label="Habits" icon={<FaGripHorizontal fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Habits</TextA>
             </ButtonGroup>
 
             <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Calendar" aria-label="Calendar" icon={<FaCalendarDay fontSize="1.75rem" color="#FFFFFF"/>} />
+              <IconButton variant="none" as="a" href="/Calendar" aria-label="Calendar" icon={<FaCalendarDay fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Calendar</TextA>
             </ButtonGroup>
 
             <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Analytics" aria-label="Analytics" icon={<FaCalculator fontSize="1.75rem" color="#FFFFFF"/>} />
+              <IconButton variant="none" as="a" href="/Analytics" aria-label="Analytics" icon={<FaCalculator fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Analytics</TextA>
             </ButtonGroup>
 
             <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Profile" aria-label="Profile" icon={<FaUser fontSize="1.75rem" color="#FFFFFF"/>} />
+              <IconButton variant="none" as="a" href="/Profile" aria-label="Profile" icon={<FaUser fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Profile</TextA>
             </ButtonGroup>
 

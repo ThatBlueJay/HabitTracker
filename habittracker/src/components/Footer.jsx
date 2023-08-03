@@ -25,12 +25,10 @@ const FooterContainer = styled.nav`
   width: 100%;
   height: 80px;
   background-color: white;
-  display: flex;
+  display: block;
   flex-direction: column;
   color: #BC4B51;
   font-family: 'Work Sans', sans-serif;
-  position: fixed;
-  bottom: 0; 
 `;
 
 const FooterInnerContainer = styled.div`

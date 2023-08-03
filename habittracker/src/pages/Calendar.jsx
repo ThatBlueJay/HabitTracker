@@ -94,6 +94,7 @@ async function updateHabit(id) {
     })
     .then(data => {
       console.log(data);
+      alert("Confirmed! Good job!");
     })
     .catch(error => {
       console.error('Error:', error);
