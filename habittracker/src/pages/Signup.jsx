@@ -101,7 +101,7 @@ function SignUp() {
               variant='filled'
               type="email"
               placeholder="Email"
-              value={password}
+              value={email}
               onChange={e => setEmail(e.target.value)}/>
           </InputGroup>
 
