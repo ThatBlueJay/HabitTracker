@@ -12,6 +12,8 @@ function Habits() {
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
+  console.log("habits page: ", login, id);
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startTime, setStartTime] = useState('');

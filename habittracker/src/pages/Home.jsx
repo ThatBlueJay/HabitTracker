@@ -45,6 +45,9 @@ function Home() {
     return <Navigate to="/Habits" />
   }
 
+  console.log("Home page: ", login);
+
+
   const onLogin = async () => {
     // Implement validation
     if (verify(password)) {

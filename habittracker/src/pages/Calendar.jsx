@@ -105,6 +105,8 @@ const Calendar = () => {
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
   
+  console.log("calendar page: ", login, id);
+
 
     const [config, setConfig] = useState({
       viewType: "Week",
