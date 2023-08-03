@@ -18,7 +18,8 @@ function Analytics() {
       <Header>Analytics Page</Header>
     </AnalyticsContainer>
   );
-}
+} 
+
 
 const AnalyticsContainer = styled.div`
   position: relative;
