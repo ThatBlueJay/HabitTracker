@@ -64,7 +64,7 @@ function Home() {
     <HomeContainer>
       <Header>Welcome to Habit Tracker!</Header>
       <InnerHomeContainer>
-        <Subheader>Create Account</Subheader>
+        <Subheader>Sign In</Subheader>
 
         <Stack spacing={8}>
           <InputGroup>
