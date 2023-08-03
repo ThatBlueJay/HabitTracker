@@ -9,6 +9,7 @@ import { Select } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
+
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
@@ -107,6 +108,8 @@ function Habits() {
     }
   }
 
+  const parse = (val) => val.toString()
+
   return(
     <HabitContainer>
       <Header>Add a habit here!</Header>
@@ -153,14 +156,14 @@ function Habits() {
             <NumberInput 
               size='sm' 
               maxW={20} 
-              defaultValue={1} 
+              defaultValue={7} 
               min={1} 
               max={365}
               variant='filled'
+              value={recurring}
+              onChange={(value) => setRecurring(value)}
               >
-              <NumberInputField 
-                value={recurring}
-                onChange={e => setRecurring(e.target.value)}/>
+              <NumberInputField/>
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
