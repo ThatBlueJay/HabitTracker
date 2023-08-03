@@ -4,6 +4,8 @@ import { LoginContext } from "../App.js";
 import { useNavigate } from 'react-router-dom';
 import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
 import { EmailIcon, LockIcon } from '@chakra-ui/icons'
+import { Navigate } from "react-router-dom";
+
 
 function verify(password){
   if(password.length < 8){
@@ -33,7 +35,6 @@ async function authorize({ email, password }) {
   }
 }
 
-
 function Home() {
 
   const [email, setEmail] = useState('');
@@ -49,6 +50,7 @@ function Home() {
         if (userId !== "None") {
           handleLogin(userId);
           alert("Login successful!");
+          console.log(login);
         } else {
           alert("Invalid credentials");
         }
@@ -59,6 +61,11 @@ function Home() {
       alert("Password should be at least 8 characters long, contains at least one uppercase letter and at least one number");
     }
   };
+
+  if (login) {
+    return <Navigate to="/Habits" />
+  }
+
 
   return (
     <HomeContainer>

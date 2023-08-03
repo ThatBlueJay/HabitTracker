@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Navigate } from "react-router-dom";
 import { IdContext, LoginContext } from "../App.js";
 
+
 const styles = {
   wrap: {
     display: "flex"
@@ -52,7 +53,6 @@ async function getHabits(id) {
   var allHabitsToPutOnCalendar = [];
 
   var allHabits = [];
-
   await fetch('http://localhost:3000/habits/' + id) 
   .then(data => data.json())
   .then(success => {
