@@ -61,7 +61,11 @@ const getHabit = (id) => {
       if (error) {
         reject(error)
       }
-      resolve(results.rows);
+      if(results == null) resolve(`${-1}`)
+      if(results.rowCount < 1) {
+        resolve(`${-1}`)
+      }
+      else resolve(results.rows);
     })
   }) 
 }
