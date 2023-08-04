@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Logo from '../assets/habittracker.png';
 import { FaDoorOpen, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator} from "react-icons/fa";
 import { IconButton } from '@chakra-ui/react'
-import { LoginContext } from "../App";
+//import { LoginContext } from "../App";
 
 function Header() {
-  const { login, handleLogin } = useContext(LoginContext);
+  //const { login, handleLogin } = useContext(LoginContext);
 
   return (
     <HeaderContainer>
@@ -45,7 +45,7 @@ function Header() {
             </ButtonGroup>
 
             <ButtonGroup>
-              <IconButton onClick={handleLogin(false)} variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
+              <IconButton variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Log Out</TextA>
             </ButtonGroup>
 

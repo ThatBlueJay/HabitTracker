@@ -116,8 +116,8 @@ class Analyzer {
             const averageHours = filteredPairs.length > 0 ? totalHours / filteredPairs.length : 0;
 
             resultPairs.push({
-                x: position.toFixed(2),
-                y: averageHours.toFixed(2),
+                Time: position.toFixed(2),
+                Consistency: averageHours.toFixed(2),
             });
         }
         return resultPairs;

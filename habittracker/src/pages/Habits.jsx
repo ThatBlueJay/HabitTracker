@@ -21,13 +21,13 @@ function Habits() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-
+  //console.log(login);
   // if the user is not logged in, redirect them to the home page
   if (!login) {
     return <Navigate to="/" />
   }
 
-  function getDataFromPromise(json) {
+  async function getDataFromPromise(json) {
     return json;
   }
 
@@ -35,14 +35,11 @@ function Habits() {
     var allHabits = [];
     await fetch('http://localhost:3000/habits/' + id) 
     .then(data => data.json())
-    .then(success => {
-      console.log(success);
-      allHabits = getDataFromPromise(success);
+    .then((response) => {
+      allHabits = getDataFromPromise(response);
     })
     return allHabits;
   }
-
-  const habits = getAllHabits(id);
 
   async function deleteHabit(id) {
     const url = "http://localhost:3000/habits/" + id;
@@ -59,7 +56,7 @@ function Habits() {
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        //console.log(data);
         alert(data);
       })
       .catch(error => {
@@ -67,27 +64,35 @@ function Habits() {
       });
   }
 
-  const renderHabits = habits.map(
-    (element) => {
-      return (
-        <Card variant='elevated'>
+  async function renderHabits() {
+    try {
+      const habits = await getAllHabits(id);
+      console.log("habits: ", habits);
+      const formattedHabits = habits.map((element) => (
+        <Card variant='elevated' key={element.habit_id}>
           <Stack>
             <CardBody>
               <Heading size='md'>{element.title}</Heading>
-              <Text py='2'>
-                {element.description}
-              </Text>
+              <Text py='2'>{element.description}</Text>
             </CardBody>
             <CardFooter>
-              <Button variant='solid' colorScheme='blue' onClick={deleteHabit(element.habit_id)}>
+              <Button
+                variant='solid'
+                colorScheme='blue'
+                onClick={() => deleteHabit(element.habit_id)}
+              >
                 Delete habit
               </Button>
             </CardFooter>
           </Stack>
         </Card>
-      )
+      ));
+      return formattedHabits;
+    } catch (error) {
+      console.error("Error fetching habits:", error);
+      return []; // Return an empty array or handle the error appropriately
     }
-  )
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -135,9 +140,9 @@ function Habits() {
         <Column>
           <HabitsDisplay>
             <HabitsDisplayText>All Habits</HabitsDisplayText>
-            <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-              {renderHabits}
-            </SimpleGrid>
+            {/* <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+              {renderHabits()}
+            </SimpleGrid> */}
           </HabitsDisplay>
         </Column>
         <Column>
