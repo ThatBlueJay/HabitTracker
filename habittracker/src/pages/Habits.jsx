@@ -108,7 +108,6 @@ function Habits() {
     }
   }
 
-  const parse = (val) => val.toString()
 
   return(
     <HabitContainer>
