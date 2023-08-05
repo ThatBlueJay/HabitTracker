@@ -1,5 +1,5 @@
 class Record {
-    constructor(id, datedone, duedate, complete, completetimed, hoursspent, habitid) {
+    constructor(id, datedone, duedate, complete = false, completetimed = false, hoursspent = 0, habitid) {
         this.id = id;
         this.datedone = datedone;
         this.duedate = duedate;
@@ -29,7 +29,8 @@ class Record {
             return 0;
         }
         else if (currentDate > dueDate && this.complete && !this.completetimed) {
-            return Math.exp(-0.1 * this.hours);
+            if(isNaN(Math.exp(-0.1 * this.hoursspent))) console.log(this.hoursspent);
+            return Math.exp(-0.1 * this.hoursspent);
         }
         else {
             return 0.5;
@@ -90,7 +91,9 @@ class Analyzer {
 
     getRawData() {
         const start = this.getEarliest()
-        const end = this.getLatest()
+        const current = new Date();
+        const end = Math.min(current, this.getLatest());
+        //const end = new Date();
         //console.log(records[0].getX(start, end))
         const pairs = this.records.map((record) => {
             return {x: record.getX(start, end), y: record.getY()};
@@ -102,17 +105,17 @@ class Analyzer {
         const resultPairs = [];
         for(let position  = 0; position  <= 1; position  += 0.1) {
 
-            const range = 0.05 * (1 - position ** 2) + 0.01;
+            const range = 0.05 * (1 + Math.exp(-5 * (position - 0.7)));
 
-            const lowerBound = Math.max(0, position - range);
-            const upperBound = Math.min(1, position + range);
+            const lowerBound = Math.max(0, position - range / 2);
+            const upperBound = Math.min(1, position + range / 2);
 
             const filteredPairs = this.getRawData().filter((pair) => {
                 const pairPosition = pair.x;
                 return pairPosition >= lowerBound && pairPosition <= upperBound;
             });
 
-            const totalHours =filteredPairs.reduce((sum, pair) => sum + pair.y, 0);
+            const totalHours = filteredPairs.reduce((sum, pair) => sum + pair.y, 0);
             const averageHours = filteredPairs.length > 0 ? totalHours / filteredPairs.length : 0;
 
             resultPairs.push({
