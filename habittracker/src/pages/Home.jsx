@@ -4,7 +4,6 @@ import { LoginContext } from "../App.js";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
 import { EmailIcon, LockIcon } from '@chakra-ui/icons'
-import { Navigate } from "react-router-dom";
 
 
 function verify(password){

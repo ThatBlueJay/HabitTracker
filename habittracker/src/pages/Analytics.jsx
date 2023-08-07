@@ -7,6 +7,7 @@ import { Checkbox, Button, HStack } from '@chakra-ui/react'
 
 function Analytics() {
   const { login } = useContext(LoginContext);
+  //const login = true;
   const { id } = useContext(IdContext);
   // DON'T DELETE
   const [habits, setHabits] = useState([]); 
