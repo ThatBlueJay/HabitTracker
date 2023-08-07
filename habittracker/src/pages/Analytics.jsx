@@ -12,6 +12,7 @@ function Analytics() {
   // const id = 6;
   // DON'T DELETE
   const [habits, setHabits] = useState([]); 
+  const [chartData, setChartData] = useState([]); 
   const [checkedItems, setCheckedItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +36,24 @@ function Analytics() {
     }
   };
 
+  const updateGraph = async () => {
+    try {
+      var allIds = "";
+      for (let i = 0; i < checkedItems.length; i++) {
+        allIds += checkedItems[i];
+        if(i < checkedItems.length-1) {
+          allIds += ",";
+        }
+      }
+      const response = await fetch('http://localhost:3000/analysis?ids=' + allIds);
+      const chartData = await response.json();
+      setChartData(chartData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setLoading(false);
+    }
+  };
+
   const handleCheckboxChange = (item) => {
     if (checkedItems.includes(item)) {
       // Item is already checked, remove it from the list
@@ -43,7 +62,9 @@ function Analytics() {
       // Item is not checked, add it to the list
       setCheckedItems([...checkedItems, item]);
     }
+    updateGraph();
   };
+
 
 
   return(
@@ -63,7 +84,7 @@ function Analytics() {
                 >{item.title}</Checkbox>
               ))}
           </CheckBoxesHabits>
-          <Chart data={habits}/>
+          <Chart data={chartData}/>
         </HStack>
       </ChartContainer>
     </AnalyticsContainer>
