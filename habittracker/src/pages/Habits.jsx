@@ -10,8 +10,8 @@ import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
 
-  const { login, handleLogin } = useContext(LoginContext);
-  const { id, setId } = useContext(IdContext);
+  const { login} = useContext(LoginContext);
+  const { id } = useContext(IdContext);
   // const login = true;
   // const id = 6;
 
@@ -28,9 +28,9 @@ function Habits() {
   const [loading, setLoading] = useState(false);
 
   // if the user is not logged in, redirect them to the home page
-  // if (!login) {
-  //   return <Navigate to="/" />
-  // }
+  if (!login) {
+    return <Navigate to="/" />
+  }
 
   async function deleteHabit(id) {
     console.log(id);
