@@ -14,12 +14,7 @@ function Header() {
         </HeaderLeft>
         <HeaderRight>
           <HeaderNavigationContainer>
-            {/* <StyledLink to="/"><FaHome fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
-            <StyledLink to="/Habits"><FaGripHorizontal fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
-            <StyledLink to="/Calendar"><FaCalendarDay fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
-            <StyledLink to="/Analytics"><FaCalculator fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
-            <StyledLink to="/"><FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/></StyledLink> */}
-
+            
             <ButtonGroup>
               <StyledLink to="/"><FaHome fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
               <TextA>Home</TextA>
