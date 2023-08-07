@@ -14,11 +14,37 @@ function Header() {
         </HeaderLeft>
         <HeaderRight>
           <HeaderNavigationContainer>
-            <Link to="/"><FaHome/></Link>
-            <Link to="/Habits"><FaGripHorizontal/></Link>
-            <Link to="/Calendar"><FaCalendarDay/></Link>
-            <Link to="/Analytics"><FaCalculator/></Link>
-            <Link to="/"><FaDoorOpen/></Link>
+            {/* <StyledLink to="/"><FaHome fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+            <StyledLink to="/Habits"><FaGripHorizontal fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+            <StyledLink to="/Calendar"><FaCalendarDay fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+            <StyledLink to="/Analytics"><FaCalculator fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+            <StyledLink to="/"><FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/></StyledLink> */}
+
+            <ButtonGroup>
+              <StyledLink to="/"><FaHome fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Home</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <StyledLink to="/Habits"><FaGripHorizontal fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Habits</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <StyledLink to="/Calendar"><FaCalendarDay fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Calendar</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <StyledLink to="/Analytics"><FaCalculator fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Analytics</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <StyledLink to="/"><FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Log Out</TextA>
+            </ButtonGroup> 
+
             {/* <ButtonGroup>
               <IconButton variant="none" as="a" href="/" aria-label="Home" icon={<FaHome fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Home</TextA>
@@ -119,7 +145,16 @@ const ButtonGroup = styled.div`
     transform: scale(1.2);
     margin: 10px;
   }
-
 `
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  font-weight: bolder;
+  color: #0D3B66;
+  font-size: large;
+  margin: 5px;
+`;
+
+
 
 export default Header;
