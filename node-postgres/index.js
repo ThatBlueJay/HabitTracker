@@ -127,8 +127,8 @@ app.get('/auth', (req, res) => {
 
 //Analysis Model
 
-app.get('/analysis/:id', (req, res) => {
-  analyzer_model.getHabitAverage(req.params.id)
+app.get('/analysis', (req, res) => {
+  analyzer_model.getData(req.query)
   .then(response => {
     res.status(200).send(response);
   })

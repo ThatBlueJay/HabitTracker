@@ -14,24 +14,32 @@ const createUser = (body) => {
       if (error) {
         reject(error)
       }
-      resolve(`${results.rows[0].user_id}`)
+      if(results == null) {
+        resolve(`${-1}`)
+      }
+      else if(results.rowCount < 1) {
+        resolve(`${-1}`)
+      }
+      else resolve(`${results.rows[0].user_id}`)
     })
   })
 }
 
 const deleteUser = (id) => {
   return new Promise(function(resolve, reject) {
+    if(id == null) resolve(`${-1}`)
     pool.query('DELETE FROM users WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(`User deleted with ID: ${id}`)
+      resolve(`${id}`)
     })
   })
 }
 
 const getUser = (id) => {
   return new Promise(function(resolve, reject) {
+    if(id == null) resolve(`${-1}`)
     pool.query('SELECT * FROM users WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
@@ -44,12 +52,13 @@ const getUser = (id) => {
 const authorize = (query) => {
   return new Promise(function(resolve, reject) {
     const {email, password} = query
+    if(email == null || password == null) resolve(`${-1}`)
     pool.query('SELECT user_id FROM users WHERE email = $1 AND password = $2', [email, password], (error, results) => {
       if (error) {
         reject(error)
       }
       else if(results.rowCount < 1) {
-        resolve("None")
+        resolve(`${-1}`)
       }
       else resolve(`${results.rows[0].user_id}`)
     })

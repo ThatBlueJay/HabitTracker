@@ -48,7 +48,7 @@ function Habits() {
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        //console.log(data);
         alert(data);
       })
       .catch(error => {

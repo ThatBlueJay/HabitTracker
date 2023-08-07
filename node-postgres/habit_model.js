@@ -19,7 +19,13 @@ const createHabit = (body) => {
         if (error) {
           reject(error)
         }
-        resolve(`A new habit has been added with ID: ${results.rows[0].habit_id}!`)
+        if(results == null) {
+          resolve(`${-1}`)
+        }
+        else if(results.rowCount < 1) {
+          resolve(`${-1}`)
+        }
+        else resolve(`${results.rows[0].habit_id}`)
       })
       
     })
@@ -28,27 +34,39 @@ const createHabit = (body) => {
 
 const deleteHabit = (id) => {
   return new Promise(function(resolve, reject) {
-    pool.query('DELETE FROM records WHERE habit_id = $1', [id], (error, rez) => {
+    pool.query('SELECT title FROM habits WHERE habit_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
-      pool.query('DELETE FROM habits WHERE habit_id = $1', [id], (error, results) => {
+      const name = results.rows[0].title
+      pool.query('DELETE FROM records WHERE habit_id = $1', [id], (error, rez) => {
         if (error) {
           reject(error)
         }
-        resolve(`Habit deleted with ID: ${id}`)
+        pool.query('DELETE FROM habits WHERE habit_id = $1', [id], (error, results) => {
+          if (error) {
+            reject(error)
+          }
+          resolve(`${name}`)
+        })
       })
     })
+    
   })
 }
 
 const getHabit = (id) => {
   return new Promise(function(resolve, reject) {
+    if(id == null) resolve(`${-1}`)
     pool.query('SELECT * FROM habits WHERE user_id = $1', [id], (error, results) => {
       if (error) {
         reject(error)
       }
-      resolve(results.rows);
+      if(results == null) resolve(`${-1}`)
+      else if(results.rowCount < 1) {
+        resolve(`${-1}`)
+      }
+      else resolve(results.rows);
     })
   }) 
 }
@@ -73,11 +91,16 @@ const confirmHabit = (id) => {
         reject(error)
       }
       var today = new Date();
+      if(results == null) {
+        resolve(`${-1}`)
+      }
+      else if(results.rowCount < 1) {
+        resolve(`${-1}`)
+      }
       pool.query('UPDATE records set complete = true where record_id = $1', [id], (err, rests) => {
         if (err) {
           reject(err)
         }
-        
       }) 
       console.log(Math.abs(Math.round(((today.getTime() - results.rows[0].due_date.getTime()) / 1000) / (60*60))))
       pool.query('UPDATE records set datet_complete = $2 where record_id = $1', [id, today], (err, rests) => {
@@ -107,7 +130,7 @@ const confirmHabit = (id) => {
           }
         })
       }
-      resolve(`Record marked as complete: ${id}`)
+      resolve(`${id}`)
     })
   }) 
 }
