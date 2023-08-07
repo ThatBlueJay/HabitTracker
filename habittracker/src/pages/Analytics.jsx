@@ -6,10 +6,10 @@ import Chart from "../components/Chart.jsx";
 import { Checkbox, Button, HStack } from '@chakra-ui/react'
 
 function Analytics() {
-  // const { login} = useContext(LoginContext);
-  // const { id } = useContext(IdContext);
-  const login = true;
-  const id = 6;
+  const { login} = useContext(LoginContext);
+  const { id } = useContext(IdContext);
+  // const login = true;
+  // const id = 6;
   // DON'T DELETE
   const [habits, setHabits] = useState([]); 
   const [checkedItems, setCheckedItems] = useState([]);

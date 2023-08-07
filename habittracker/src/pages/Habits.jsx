@@ -10,10 +10,10 @@ import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
 
-  // const { login, handleLogin } = useContext(LoginContext);
-  // const { id, setId } = useContext(IdContext);
-  const login = true;
-  const id = 6;
+  const { login, handleLogin } = useContext(LoginContext);
+  const { id, setId } = useContext(IdContext);
+  // const login = true;
+  // const id = 6;
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

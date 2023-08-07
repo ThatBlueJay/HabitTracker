@@ -104,10 +104,10 @@ async function updateHabit(id) {
 
 const Calendar = () => {
 
-  // const { login } = useContext(LoginContext);
-  // const { id } = useContext(IdContext);
-  const login = true;
-  const id = 6;
+  const { login } = useContext(LoginContext);
+  const { id } = useContext(IdContext);
+  // const login = true;
+  // const id = 6;
   
   console.log("calendar page: ", login, id);
 
