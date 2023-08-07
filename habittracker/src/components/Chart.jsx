@@ -12,6 +12,7 @@ import {
 const Chart = (props) => {
 
   const data =  props.data;
+  console.log(props);
 
   return (
     <LineChart

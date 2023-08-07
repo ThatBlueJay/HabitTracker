@@ -8,7 +8,7 @@ import Calendar from './pages/Calendar';
 import Analytics from './pages/Analytics';
 import Signup from './pages/Signup';
 import { ChakraProvider } from '@chakra-ui/react'
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
 export const LoginContext = createContext();
 export const IdContext = createContext();
@@ -32,9 +32,6 @@ function AppProvider({ children }) {
 }
 
 function App() {
-
-  //const { login } = useContext(LoginContext);
-  //const { id } = useContext(IdContext);
     return (
       <AppProvider>
       <ChakraProvider>

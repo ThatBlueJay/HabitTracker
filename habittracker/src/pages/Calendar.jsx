@@ -60,8 +60,10 @@ async function getHabits(id) {
     allHabits = getDataFromPromise(success);
   })
 
-  if (allHabits != null) {
+  if (allHabits.length != []) {
+    console.log(allHabits);
     for(let i = allHabits.length-1; i >= 0; i--) {
+
       const habitID = allHabits[i].habit_id;
       // let data = [];
       // allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(allHabits[i].title, allHabits[i].start_time, allHabits[i].end_time, data));
@@ -102,11 +104,12 @@ async function updateHabit(id) {
 
 const Calendar = () => {
 
-  const { login } = useContext(LoginContext);
-  const { id } = useContext(IdContext);
+  // const { login } = useContext(LoginContext);
+  // const { id } = useContext(IdContext);
+  const login = true;
+  const id = 6;
   
   console.log("calendar page: ", login, id);
-
 
     const [config, setConfig] = useState({
       viewType: "Week",

@@ -10,10 +10,10 @@ import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
 
-  const { login } = useContext(LoginContext);
-  const { id } = useContext(IdContext);
-
-
+  // const { login, handleLogin } = useContext(LoginContext);
+  // const { id, setId } = useContext(IdContext);
+  const login = true;
+  const id = 6;
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -26,14 +26,14 @@ function Habits() {
   //This diplays the habit on the screen
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log("habits page: ", login, id);
 
   // if the user is not logged in, redirect them to the home page
-  if (!login) {
-    return <Navigate to="/" />
-  }
+  // if (!login) {
+  //   return <Navigate to="/" />
+  // }
 
   async function deleteHabit(id) {
+    console.log(id);
     const url = "http://localhost:3000/habits/" + id;
     await fetch(url, {
       method: 'DELETE',
@@ -45,6 +45,7 @@ function Habits() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+        fetchHabits();
         return response.json();
       })
       .then(data => {
@@ -71,7 +72,6 @@ function Habits() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const habit = {
       title,
       description,
@@ -79,13 +79,13 @@ function Habits() {
       end_time: endTime,
       category,
       recurring: {
-        days: recurring
+        days: recurring + category
       },
       start_date: startDate,
       end_date: endDate,
       user_id: id
     };
-
+    console.log(habit);
     try {
       const response = await fetch('http://localhost:3000/habits', {
         method: 'POST',
@@ -94,19 +94,19 @@ function Habits() {
         },
         body: JSON.stringify(habit)
       });
-
-      const data = await response.json();
+      await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || 'Could not save the habit.');
+      } else {
+        alert("Your habit has been added!");
       }
-
-      // You can add some code here to handle the response
     } catch (err) {
       console.error(err);
-      // Handle the error here
     }
   }
+
+  console.log("habits page: ", login, id);
 
 
   return(
@@ -118,7 +118,7 @@ function Habits() {
             <HabitsDisplayText>All Habits</HabitsDisplayText>
             <Button onClick={fetchHabits} isLoading={loading} loadingText="Loading...">Show Habits</Button>
             <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-              {data.map((item) => (
+              {data.length > 0 && data.map((item) => (
                 <Card variant='elevated'>
                   <Stack>
                     <CardBody>
