@@ -19,8 +19,8 @@ function Habits() {
   const [description, setDescription] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [category, setCategory] = useState('');
-  const [recurring, setRecurring] = useState('');
+  const [category, setCategory] = useState("");
+  const [recurring, setRecurring] = useState("");
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   //This diplays the habit on the screen

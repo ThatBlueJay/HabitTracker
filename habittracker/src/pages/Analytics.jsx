@@ -13,7 +13,7 @@ function Analytics() {
   // DON'T DELETE
   const [habits, setHabits] = useState([]); 
   const [chartData, setChartData] = useState([]); 
-  const [checkedItems, setCheckedItems] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]); 
   const [loading, setLoading] = useState(false);
 
   // if the user is not logged in, redirect them to the home page
