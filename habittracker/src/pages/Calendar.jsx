@@ -90,12 +90,13 @@ async function updateHabit(id) {
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
+      } else {
+        alert("Good job! You have completed the habit!");
       }
       return response.json();
     })
     .then(data => {
       console.log(data);
-      alert("Confirmed! Good job!");
     })
     .catch(error => {
       console.error('Error:', error);
@@ -106,8 +107,6 @@ const Calendar = () => {
 
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
-  // const login = true;
-  // const id = 6;
   
   console.log("calendar page: ", login, id);
 

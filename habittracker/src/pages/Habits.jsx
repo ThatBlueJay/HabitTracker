@@ -78,9 +78,7 @@ function Habits() {
       start_time: startTime,
       end_time: endTime,
       category,
-      recurring: {
-        days: recurring + category
-      },
+      recurring: recurring + category,
       start_date: startDate,
       end_date: endDate,
       user_id: id

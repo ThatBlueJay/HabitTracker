@@ -44,32 +44,7 @@ function Header() {
               <StyledLink to="/"><FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
               <TextA>Log Out</TextA>
             </ButtonGroup> 
-
-            {/* <ButtonGroup>
-              <IconButton variant="none" as="a" href="/" aria-label="Home" icon={<FaHome fontSize="1.7rem" color="#FFFFFF"/>} />
-              <TextA>Home</TextA>
-            </ButtonGroup>
-
-            <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Habits" aria-label="Habits" icon={<FaGripHorizontal fontSize="1.7rem" color="#FFFFFF"/>} />
-              <TextA>Habits</TextA>
-            </ButtonGroup>
-
-            <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Calendar" aria-label="Calendar" icon={<FaCalendarDay fontSize="1.7rem" color="#FFFFFF"/>} />
-              <TextA>Calendar</TextA>
-            </ButtonGroup>
-
-            <ButtonGroup>
-              <IconButton variant="none" as="a" href="/Analytics" aria-label="Analytics" icon={<FaCalculator fontSize="1.7rem" color="#FFFFFF"/>} />
-              <TextA>Analytics</TextA>
-            </ButtonGroup>
-
-            <ButtonGroup>
-              <IconButton variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
-              <TextA>Log Out</TextA>
-            </ButtonGroup> */}
-
+            
           </HeaderNavigationContainer>
         </HeaderRight>
       </HeaderInnerContainer>
