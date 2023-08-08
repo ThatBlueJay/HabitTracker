@@ -41,9 +41,9 @@ function Home() {
   const { login, handleLogin } = useContext(LoginContext);
   const navigate = useNavigate();
 
-  // if (login) {
-  //   return <Navigate to="/Calendar" />
-  // }
+  if (login) {
+    return <Navigate to="/Calendar" />
+  }
 
   console.log("Home page: ", login);
 
