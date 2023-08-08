@@ -19,7 +19,7 @@ function Habits() {
   const [description, setDescription] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("days");
   const [recurring, setRecurring] = useState("");
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -83,7 +83,7 @@ function Habits() {
       end_date: endDate,
       user_id: id
     };
-    console.log(habit);
+    alert("Your habit has been added!");
     try {
       const response = await fetch('http://localhost:3000/habits', {
         method: 'POST',
@@ -93,11 +93,8 @@ function Habits() {
         body: JSON.stringify(habit)
       });
       await response.json();
-
       if (!response.ok) {
         throw new Error(data.message || 'Could not save the habit.');
-      } else {
-        alert("Your habit has been added!");
       }
     } catch (err) {
       console.error(err);
@@ -114,7 +111,7 @@ function Habits() {
         <Column>
           <HabitsDisplay>
             <HabitsDisplayText>All Habits</HabitsDisplayText>
-            <Button onClick={fetchHabits} isLoading={loading} loadingText="Loading...">Show Habits</Button>
+            <Button margin="3" onClick={fetchHabits} isLoading={loading} loadingText="Loading...">Show Habits</Button>
             <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
               {data.length > 0 && data.map((item) => (
                 <Card variant='elevated'>
@@ -149,7 +146,10 @@ function Habits() {
               onChange={e => setTitle(e.target.value)}/>
           </InputGroup>
 
+
           <HStack spacing='3'>
+          <InputSubText>every</InputSubText>
+
             <NumberInput 
               size='sm' 
               maxW={20} 
@@ -166,9 +166,7 @@ function Habits() {
                 <NumberDecrementStepper />
               </NumberInputStepper>
             </NumberInput>
-            <InputSubText>every</InputSubText>
             <Select variant='filled' onChange={e => setCategory(e.target.value)} value={category}>
-              <option>hours</option>
               <option>days</option>
               <option>weeks</option>
               <option>years</option>

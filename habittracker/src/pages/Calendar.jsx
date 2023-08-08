@@ -50,24 +50,22 @@ async function getHabits(id) {
   
   const start = getMonthName(today.getMonth()+1) + " " + 1 + ", " + today.getFullYear();
   const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
+  console.log(start, end);
   var allHabitsToPutOnCalendar = [];
 
   var allHabits = [];
   await fetch('http://localhost:3000/habits/' + id) 
   .then(data => data.json())
   .then(success => {
-    console.log(success);
+    //console.log(success);
     allHabits = getDataFromPromise(success);
   })
+  console.log(allHabits);
 
-  if (allHabits.length != []) {
-    console.log(allHabits);
+  if (allHabits != []) {
     for(let i = allHabits.length-1; i >= 0; i--) {
-
       const habitID = allHabits[i].habit_id;
-      // let data = [];
-      // allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(allHabits[i].title, allHabits[i].start_time, allHabits[i].end_time, data));
-
+      console.log(habitID);
       await fetch("http://localhost:3000/habits/?id=" + habitID + "&begin=" + start + "&end=" + end) 
         .then(response => response.json())
         .then(data => {
@@ -75,8 +73,8 @@ async function getHabits(id) {
       })
     }
   }
-  //console.log(allHabitsToPutOnCalendar);
-  return allHabitsToPutOnCalendar;
+  console.log(allHabitsToPutOnCalendar);
+   return allHabitsToPutOnCalendar;
 }
 
 async function updateHabit(id) {
@@ -124,14 +122,13 @@ const Calendar = () => {
     }
 
     const handleEventClick = (args) => {
-      console.log(args.e.data.id);
       updateHabit(args.e.data.id);
     }
 
     useEffect(() => {
       async function updateCalendar() {
         const events = await getHabits(id);
-        console.log(events);
+        //console.log(events);
         const startDate = new Date();
         calendarRef.current?.control.update({startDate, events});
       }

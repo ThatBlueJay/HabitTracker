@@ -8,9 +8,6 @@ import { Checkbox, Button, HStack } from '@chakra-ui/react'
 function Analytics() {
   const { login} = useContext(LoginContext);
   const { id } = useContext(IdContext);
-  // const login = true;
-  // const id = 6;
-  // DON'T DELETE
   const [habits, setHabits] = useState([]); 
   const [chartData, setChartData] = useState([]); 
   const [checkedItems, setCheckedItems] = useState([]); 
@@ -36,8 +33,20 @@ function Analytics() {
     }
   };
 
-  const updateGraph = async () => {
-    console.log(checkedItems);
+  const handleCheckboxChange = (item) => {
+    setCheckedItems((prevCheckedItems) => {
+      const newCheckedItems = prevCheckedItems.includes(item)
+        ? prevCheckedItems.filter((checkedItem) => checkedItem !== item)
+        : [...prevCheckedItems, item];
+  
+      console.log(newCheckedItems);
+      updateGraph(newCheckedItems); // Call updateGraph with the updated state
+  
+      return newCheckedItems; // Return the new state value
+    });
+  };
+
+  const updateGraph = async (checkedItems) => {
     try {
       console.log("checked" , checkedItems);
       var allIds = "";
@@ -51,6 +60,7 @@ function Analytics() {
           }
         }
       }
+      console.log("allIds", allIds);
       const response = await fetch('http://localhost:3000/analysis?ids=' + allIds);
       const data = await response.json();
       setChartData(data.list);
@@ -61,20 +71,6 @@ function Analytics() {
     }
   };
 
-  const handleCheckboxChange = (item) => {
-    console.log(item);
-    if (checkedItems.includes(item)) {
-      // Item is already checked, remove it from the list
-      setCheckedItems(checkedItems.filter((checkedItem) => checkedItem !== item));
-    } else {
-      // Item is not checked, add it to the list
-      setCheckedItems([...checkedItems, item]);
-    }
-    updateGraph();
-  };
-
-
-
   return(
     <AnalyticsContainer>
       <Header>Analytics Page</Header>
@@ -84,10 +80,9 @@ function Analytics() {
           <CheckBoxesHabits>
             <Button onClick={fetchHabits} colorScheme="yellow" isLoading={loading} loadingText="Loading...">Show Habits</Button>
               {habits && <Subsubheader>All Habits</Subsubheader>}
-              {habits !== [] && habits.map((item) => (
+              {habits.length > 0 && habits.map((item) => (
                 <Checkbox
                   key={item.habit_id}
-                  isChecked={checkedItems.includes(item.habit_id)}
                   onChange={() => handleCheckboxChange(item.habit_id)}
                 >{item.title}</Checkbox>
               ))}
