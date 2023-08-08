@@ -16,8 +16,8 @@ const Chart = (props) => {
 
   return (
     <LineChart
-      width={500}
-      height={300}
+      width={700}
+      height={400}
       data={data}
       margin={{
         top: 5,
@@ -27,7 +27,7 @@ const Chart = (props) => {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="Time" />
+      <XAxis type="number" domain={[0,1]} dataKey="Time" />
       <YAxis type="number" domain={[0,1]}/>
       <Tooltip />
       <Legend />

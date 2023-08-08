@@ -259,7 +259,7 @@ const HabitsDisplayText = styled.h1`
   font-size: 30px;
   font-weight: bold;
   margin: auto;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: #FFFFFF;
   text-align: center;
 `

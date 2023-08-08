@@ -6,10 +6,10 @@ import Chart from "../components/Chart.jsx";
 import { Checkbox, Button, HStack } from '@chakra-ui/react'
 
 function Analytics() {
-  const { login} = useContext(LoginContext);
-  const { id } = useContext(IdContext);
-  // const login = true;
-  // const id = 6;
+  // const { login} = useContext(LoginContext);
+  // const { id } = useContext(IdContext);
+  const login = true;
+  const id = 6;
   // DON'T DELETE
   const [habits, setHabits] = useState([]); 
   const [chartData, setChartData] = useState([]); 
@@ -80,9 +80,9 @@ function Analytics() {
       <Header>Analytics Page</Header>
       <ChartContainer>
         <Subheader>Select habits to view your consistency over time</Subheader>
-        <HStack>
+        <HStack spacing={5}>
           <CheckBoxesHabits>
-            <Button onClick={fetchHabits} isLoading={loading} loadingText="Loading...">Show Habits</Button>
+            <Button onClick={fetchHabits} colorScheme="yellow" isLoading={loading} loadingText="Loading...">Show Habits</Button>
               {habits && <Subsubheader>All Habits</Subsubheader>}
               {habits.map((item) => (
                 <Checkbox
@@ -92,7 +92,6 @@ function Analytics() {
                 >{item.title}</Checkbox>
               ))}
           </CheckBoxesHabits>
-          <Button
           <Chart data={chartData}/>
         </HStack>
       </ChartContainer>
@@ -107,8 +106,8 @@ const AnalyticsContainer = styled.div`
   flex-direction: column;
   min-height: calc( 100vh - 200px );
   background-color: #F4E285;
-  justify-content: center;
-  align-items: center;
+  //justify-content: center;
+  //align-items: center;
 `;
 
 const ChartContainer = styled.div`
@@ -153,7 +152,8 @@ const Subsubheader = styled.h2`
 const CheckBoxesHabits = styled.div`
   display: flex;
   flex-direction: column;
-  text-align: right;
+  margin: 30px;
+  width: 200px;
 `
 
 export default Analytics
