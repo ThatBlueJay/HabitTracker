@@ -38,6 +38,7 @@ function Analytics() {
 
   const updateGraph = async () => {
     try {
+      console.log("checked" , checkedItems);
       var allIds = "";
       for (let i = 0; i < checkedItems.length; i++) {
         allIds += checkedItems[i];
@@ -55,6 +56,7 @@ function Analytics() {
   };
 
   const handleCheckboxChange = (item) => {
+    console.log(item);
     if (checkedItems.includes(item)) {
       // Item is already checked, remove it from the list
       setCheckedItems(checkedItems.filter((checkedItem) => checkedItem !== item));
