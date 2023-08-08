@@ -52,7 +52,7 @@ function Analytics() {
       }
       const response = await fetch('http://localhost:3000/analysis?ids=' + allIds);
       const data = await response.json();
-      setChartData(data);
+      setChartData(data.list);
     } catch (error) {
       console.error('Error fetching data:', error);
       setLoading(false);
