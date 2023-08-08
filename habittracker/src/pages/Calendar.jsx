@@ -60,8 +60,10 @@ async function getHabits(id) {
     allHabits = getDataFromPromise(success);
   })
 
-  if (allHabits != null) {
+  if (allHabits.length != []) {
+    console.log(allHabits);
     for(let i = allHabits.length-1; i >= 0; i--) {
+
       const habitID = allHabits[i].habit_id;
       // let data = [];
       // allHabitsToPutOnCalendar = allHabitsToPutOnCalendar.concat(formatData(allHabits[i].title, allHabits[i].start_time, allHabits[i].end_time, data));
@@ -88,12 +90,13 @@ async function updateHabit(id) {
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
+      } else {
+        alert("Good job! You have completed the habit!");
       }
       return response.json();
     })
     .then(data => {
       console.log(data);
-      alert("Confirmed! Good job!");
     })
     .catch(error => {
       console.error('Error:', error);
@@ -104,6 +107,8 @@ const Calendar = () => {
 
   const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
+  
+  console.log("calendar page: ", login, id);
 
     const [config, setConfig] = useState({
       viewType: "Week",

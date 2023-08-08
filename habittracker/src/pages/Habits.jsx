@@ -1,47 +1,39 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { LoginContext, IdContext } from "../App.js"; 
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Stack, InputLeftAddon, Input, InputGroup, Heading, Text, VStack, HStack} from '@chakra-ui/react'
-import { Card, CardHeader, CardBody, CardFooter, SimpleGrid } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter, SimpleGrid } from '@chakra-ui/react'
 import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react'
 import { Select } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
-  const { login } = useContext(LoginContext);
+
+  const { login} = useContext(LoginContext);
   const { id } = useContext(IdContext);
+  // const login = true;
+  // const id = 6;
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
-  const [category, setCategory] = useState('');
-  const [recurring, setRecurring] = useState('');
+  const [category, setCategory] = useState("");
+  const [recurring, setRecurring] = useState("");
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  //This diplays the habit on the screen
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  //console.log(login);
   // if the user is not logged in, redirect them to the home page
   if (!login) {
     return <Navigate to="/" />
   }
 
-  async function getDataFromPromise(json) {
-    return json;
-  }
-
-  async function getAllHabits(id) {
-    var allHabits = [];
-    await fetch('http://localhost:3000/habits/' + id) 
-    .then(data => data.json())
-    .then((response) => {
-      allHabits = getDataFromPromise(response);
-    })
-    return allHabits;
-  }
-
   async function deleteHabit(id) {
+    console.log(id);
     const url = "http://localhost:3000/habits/" + id;
     await fetch(url, {
       method: 'DELETE',
@@ -53,6 +45,7 @@ function Habits() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+        fetchHabits();
         return response.json();
       })
       .then(data => {
@@ -64,53 +57,33 @@ function Habits() {
       });
   }
 
-  async function renderHabits() {
+  const fetchHabits = async () => {
     try {
-      const habits = await getAllHabits(id);
-      console.log("habits: ", habits);
-      const formattedHabits = habits.map((element) => (
-        <Card variant='elevated' key={element.habit_id}>
-          <Stack>
-            <CardBody>
-              <Heading size='md'>{element.title}</Heading>
-              <Text py='2'>{element.description}</Text>
-            </CardBody>
-            <CardFooter>
-              <Button
-                variant='solid'
-                colorScheme='blue'
-                onClick={() => deleteHabit(element.habit_id)}
-              >
-                Delete habit
-              </Button>
-            </CardFooter>
-          </Stack>
-        </Card>
-      ));
-      return formattedHabits;
+      setLoading(true);
+      const response = await fetch('http://localhost:3000/habits/' + id);
+      const data = await response.json();
+      setData(data);
+      setLoading(false); 
     } catch (error) {
-      console.error("Error fetching habits:", error);
-      return []; // Return an empty array or handle the error appropriately
+      console.error('Error fetching data:', error);
+      setLoading(false);
     }
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const habit = {
       title,
       description,
       start_time: startTime,
       end_time: endTime,
       category,
-      recurring: {
-        days: recurring
-      },
+      recurring: recurring + category,
       start_date: startDate,
       end_date: endDate,
       user_id: id
     };
-
+    console.log(habit);
     try {
       const response = await fetch('http://localhost:3000/habits', {
         method: 'POST',
@@ -119,19 +92,20 @@ function Habits() {
         },
         body: JSON.stringify(habit)
       });
-
-      const data = await response.json();
+      await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || 'Could not save the habit.');
+      } else {
+        alert("Your habit has been added!");
       }
-
-      // You can add some code here to handle the response
     } catch (err) {
       console.error(err);
-      // Handle the error here
     }
   }
+
+  console.log("habits page: ", login, id);
+
 
   return(
     <HabitContainer>
@@ -140,9 +114,26 @@ function Habits() {
         <Column>
           <HabitsDisplay>
             <HabitsDisplayText>All Habits</HabitsDisplayText>
-            {/* <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-              {renderHabits()}
-            </SimpleGrid> */}
+            <Button onClick={fetchHabits} isLoading={loading} loadingText="Loading...">Show Habits</Button>
+            <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+              {data.length > 0 && data.map((item) => (
+                <Card variant='elevated'>
+                  <Stack>
+                    <CardBody>
+                      <Heading size='md'>{item.title}</Heading>
+                      <Text py='2'>
+                        {item.description}
+                      </Text>
+                  </CardBody>
+                  <CardFooter>
+                    <Button variant='solid' colorScheme='blue' onClick={() => deleteHabit(item.habit_id)}>
+                      Delete habit
+                    </Button>
+                  </CardFooter>
+                </Stack>
+              </Card>
+              ))}
+            </SimpleGrid>
           </HabitsDisplay>
         </Column>
         <Column>
@@ -162,14 +153,14 @@ function Habits() {
             <NumberInput 
               size='sm' 
               maxW={20} 
-              defaultValue={1} 
+              defaultValue={7} 
               min={1} 
               max={365}
               variant='filled'
+              value={recurring}
+              onChange={(value) => setRecurring(value)}
               >
-              <NumberInputField 
-                value={recurring}
-                onChange={e => setRecurring(e.target.value)}/>
+              <NumberInputField/>
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
@@ -268,7 +259,7 @@ const HabitsDisplayText = styled.h1`
   font-size: 30px;
   font-weight: bold;
   margin: auto;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: #FFFFFF;
   text-align: center;
 `

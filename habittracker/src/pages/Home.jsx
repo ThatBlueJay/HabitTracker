@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginContext } from "../App.js";
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
 import { EmailIcon, LockIcon } from '@chakra-ui/icons'
-import { Navigate } from "react-router-dom";
 
 
 function verify(password){
@@ -42,11 +41,19 @@ function Home() {
   const { login, handleLogin } = useContext(LoginContext);
   const navigate = useNavigate();
 
+  if (login) {
+    return <Navigate to="/Calendar" />
+  }
+
+  console.log("Home page: ", login);
+
+
   const onLogin = async () => {
     // Implement validation
     if (verify(password)) {
       try {
        const userId = JSON.stringify(await authorize({ email, password }));
+       console.log(userId);
         if (userId !== "None") {
           handleLogin(userId);
           alert("Login successful!");
@@ -61,11 +68,6 @@ function Home() {
       alert("Password should be at least 8 characters long, contains at least one uppercase letter and at least one number");
     }
   };
-
-  if (login) {
-    return <Navigate to="/Habits" />
-  }
-
 
   return (
     <HomeContainer>

@@ -32,9 +32,6 @@ function AppProvider({ children }) {
 }
 
 function App() {
-
-  //const { login } = useContext(LoginContext);
-  //const { id } = useContext(IdContext);
     return (
       <AppProvider>
       <ChakraProvider>
