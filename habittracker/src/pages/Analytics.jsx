@@ -15,7 +15,7 @@ function Analytics() {
   const [chartData, setChartData] = useState([]); 
   const [checkedItems, setCheckedItems] = useState([]); 
   const [loading, setLoading] = useState(false);
-
+  console.log(id);
   // if the user is not logged in, redirect them to the home page
   if (!login) {
     return <Navigate to="/" />
@@ -37,6 +37,7 @@ function Analytics() {
   };
 
   const updateGraph = async () => {
+    console.log(checkedItems);
     try {
       console.log("checked" , checkedItems);
       var allIds = "";
@@ -53,6 +54,7 @@ function Analytics() {
       const response = await fetch('http://localhost:3000/analysis?ids=' + allIds);
       const data = await response.json();
       setChartData(data.list);
+      console.log(data);
     } catch (error) {
       console.error('Error fetching data:', error);
       setLoading(false);
