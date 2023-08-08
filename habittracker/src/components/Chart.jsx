@@ -28,14 +28,13 @@ const Chart = (props) => {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="Time" />
-      <YAxis />
+      <YAxis type="number" domain={[0,1]}/>
       <Tooltip />
       <Legend />
       <Line
         type="monotone"
         dataKey="Consistency"
         stroke="#8884d8"
-        activeDot={{ r: 8 }}
       />
     </LineChart>
   );

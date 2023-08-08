@@ -92,6 +92,7 @@ function Analytics() {
                 >{item.title}</Checkbox>
               ))}
           </CheckBoxesHabits>
+          <Button
           <Chart data={chartData}/>
         </HStack>
       </ChartContainer>
