@@ -6,10 +6,10 @@ import Chart from "../components/Chart.jsx";
 import { Checkbox, Button, HStack } from '@chakra-ui/react'
 
 function Analytics() {
-  // const { login} = useContext(LoginContext);
-  // const { id } = useContext(IdContext);
-  const login = true;
-  const id = 6;
+  const { login} = useContext(LoginContext);
+  const { id } = useContext(IdContext);
+  // const login = true;
+  // const id = 6;
   // DON'T DELETE
   const [habits, setHabits] = useState([]); 
   const [chartData, setChartData] = useState([]); 
@@ -41,7 +41,7 @@ function Analytics() {
     try {
       console.log("checked" , checkedItems);
       var allIds = "";
-      if (checkedItems.length == 0) {
+      if (checkedItems.length === 0) {
         allIds = "-1";
       } else {
         for (let i = 0; i < checkedItems.length; i++) {
@@ -84,7 +84,7 @@ function Analytics() {
           <CheckBoxesHabits>
             <Button onClick={fetchHabits} colorScheme="yellow" isLoading={loading} loadingText="Loading...">Show Habits</Button>
               {habits && <Subsubheader>All Habits</Subsubheader>}
-              {habits != [] && habits.map((item) => (
+              {habits !== [] && habits.map((item) => (
                 <Checkbox
                   key={item.habit_id}
                   isChecked={checkedItems.includes(item.habit_id)}
