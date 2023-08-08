@@ -84,7 +84,7 @@ function Analytics() {
           <CheckBoxesHabits>
             <Button onClick={fetchHabits} colorScheme="yellow" isLoading={loading} loadingText="Loading...">Show Habits</Button>
               {habits && <Subsubheader>All Habits</Subsubheader>}
-              {habits.map((item) => (
+              {habits.length > 0 && habits.map((item) => (
                 <Checkbox
                   key={item.habit_id}
                   isChecked={checkedItems.includes(item.habit_id)}
