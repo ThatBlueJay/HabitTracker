@@ -40,15 +40,19 @@ function Analytics() {
     try {
       console.log("checked" , checkedItems);
       var allIds = "";
-      for (let i = 0; i < checkedItems.length; i++) {
-        allIds += checkedItems[i];
-        if(i < checkedItems.length-1) {
-          allIds += ",";
+      if (checkedItems.length == 0) {
+        allIds = "-1";
+      } else {
+        for (let i = 0; i < checkedItems.length; i++) {
+          allIds += checkedItems[i];
+          if(i < checkedItems.length-1) {
+            allIds += ",";
+          }
         }
       }
       const response = await fetch('http://localhost:3000/analysis?ids=' + allIds);
-      const chartData = await response.json();
-      setChartData(chartData);
+      const data = await response.json();
+      setChartData(data);
     } catch (error) {
       console.error('Error fetching data:', error);
       setLoading(false);
