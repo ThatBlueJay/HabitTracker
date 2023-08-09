@@ -1,3 +1,5 @@
+-- Code to place 3 years of test data into the database. Used exclusively for testing.
+
 DELETE FROM RECORDS *;
 DELETE FROM HABITS *;
 DELETE FROM CLASS *;

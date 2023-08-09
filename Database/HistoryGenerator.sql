@@ -1,5 +1,6 @@
+-- Code to generate Records for fake past Habits. Used exclusively for testing
 
-
+-- Random number generator function
 CREATE OR REPLACE FUNCTION random_between(low INT ,high INT) RETURNS INT AS $$
 BEGIN
     --Raise notice 'Ran random';
@@ -8,7 +9,8 @@ BEGIN
 END;
 $$ language plpgsql;
 
-
+-- Copy of RecordGenerator hardcoded to generate Records from March 4, 2020 to the present
+-- Used exclusively for testing 
 DROP FUNCTION IF EXISTS historygenerator;
 CREATE FUNCTION historygenerator() RETURNS INT AS $$
 DECLARE
