@@ -32,7 +32,7 @@ function getDataFromPromise(json) {
 // Format habit data for display on the calendar
 function formatData(title, start, end, data) {
   // Array of colors to assign to habits
-  var colorCounter = ["#D8D174", "#F7B538", "#FFE45E", "#F4FDAF", "#EFDD8D"];
+  var colorCounter = ["#E0F17E", "#FACC91", "#F3EBA2", "#FF957D", "#FFD580"];
   let toAdd = [];
   for(let i = 0; i < data.length; i++) {
     let num = Math.floor(Math.random() * 5);
