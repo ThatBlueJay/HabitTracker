@@ -34,11 +34,16 @@ function Header() {
               <StyledLink to="/Analytics"><FaCalculator fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
               <TextA>Analytics</TextA>
             </ButtonGroup>
-
+            
             <ButtonGroup>
+              <IconButton variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Log Out</TextA>
+            </ButtonGroup>
+
+            {/* <ButtonGroup>
               <StyledLink to="/"><FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
               <TextA>Log Out</TextA>
-            </ButtonGroup> 
+            </ButtonGroup>  */}
             
           </HeaderNavigationContainer>
         </HeaderRight>

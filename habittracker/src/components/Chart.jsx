@@ -12,7 +12,6 @@ import {
 const Chart = (props) => {
 
   const data =  props.data;
-  console.log(props);
 
   return (
     <LineChart
@@ -28,7 +27,7 @@ const Chart = (props) => {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis type="number" domain={[0,1]} dataKey="Time" />
-      <YAxis type="number" domain={[0,1]}/>
+      <YAxis type="number" domain={[0,1]} dataKey="Consistency"/>
       <Tooltip />
       <Legend />
       <Line
