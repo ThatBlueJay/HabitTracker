@@ -7,6 +7,15 @@ const pool = new Pool({
   port: 5432,
 })
 
+/**
+ * Method - Create a user given information and add them to the User table in the database
+ * @param String username - the username of the user
+ * @param String password - the password of the user
+ * @param String email - the email of the user
+ * @param String password - the phone of the user
+ * @modifies User Table
+ * @effects User Table - Add this new user into the database
+ **/
 const createUser = (body) => {
   return new Promise(function(resolve, reject) {
     const {username, password, email, phone} = body
@@ -25,6 +34,12 @@ const createUser = (body) => {
   })
 }
 
+/**
+ * Method - Deletes the user of the given ID
+ * @param int id - the id of the user
+ * @modifies User Table
+ * @effects User Table - Delete the user of this ID
+ **/
 const deleteUser = (id) => {
   return new Promise(function(resolve, reject) {
     if(id == null) resolve(`${-1}`)
@@ -37,6 +52,11 @@ const deleteUser = (id) => {
   })
 }
 
+/**
+ * Method - Returns the User entry with the given ID of said User
+ * @param int id - the ID of the user
+ * @return User - Full entry of the user with the given ID
+ **/
 const getUser = (id) => {
   return new Promise(function(resolve, reject) {
     if(id == null) resolve(`${-1}`)
@@ -49,6 +69,13 @@ const getUser = (id) => {
   }) 
 }
 
+/**
+ * Method - Confirm if a user exists with the given credentials and if so return what that User's ID is
+ * @param String email - the email of the user
+ * @param String password - the password of the user
+ * @return int - If the email and password correspond to a user, return the ID of said user. 
+ *    If there is no corresponding user, return -1
+ **/
 const authorize = (query) => {
   return new Promise(function(resolve, reject) {
     const {email, password} = query
