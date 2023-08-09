@@ -1,28 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { LoginContext } from "../App.js";
 import { Navigate } from "react-router-dom";
 import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
 import { EmailIcon, LockIcon, StarIcon, PhoneIcon } from '@chakra-ui/icons'
 
-function verify(password, confirmPassword){
-    if(password.length < 8){
-      return false;
-    }
-    var hasUpperCase = /[A-Z]/.test(password);
-    if (!hasUpperCase) {
-      return false;
-    }
-    var hasNumeral = /\d/.test(password);
-    if (!hasNumeral) {
-      return false;
-    }
-    return true;
+// Function to verify password strength
+function verify(password, confirmPassword) {
+  if (password.length < 8) {
+    return false;
   }
+  var hasUpperCase = /[A-Z]/.test(password);
+  if (!hasUpperCase) {
+    return false;
+  }
+  var hasNumeral = /\d/.test(password);
+  if (!hasNumeral) {
+    return false;
+  }
+  return true;
+}
 
+// Function to create a new user
 async function createUser({ username, password, email, phone }) {
   const response = await fetch('http://localhost:3000/users', {
-    method: 'POST', 
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -34,7 +35,7 @@ async function createUser({ username, password, email, phone }) {
     })
   });
 
-  if(response.ok) {
+  if (response.ok) {
     const json = await response.json();
     return json;
   } else {
@@ -43,25 +44,27 @@ async function createUser({ username, password, email, phone }) {
   }
 }
 
-
 function SignUp() {
+  // State variables for user registration fields
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
+  // Function to handle sign-up button click
   const onSignUp = async () => {
-    if(password === confirmPassword) {
-      if(verify(password)) {
+    // Check if passwords match
+    if (password === confirmPassword) {
+      // Validate password
+      if (verify(password)) {
         try {
-          // change createUser according to your needs
-          const response = await createUser({ username, password, email, phone }); 
-          if(response === "Success") {
+          // Call createUser function to create a new user
+          const response = await createUser({ username, password, email, phone });
+          if (response === "Success") {
             alert("Account created successfully!");
-            return <Navigate to="/Profile"/>;
-          }
-          else {
+            return <Navigate to="/Profile" />; // Redirect to profile page
+          } else {
             alert("Failed to create account");
           }
         } catch (error) {
@@ -75,12 +78,13 @@ function SignUp() {
     }
   };
 
-  return(
+  return (
     <SignUpContainer>
       <Header>Welcome to Habit Tracker!</Header>
       <InnerSignupContainer>
         <Subheader>Sign Up</Subheader>
         <Stack spacing={8}>
+          {/* Input field for username */}
           <InputGroup>
             <InputLeftElement>
               <StarIcon color='#cb696e'/>
@@ -90,9 +94,10 @@ function SignUp() {
               type="text"
               placeholder="Username"
               value={username}
-              onChange={e => setUsername(e.target.value)}/>
+              onChange={e => setUsername(e.target.value)} />
           </InputGroup>
 
+          {/* Input field for email */}
           <InputGroup>
             <InputLeftElement>
               <EmailIcon color='#cb696e'/>
@@ -102,9 +107,10 @@ function SignUp() {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={e => setEmail(e.target.value)}/>
+              onChange={e => setEmail(e.target.value)} />
           </InputGroup>
 
+          {/* Input field for password */}
           <InputGroup>
             <InputLeftElement>
               <LockIcon color='#cb696e'/>
@@ -114,9 +120,10 @@ function SignUp() {
               type="password"
               placeholder="Password"
               value={password}
-              onChange={e => setPassword(e.target.value)}/>
+              onChange={e => setPassword(e.target.value)} />
           </InputGroup>
 
+          {/* Input field to confirm password */}
           <InputGroup>
             <InputLeftElement>
               <LockIcon color='#cb696e'/>
@@ -126,8 +133,10 @@ function SignUp() {
               type="password"
               placeholder="Re-enter Password"
               value={confirmPassword}
-              onChange={e => setConfirmPassword(e.target.value)}/>
+              onChange={e => setConfirmPassword(e.target.value)} />
           </InputGroup>
+
+          {/* Input field for phone number */}
           <InputGroup>
             <InputLeftElement>
               <PhoneIcon color='#cb696e'/>
@@ -137,8 +146,10 @@ function SignUp() {
               type="tel"
               placeholder="Phone Number"
               value={phone}
-              onChange={e => setPhone(e.target.value)}/>
+              onChange={e => setPhone(e.target.value)} />
           </InputGroup>
+
+          {/* Button to initiate sign-up */}
           <Button onClick={onSignUp} backgroundColor='#cb696e'>Sign Up</Button>
         </Stack>
       </InnerSignupContainer>
@@ -146,6 +157,7 @@ function SignUp() {
   );
 }
 
+// Styled components for styling
 const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -168,11 +180,13 @@ const InnerSignupContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
+
 const Header = styled.h1`
   font-size: 50px;
   font-weight: bolder;
   color: #FFFFFF;
 `
+
 const Subheader = styled.h2`
   font-size: 30px;
   font-weight: bold;
@@ -180,4 +194,5 @@ const Subheader = styled.h2`
   margin-bottom: 20px;
   color: #213a32;
 `
-export default SignUp
+
+export default SignUp;

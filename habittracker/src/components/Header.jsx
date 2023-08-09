@@ -1,20 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import Logo from '../assets/habittracker.png';
-import { FaDoorOpen, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator} from "react-icons/fa";
+import { FaDoorOpen, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator } from "react-icons/fa";
 import { IconButton } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
 
+// Define a functional component called Header
 function Header() {
   return (
     <HeaderContainer>
       <HeaderInnerContainer>
+        {/* Left side of the header */}
         <HeaderLeft>
           <HabittrackerLogo src={Logo} alt="Logo" />
         </HeaderLeft>
+        {/* Right side of the header */}
         <HeaderRight>
           <HeaderNavigationContainer>
             
+            {/* Navigation buttons */}
             <ButtonGroup>
               <StyledLink to="/"><FaHome fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
               <TextA>Home</TextA>
@@ -35,15 +39,11 @@ function Header() {
               <TextA>Analytics</TextA>
             </ButtonGroup>
             
+            {/* Logout button */}
             <ButtonGroup>
               <IconButton variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Log Out</TextA>
             </ButtonGroup>
-
-            {/* <ButtonGroup>
-              <StyledLink to="/"><FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
-              <TextA>Log Out</TextA>
-            </ButtonGroup>  */}
             
           </HeaderNavigationContainer>
         </HeaderRight>
@@ -51,6 +51,8 @@ function Header() {
     </HeaderContainer>
   );
 }
+
+// Styled components for different parts of the header
 
 const HeaderContainer = styled.nav`
   width: 100%;
@@ -130,6 +132,5 @@ const StyledLink = styled(Link)`
   margin: 5px;
 `;
 
-
-
+// Export the Header component as the default export of this module
 export default Header;

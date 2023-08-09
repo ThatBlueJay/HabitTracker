@@ -9,12 +9,11 @@ import { Select } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
 
 function Habits() {
-
-  const { login} = useContext(LoginContext);
+  // Get the login and id state from the context
+  const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
-  // const login = true;
-  // const id = 6;
 
+  // State variables to hold habit information
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -23,17 +22,17 @@ function Habits() {
   const [recurring, setRecurring] = useState("");
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  //This diplays the habit on the screen
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // Holds habits for display
   const [loading, setLoading] = useState(false);
 
-  // if the user is not logged in, redirect them to the home page
+  // If the user is not logged in, redirect them to the home page
   if (!login) {
     return <Navigate to="/" />
   }
 
+  // Function to delete a habit
   async function deleteHabit(id) {
-    console.log(id);
+    // Delete habit using API
     const url = "http://localhost:3000/habits/" + id;
     await fetch(url, {
       method: 'DELETE',
@@ -45,18 +44,18 @@ function Habits() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        fetchHabits();
+        fetchHabits(); // Refresh habits after deletion
         return response.json();
       })
       .then(data => {
-        //console.log(data);
-        alert(data);
+        alert(data); // Show success message
       })
       .catch(error => {
         console.error('Error:', error);
       });
   }
 
+  // Function to fetch habits from the API
   const fetchHabits = async () => {
     try {
       setLoading(true);
@@ -70,6 +69,7 @@ function Habits() {
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     const habit = {
@@ -83,7 +83,8 @@ function Habits() {
       end_date: endDate,
       user_id: id
     };
-    alert("Your habit has been added!");
+
+    alert("Your habit has been added!"); // Show success message
     try {
       const response = await fetch('http://localhost:3000/habits', {
         method: 'POST',
@@ -103,11 +104,11 @@ function Habits() {
 
   console.log("habits page: ", login, id);
 
-
   return(
     <HabitContainer>
       <Header>Add a habit here!</Header>
       <Content>
+        {/* Display existing habits */}
         <Column>
           <HabitsDisplay>
             <HabitsDisplayText>All Habits</HabitsDisplayText>
@@ -123,6 +124,7 @@ function Habits() {
                       </Text>
                   </CardBody>
                   <CardFooter>
+                    {/* Button to delete habit */}
                     <Button variant='solid' colorScheme='blue' onClick={() => deleteHabit(item.habit_id)}>
                       Delete habit
                     </Button>
@@ -133,97 +135,105 @@ function Habits() {
             </SimpleGrid>
           </HabitsDisplay>
         </Column>
+        
+        {/* Form to enter a new habit */}
         <Column>
-        <InputDisplay>
-        <HabitsDisplayText>Enter a new habit</HabitsDisplayText>
-        <VStack spacing='5'>
-          <InputGroup>
-            <Input 
-              variant='filled'
-              type="text"
-              placeholder="Habit Name"
-              value={title}
-              onChange={e => setTitle(e.target.value)}/>
-          </InputGroup>
+          <InputDisplay>
+            <HabitsDisplayText>Enter a new habit</HabitsDisplayText>
+            <VStack spacing='5'>
+              <InputGroup>
+                <Input 
+                  variant='filled'
+                  type="text"
+                  placeholder="Habit Name"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}/>
+              </InputGroup>
+              
+              <HStack spacing='3'>
+                <InputSubText>every</InputSubText>
+                <NumberInput 
+                  size='sm' 
+                  maxW={20} 
+                  defaultValue={7} 
+                  min={1} 
+                  max={365}
+                  variant='filled'
+                  value={recurring}
+                  onChange={(value) => setRecurring(value)}
+                  >
+                  <NumberInputField/>
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+                {/* Dropdown to select recurrence */}
+                <Select variant='filled' onChange={e => setCategory(e.target.value)} value={category}>
+                  <option>days</option>
+                  <option>weeks</option>
+                  <option>years</option>
+                </Select>
+              </HStack>
 
+              {/* Input fields for date and time */}
+              <InputGroup>
+                <InputLeftAddon children='Start Date:' />
+                <Input 
+                  variant='filled'
+                  type="date"
+                  value={startDate}
+                  onChange={e => setStartDate(e.target.value)}/>
+              </InputGroup>
 
-          <HStack spacing='3'>
-          <InputSubText>every</InputSubText>
+              {/* Similar input for End Date */}
+              <InputGroup>
+                <InputLeftAddon children='End Date:' />
+                <Input 
+                  variant='filled'
+                  type="date"
+                  value={endDate}
+                  onChange={e => setEndDate(e.target.value)}/>
+              </InputGroup>
 
-            <NumberInput 
-              size='sm' 
-              maxW={20} 
-              defaultValue={7} 
-              min={1} 
-              max={365}
-              variant='filled'
-              value={recurring}
-              onChange={(value) => setRecurring(value)}
-              >
-              <NumberInputField/>
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            <Select variant='filled' onChange={e => setCategory(e.target.value)} value={category}>
-              <option>days</option>
-              <option>weeks</option>
-              <option>years</option>
-            </Select>
-          </HStack>
+              {/* Input fields for Start and End Time */}
+              <InputGroup>
+                <InputLeftAddon children='Start Time' />
+                <Input 
+                  variant='filled'
+                  type="time"
+                  value={startTime}
+                  onChange={e => setStartTime(e.target.value)}/>
+              </InputGroup>
 
-          <InputGroup>
-            <InputLeftAddon children='Start Date:' />
-            <Input 
-              variant='filled'
-              type="date"
-              value={startDate}
-              onChange={e => setStartDate(e.target.value)}/>
-          </InputGroup>
+              {/* Similar input for End Time */}
+              <InputGroup>
+                <InputLeftAddon children='End Time' />
+                <Input 
+                  variant='filled'
+                  type="time"
+                  value={endTime}
+                  onChange={e => setEndTime(e.target.value)}/>
+              </InputGroup>
 
-          <InputGroup>
-            <InputLeftAddon children='End Date:' />
-            <Input 
-              variant='filled'
-              type="date"
-              value={endDate}
-              onChange={e => setEndDate(e.target.value)}/>
-          </InputGroup>
-
-          <InputGroup>
-            <InputLeftAddon children='Start Time' />
-            <Input 
-              variant='filled'
-              type="time"
-              value={startTime}
-              onChange={e => setStartTime(e.target.value)}/>
-          </InputGroup>
-
-          <InputGroup>
-            <InputLeftAddon children='End Time' />
-            <Input 
-              variant='filled'
-              type="time"
-              value={endTime}
-              onChange={e => setEndTime(e.target.value)}/>
-          </InputGroup>
-
-          <Textarea 
-            variant='filled'
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            placeholder='Description' />
-            <Button onClick={handleSubmit}>Save Habit</Button>
-        </VStack>
-
-        </InputDisplay>
+              {/* Textarea for habit description */}
+              <Textarea 
+                variant='filled'
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                placeholder='Description' />
+                
+              {/* Button to submit the form */}
+              <Button onClick={handleSubmit}>Save Habit</Button>
+            </VStack>
+          </InputDisplay>
         </Column>
       </Content>
     </HabitContainer>
   );
 }
 
+// Styled components for styling the layout
 const HabitContainer = styled.div`
   position: relative;
   overflow: hidden;
@@ -282,66 +292,3 @@ const InputSubText = styled.p`
 `
 
 export default Habits;
-
-  // const habits = [
-  //   {
-  //       "habit_id": 1,
-  //       "title": "amogus",
-  //       "description": "play",
-  //       "start_time": "16:00:00",
-  //       "end_time": "18:00:00",
-  //       "category": "alls",
-  //       "recurring": {
-  //           "days": 7
-  //       },
-  //       "start_date": "2023-06-01T04:00:00.000Z",
-  //       "end_date": "2023-07-15T04:00:00.000Z",
-  //       "user_id": 1,
-  //       "class_id": null
-  //   },
-  //   {
-  //       "habit_id": 2,
-  //       "title": "fortnite",
-  //       "description": "john wick",
-  //       "start_time": "16:00:00",
-  //       "end_time": "18:00:00",
-  //       "category": "alls",
-  //       "recurring": {
-  //           "days": 7
-  //       },
-  //       "start_date": "2023-06-01T04:00:00.000Z",
-  //       "end_date": "2023-07-15T04:00:00.000Z",
-  //       "user_id": 1,
-  //       "class_id": null
-  //   },
-  //   {
-  //       "habit_id": 6,
-  //       "title": "fnaf",
-  //       "description": "frazbear",
-  //       "start_time": "16:00:00",
-  //       "end_time": "18:00:00",
-  //       "category": "alls",
-  //       "recurring": {
-  //           "seconds": 7
-  //       },
-  //       "start_date": "2023-07-01T04:00:00.000Z",
-  //       "end_date": "2023-08-12T04:00:00.000Z",
-  //       "user_id": 1,
-  //       "class_id": null
-  //   },
-  //   {
-  //       "habit_id": 7,
-  //       "title": "revengeance",
-  //       "description": "play the game its fun",
-  //       "start_time": "10:00:00",
-  //       "end_time": "12:00:00",
-  //       "category": "alls",
-  //       "recurring": {
-  //           "days": 7
-  //       },
-  //       "start_date": "2023-07-19T04:00:00.000Z",
-  //       "end_date": "2023-08-19T04:00:00.000Z",
-  //       "user_id": 1,
-  //       "class_id": null
-  //     }
-  // ];
