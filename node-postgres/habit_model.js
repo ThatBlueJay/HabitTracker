@@ -7,6 +7,20 @@ const pool = new Pool({
   port: 5432,
 });
 
+/**
+ * Method - Create a habit given information and add them to the Habit table in the database
+ * @param String title - the title of the habit
+ * @param String description - the description of the habit
+ * @param time start_time - the starting time of the habit
+ * @param time end_time - the ending time of the habit
+ * @param String category - the category of the habit
+ * @param INTERVAL recurring - the recurrance rate of the habit
+ * @param timestamp start_date - the starting date of the habit
+ * @param timestamp end_date - the ending date of the habit
+ * @param id user_id - the user id of the User who owns this habit
+ * @modifies Habit Table
+ * @effects Habit Table - Adds the created habit into the database
+ **/
 const createHabit = (body) => {
   return new Promise(function(resolve, reject) {
     const {title, description, start_time, end_time, category, recurring, start_date, end_date, user_id} = body
@@ -32,6 +46,13 @@ const createHabit = (body) => {
   })
 }
 
+/**
+ * Method - Deletes the habit of the given ID
+ * @param int id - the id of the habit
+ * @modifies Habit Table
+ * @effects Habit Table - Delete the habit of this ID
+ * @return String - the name of the habit being removed
+ **/
 const deleteHabit = (id) => {
   return new Promise(function(resolve, reject) {
     pool.query('SELECT title FROM habits WHERE habit_id = $1', [id], (error, results) => {
@@ -55,6 +76,11 @@ const deleteHabit = (id) => {
   })
 }
 
+/**
+ * Method - Obtain the list of all habits owned by a user
+ * @param int id - the id of the user who we want to get the habits of
+ * @return Habit[] - the list of all habits owned by the given user if exists, if not then -1
+ **/
 const getHabit = (id) => {
   return new Promise(function(resolve, reject) {
     if(id == null) resolve(`${-1}`)
@@ -71,6 +97,13 @@ const getHabit = (id) => {
   }) 
 }
 
+/**
+ * Method - Get all the Record instances of a given habit between the given timeframe
+ * @param int id - the id of the habit
+ * @param timestamp begin - the starting time for the time frame
+ * @param timestamp end - the ending time for the time frame
+ * @return Record[] - the list of all records derived from the given habit in the time frame
+ **/
 const getCurrentHabits = (query) => {
   return new Promise(function(resolve, reject) {
     const {id, begin, end} = query
@@ -84,6 +117,13 @@ const getCurrentHabits = (query) => {
   })
 }
 
+/**
+ * Method - Confirms a given Record of a Habit, filling in the details based on the time at which this API function is called
+ * @param int id - the id of the Record
+ * @modifies Record Table
+ * @effects Record Table - Modifies the attributes of the corresponding Record with completion, marking values as appropriate
+ * @return int - the id of the Record
+ **/
 const confirmHabit = (id) => {
   return new Promise(function(resolve, reject) {
     pool.query('SELECT due_date FROM records WHERE record_id = $1' , [id], (error, results) => {
@@ -135,6 +175,12 @@ const confirmHabit = (id) => {
   }) 
 }
 
+/**
+ * Method - Call the Record Generator on the database to generate records
+ * @modifies Record Table
+ * @effects Record Table - Runs the recordGenerator() which then promptly creates Record instances of all habits as appropriate
+ * @return String - Simple confirmation message
+ **/
 const generateRecords = () => {
   return new Promise(function(resolve, reject) {
     pool.query('SELECT recordGenerator()', (error, results) => {
