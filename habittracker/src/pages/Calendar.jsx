@@ -50,8 +50,10 @@ function formatData(title, start, end, data) {
 // Get habits data for the specified time range
 async function getHabits(id) {
   const today = new Date();
-  const start = getMonthName(today.getMonth()+1) + " " + 1 + ", " + today.getFullYear();
-  const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
+  const start = "January 1, 2023";
+  const end = "December 31, 2023";
+  //const start = getMonthName(today.getMonth()-8) + " " + 1 + ", " + today.getFullYear();
+  //const end = getMonthName(today.getMonth()+) + " " + 1 + ", " + today.getFullYear();
   console.log(start, end);
   var allHabitsToPutOnCalendar = [];
   var allHabits = [];
