@@ -50,9 +50,9 @@ CREATE TABLE Records (
 );
 
 
-\i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/user_id_getter.sql
-\i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/RecordGenerator.sql
-\i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/generatorTest.sql
+\i C:/GithubProjects/WebProjects/HabitTracker/Database/user_id_getter.sql
+\i C:/GithubProjects/WebProjects/HabitTracker/Database/RecordGenerator.sql
+\i C:/GithubProjects/WebProjects/HabitTracker/Database/generatorTest.sql
 
 
 -- \i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/HabitTrackerDBSetup.sql

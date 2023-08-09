@@ -1,27 +1,50 @@
 import React from "react";
 import styled from "styled-components";
+import Logo from '../assets/habittracker.png';
+import { FaDoorOpen, FaHome, FaGripHorizontal, FaCalendarDay, FaCalculator } from "react-icons/fa";
+import { IconButton } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
-import { FaGithubSquare } from "react-icons/fa";
-import { ButtonGroup,  IconButton } from '@chakra-ui/react';
 
+// Define a functional component called Header
 function Header() {
   return (
     <HeaderContainer>
       <HeaderInnerContainer>
+        {/* Left side of the header */}
         <HeaderLeft>
-          Logo goes here
+          <HabittrackerLogo src={Logo} alt="Logo" />
         </HeaderLeft>
-        <HeaderCenter>
-          <HeaderNavigationContainer>
-            <StyledLink to="/">Home</StyledLink>
-            <StyledLink to="/Habits">Habits</StyledLink>
-            <StyledLink to="/Calendar">Calendar</StyledLink>
-            <StyledLink to="/Analytics">Analytics</StyledLink>
-          </HeaderNavigationContainer>
-        </HeaderCenter>
+        {/* Right side of the header */}
         <HeaderRight>
           <HeaderNavigationContainer>
-            <StyledLink to="/Profile">Profile</StyledLink>
+            
+            {/* Navigation buttons */}
+            <ButtonGroup>
+              <StyledLink to="/"><FaHome fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Home</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <StyledLink to="/Habits"><FaGripHorizontal fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Habits</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <StyledLink to="/Calendar"><FaCalendarDay fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Calendar</TextA>
+            </ButtonGroup>
+
+            <ButtonGroup>
+              <StyledLink to="/Analytics"><FaCalculator fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              <TextA>Analytics</TextA>
+            </ButtonGroup>
+            
+            {/* Logout button */}
+            <ButtonGroup>
+              <IconButton variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
+              <TextA>Log Out</TextA>
+            </ButtonGroup>
+            
           </HeaderNavigationContainer>
         </HeaderRight>
       </HeaderInnerContainer>
@@ -29,61 +52,85 @@ function Header() {
   );
 }
 
+// Styled components for different parts of the header
 
 const HeaderContainer = styled.nav`
   width: 100%;
-  background-color: #F4D35E;
+  background-color: #5B8E7D;
   display: flex;
   flex-direction: column;
 `;
 
 const HeaderLeft = styled.div`
-  flex: 30%;
+  flex: 1;
   display: flex;
   justify-content: center;
-`;
-
-const HeaderCenter = styled.div`
-  flex: 40%;
-  display: flex;
-  align-items: center;
+  padding-left: 10px;
 `;
 
 const HeaderRight = styled.div`
-  flex: 30%;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: end;
-  margin-right: 50px;
-`
+  justify-content: flex-end;
+  padding-right: 40px;
+`;
 
 const HeaderInnerContainer = styled.div`
   width: auto;
-  height: 80px;
+  height: 120px;
   display: flex;
 `;
 
 const HeaderNavigationContainer = styled.div`
   display: flex;
-`; 
+  flex: 1;
+  justify-content: center;
+`;
+
+const TextA = styled.h1`
+`;
+
+const HabittrackerLogo = styled.img`
+  margin: auto;
+  margin-left: 5vw;
+  padding: 10px;
+  &:hover {
+    background-color: #BC4B51;
+    border-radius: 25px;
+    transform: scale(1.2);
+  }
+`
+
+const ButtonGroup = styled.div`
+  padding: 6px 15px 6px 5px;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFFFFF00;
+  font-family: 'Arvo', serif;
+  opacity: 1!important;
+  &:hover {
+    background-color: #BC4B51; 
+    border-radius: 25px;
+    color: #FFFFFF;
+    opacity: 1;
+    transform: scale(1.2);
+    margin: 10px;
+  }
+`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
   font-weight: bolder;
   color: #0D3B66;
   font-size: large;
-  margin: 20px;
-  font-family: 'Work Sans', sans-serif;
-  &:hover{
-    color: white;
-    border-bottom: white solid 3px;
-  }
+  margin: 5px;
 `;
 
-const Logo = styled.img`
-  margin: 10px;
-  height: auto;
-  max-width: 180px;
-`;
-
+// Export the Header component as the default export of this module
 export default Header;

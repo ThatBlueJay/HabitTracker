@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import Habits from './pages/Habits';
 import Calendar from './pages/Calendar';
 import Analytics from './pages/Analytics';
-import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import { ChakraProvider } from '@chakra-ui/react'
 import { useContext, createContext, useState } from "react";
@@ -33,18 +32,6 @@ function AppProvider({ children }) {
 }
 
 function App() {
-  // var data = null;
-
-  // if(login) {
-  //   data =  getUserData(id);
-  // }
-
-  //var username = login ? data.username : "none";
-  //var email = login ? data.email : "none";
-  //var phone = login ? data.phone : "none";
-
-  //const { login } = useContext(LoginContext);
-  //const { id } = useContext(IdContext);
     return (
       <AppProvider>
       <ChakraProvider>
@@ -55,7 +42,6 @@ function App() {
               <Route path="/Habits" element={<Habits />} />
               <Route path="/Calendar" element={<Calendar/>} />
               <Route path="/Analytics" element={<Analytics />} />
-              <Route path="/Profile" element={<Profile username={"username"} email={"email"} phone={"911"}/>} />
               <Route path="/Signup" element={<Signup />} />
             </Routes>
           <Footer />
@@ -64,23 +50,5 @@ function App() {
       </AppProvider>
     );
   }
-
-
-/*
-function getUserData(id) {
-  if(login) {
-    fetch("/users/" + id)
-      .then(data => data.json())
-      .then(success => {console.log(success)})
-  }
-}
-  
-async function getHabitData(id) {
-  await fetch("/habits/" + id)
-    .then(data => data.json())
-    .then(success => {console.log(success);})
-  }
-*/
-
 
 export default App;
