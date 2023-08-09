@@ -39,6 +39,9 @@ BEGIN
 
         -- placing each new Record
         SELECT end_date INTO habit_end_date FROM Habits WHERE habit_id = id;
+        IF habit_end_date IS NOT NULL THEN --END DATE NEEDS TO BE A DATE TIME
+            habit_end_date := habit_end_date + '1 day'::interval;
+        END IF;
         -- Go through the scheduled interval for the current Habit
         WHILE ((habit_end_date IS NULL) OR (event_date <= habit_end_date)) AND ((EXTRACT(MONTH FROM event_date) = EXTRACT(MONTH FROM curr) OR EXTRACT(WEEK FROM event_date) = EXTRACT(WEEK FROM date_trunc('month', curr) + interval '1 month - 1 day')) AND EXTRACT(YEAR FROM event_date) = EXTRACT(YEAR FROM curr)) LOOP
             SELECT COUNT(record_id) INTO exist FROM Records WHERE habit_id = id AND due_date = event_date;

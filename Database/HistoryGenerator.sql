@@ -52,6 +52,9 @@ BEGIN
 
         -- placing each habit
         SELECT end_date INTO habit_end_date FROM Habits WHERE habit_id = id;
+        IF habit_end_date IS NOT NULL THEN --END DATE NEEDS TO BE A DATE TIME
+            habit_end_date := habit_end_date + '1 day'::interval;
+        END IF;
         WHILE ((habit_end_date IS NULL) OR (event_date <= habit_end_date)) AND (event_date <= now()) LOOP
             SELECT COUNT(record_id) INTO exist FROM Records WHERE habit_id = id AND due_date = event_date;
             --Raise notice 'habit % date: %         current event date: %', id, habit_end_date, event_date;
