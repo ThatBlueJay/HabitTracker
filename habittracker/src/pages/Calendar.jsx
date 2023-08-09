@@ -31,14 +31,17 @@ function getDataFromPromise(json) {
 
 // Format habit data for display on the calendar
 function formatData(title, start, end, data) {
+  // Array of colors to assign to habits
+  var colorCounter = ["#D8D174", "#F7B538", "#FFE45E", "#F4FDAF", "#EFDD8D"];
   let toAdd = [];
   for(let i = 0; i < data.length; i++) {
+    let num = Math.floor(Math.random() * 5);
     toAdd = toAdd.concat({
       id: data[i].record_id, 
       text: title,
       start: data[i].due_date.substring(0, 11) + start,
       end: data[i].due_date.substring(0, 11) + end,
-      backColor: "#F7B538",
+      backColor: colorCounter[num],
     });
   }
   return toAdd;
