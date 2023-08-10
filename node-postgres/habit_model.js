@@ -142,6 +142,11 @@ const getHabit = (id) => {
 const getCurrentHabits = (query) => {
   return new Promise(function (resolve, reject) {
     const { id, begin, end } = query;
+    // const newBegin = new Date(begin + " 00:00:00");
+    // const newEnd = new Date(end + " 11:59:59");
+    // const strBegin = newBegin.toString();
+    // const strEnd = newEnd.toString();
+
     pool.query(
       "SELECT * FROM records WHERE due_date >= $1 AND due_date < $2 AND habit_id = $3",
       [begin, end, id],
@@ -149,6 +154,13 @@ const getCurrentHabits = (query) => {
         if (error) {
           reject(error);
         }
+        for(var i = 0; i < results.rowCount; i++) {
+          var offset = 4 * 60 * 60 * 1000;
+          var current = results.rows[i].due_date.getTime();
+          results.rows[i].due_date = new Date(current - offset);
+          
+        }
+        console.log(results.rows)
         resolve(results.rows);
       }
     );
