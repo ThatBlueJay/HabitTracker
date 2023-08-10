@@ -32,7 +32,7 @@ function getDataFromPromise(json) {
 // Format habit data for display on the calendar
 function formatData(title, start, end, data) {
   // Array of colors to assign to habits
-  var colorCounter = ["#780116", "#F7B538", "#DB7C26", "#D8572A", "#C32F27"];
+  var colorCounter = ["#E0F17E", "#FACC91", "#F3EBA2", "#FF957D", "#FFD580"];
   let toAdd = [];
   for(let i = 0; i < data.length; i++) {
     let num = Math.floor(Math.random() * 5);
@@ -50,8 +50,10 @@ function formatData(title, start, end, data) {
 // Get habits data for the specified time range
 async function getHabits(id) {
   const today = new Date();
-  const start = getMonthName(today.getMonth()+1) + " " + 1 + ", " + today.getFullYear();
-  const end = getMonthName(today.getMonth()+3) + " " + 1 + ", " + today.getFullYear();
+  const start = "January 1, 2023";
+  const end = "December 31, 2023";
+  //const start = getMonthName(today.getMonth()-8) + " " + 1 + ", " + today.getFullYear();
+  //const end = getMonthName(today.getMonth()+) + " " + 1 + ", " + today.getFullYear();
   console.log(start, end);
   var allHabitsToPutOnCalendar = [];
   var allHabits = [];
