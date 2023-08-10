@@ -13,7 +13,7 @@ INSERT INTO Habits VALUES(DEFAULT, 'Laundry', 'Hi Mom', '04:00 PM', '06:00 PM', 
 INSERT INTO Habits VALUES(DEFAULT, 'Go to the Bank', 'Hi Mom', '04:00 AM', '10:00 AM', NULL, '1 week', 'July 26, 2020', 'August 15, 2023', user_id_from_name('zw27'), NULL);
 
 -- DAILY - 16
-INSERT INTO Habits VALUES(DEFAULT, 'Go to the Gym', 'Hi Mom', '02:00 PM', '03:00 PM', NULL, '1 day', 'June 15, 2020', 'August 15, 2023', user_id_from_name('zw27'), NULL);
+INSERT INTO Habits VALUES(DEFAULT, 'Go to the Gym', 'Hi Mom', '02:00 PM', '03:00 PM', NULL, '1 day', 'June 15, 2023', 'August 15, 2023', user_id_from_name('zw27'), NULL);
 
 -- ONCE A MONTH - 1
 INSERT INTO Habits VALUES(DEFAULT, 'Get Haircut', 'Hi Mom', '10:00 PM', '11:00 PM', NULL, '1 month', 'June 27, 2020', 'August 15, 2023', user_id_from_name('zw27'), NULL);
