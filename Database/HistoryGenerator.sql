@@ -1,5 +1,6 @@
+-- Code to generate Records for fake past Habits. Used exclusively for testing
 
-
+-- Random number generator function
 CREATE OR REPLACE FUNCTION random_between(low INT ,high INT) RETURNS INT AS $$
 BEGIN
     --Raise notice 'Ran random';
@@ -8,7 +9,8 @@ BEGIN
 END;
 $$ language plpgsql;
 
-
+-- Copy of RecordGenerator hardcoded to generate Records from March 4, 2020 to the present
+-- Used exclusively for testing 
 DROP FUNCTION IF EXISTS historygenerator;
 CREATE FUNCTION historygenerator() RETURNS INT AS $$
 DECLARE
@@ -50,6 +52,9 @@ BEGIN
 
         -- placing each habit
         SELECT end_date INTO habit_end_date FROM Habits WHERE habit_id = id;
+        IF habit_end_date IS NOT NULL THEN --END DATE NEEDS TO BE A DATE TIME
+            habit_end_date := habit_end_date + '1 day'::interval;
+        END IF;
         WHILE ((habit_end_date IS NULL) OR (event_date <= habit_end_date)) AND (event_date <= now()) LOOP
             SELECT COUNT(record_id) INTO exist FROM Records WHERE habit_id = id AND due_date = event_date;
             --Raise notice 'habit % date: %         current event date: %', id, habit_end_date, event_date;

@@ -1,4 +1,4 @@
-
+-- Code to test RecordGenerator.
 DELETE FROM RECORDS *;
 DELETE FROM HABITS *;
 DELETE FROM CLASS *;

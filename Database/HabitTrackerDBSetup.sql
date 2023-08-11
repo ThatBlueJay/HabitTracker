@@ -1,10 +1,13 @@
---include interval;
 
+--Starting directory calls
 \c postgres
 DROP DATABASE IF EXISTS habittracker;
 CREATE DATABASE habittracker;
 \c habittracker
 
+-- Create database tables
+
+-- User data
 CREATE TABLE Users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -13,6 +16,7 @@ CREATE TABLE Users (
     phone VARCHAR(20) UNIQUE
 );
 
+-- Category data -- currently unutilized by the site
 CREATE TABLE Class (
     class_id SERIAL PRIMARY KEY,
     name VARCHAR(120) NOT NULL,
@@ -22,6 +26,7 @@ CREATE TABLE Class (
     recurring INTERVAL
 );
 
+-- Habit data
 CREATE TABLE Habits (
     habit_id SERIAL PRIMARY KEY,
     title VARCHAR(280) NOT NULL,
@@ -38,6 +43,7 @@ CREATE TABLE Habits (
     FOREIGN KEY (class_id) REFERENCES Class(class_id)
 );
 
+-- Record (specific instance of a Habit) data
 CREATE TABLE Records (
     record_id SERIAL PRIMARY KEY,
     date_complete timestamp,
@@ -50,9 +56,11 @@ CREATE TABLE Records (
 );
 
 
+-- Run function files into the database
 \i C:/GithubProjects/WebProjects/HabitTracker/Database/user_id_getter.sql
 \i C:/GithubProjects/WebProjects/HabitTracker/Database/RecordGenerator.sql
 \i C:/GithubProjects/WebProjects/HabitTracker/Database/generatorTest.sql
 
 
+-- Example psql file call
 -- \i C:/Users/gordoz2/Dropbox/'PC (2)'/Documents/HabitTracker/Database/HabitTrackerDBSetup.sql
