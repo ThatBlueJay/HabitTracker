@@ -94,9 +94,11 @@ const authorize = (query) => {
       "SELECT user_id FROM users WHERE email = $1 AND password = $2",
       [email, password],
       (error, results) => {
+        //console.log("ROWS:", results.rowCount);
         if (error) {
           reject(error);
         } else if (results.rowCount < 1) {
+          //console.log("API Called me");
           resolve(`${-1}`);
         } else resolve(`${results.rows[0].user_id}`);
       }

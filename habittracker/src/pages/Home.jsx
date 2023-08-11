@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginContext } from "../App.js";
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useRevalidator } from 'react-router-dom';
 import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
 import { EmailIcon, LockIcon } from '@chakra-ui/icons'
 
@@ -56,7 +56,7 @@ function Home() {
       try {
         const userId = JSON.stringify(await authorize({ email, password }));
         console.log(userId);
-        if (userId !== "None") {
+        if (userId !== "None" && userId != -1) {
           handleLogin(userId); // Update login context
           alert("Login successful!"); // Show success message
           console.log(login);
