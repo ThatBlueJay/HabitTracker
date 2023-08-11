@@ -154,10 +154,13 @@ const Calendar = () => {
   // Render the Calendar component
   return (
     <CalendarContainer>
+      {/* Header */}
       <Header>Calendar</Header>
+      {/* Subheader */}
       <Subheader>Click on a habit to confirm completion</Subheader>
       <div style={styles.wrap}>
           <div style={styles.left}>
+              {/* DayPilotNavigator */}
               <DayPilotNavigator
                   selectMode={"Week"}
                   showMonths={2}
@@ -166,6 +169,7 @@ const Calendar = () => {
               />
           </div>
           <div style={styles.main}>
+              {/* DayPilotCalendar */}
               <DayPilotCalendar {...config} ref={calendarRef} onEventClick={handleEventClick}/>
           </div>
       </div>
@@ -174,6 +178,8 @@ const Calendar = () => {
 }
 
 // Styled components for different parts of the Calendar page
+
+// Styling for the main Calendar container
 const CalendarContainer = styled.div`
   position: relative;
   overflow: hidden;
@@ -183,6 +189,7 @@ const CalendarContainer = styled.div`
   padding: 3em;
 `
 
+// Styling for the header
 const Header = styled.h1`
   font-size: 50px;
   font-weight: bolder;
@@ -191,6 +198,7 @@ const Header = styled.h1`
   text-align: center;
 `;
 
+// Styling for the subheader
 const Subheader = styled.h2`
   font-size: 30px;
   font-weight: bold;

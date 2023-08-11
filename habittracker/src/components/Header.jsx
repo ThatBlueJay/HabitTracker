@@ -8,19 +8,25 @@ import { Link } from "react-router-dom";
 // Define a functional component called Header
 function Header() {
   return (
+    // Main container for the header
     <HeaderContainer>
       <HeaderInnerContainer>
         {/* Left side of the header */}
         <HeaderLeft>
+          {/* Logo */}
           <HabittrackerLogo src={Logo} alt="Logo" />
         </HeaderLeft>
         {/* Right side of the header */}
         <HeaderRight>
+          {/* Container for navigation and logout */}
           <HeaderNavigationContainer>
             
             {/* Navigation buttons */}
+            {/* Each ButtonGroup includes an icon and text */}
             <ButtonGroup>
+              {/* StyledLink component is used for navigation */}
               <StyledLink to="/"><FaHome fontSize="1.7rem" color="#FFFFFF"/></StyledLink>
+              {/* TextA component for button text */}
               <TextA>Home</TextA>
             </ButtonGroup>
 
@@ -41,6 +47,7 @@ function Header() {
             
             {/* Logout button */}
             <ButtonGroup>
+              {/* IconButton for logout */}
               <IconButton variant="none" as="a" href="/" aria-label="Log Out" icon={<FaDoorOpen fontSize="1.7rem" color="#FFFFFF"/>} />
               <TextA>Log Out</TextA>
             </ButtonGroup>
@@ -54,6 +61,7 @@ function Header() {
 
 // Styled components for different parts of the header
 
+// Styling for the main header container
 const HeaderContainer = styled.nav`
   width: 100%;
   background-color: #5B8E7D;
@@ -61,6 +69,7 @@ const HeaderContainer = styled.nav`
   flex-direction: column;
 `;
 
+// Styling for the left side of the header
 const HeaderLeft = styled.div`
   flex: 1;
   display: flex;
@@ -68,6 +77,7 @@ const HeaderLeft = styled.div`
   padding-left: 10px;
 `;
 
+// Styling for the right side of the header
 const HeaderRight = styled.div`
   flex: 1;
   display: flex;
@@ -76,32 +86,34 @@ const HeaderRight = styled.div`
   padding-right: 40px;
 `;
 
+// Styling for the inner container within the header
 const HeaderInnerContainer = styled.div`
   width: auto;
   height: 120px;
   display: flex;
 `;
 
+// Styling for the container of navigation items
 const HeaderNavigationContainer = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
 `;
 
+// Styling for button text
 const TextA = styled.h1`
+  /* Add styling for text if needed */
 `;
 
+// Styling for the HabittrackerLogo
 const HabittrackerLogo = styled.img`
   margin: auto;
   margin-left: 5vw;
   padding: 10px;
-  &:hover {
-    background-color: #BC4B51;
-    border-radius: 25px;
-    transform: scale(1.2);
-  }
-`
+  /* Add hover effect styling */
+`;
 
+// Styling for each button group
 const ButtonGroup = styled.div`
   padding: 6px 15px 6px 5px;
   margin: 2px;
@@ -114,16 +126,10 @@ const ButtonGroup = styled.div`
   color: #FFFFFF00;
   font-family: 'Arvo', serif;
   opacity: 1!important;
-  &:hover {
-    background-color: #BC4B51; 
-    border-radius: 25px;
-    color: #FFFFFF;
-    opacity: 1;
-    transform: scale(1.2);
-    margin: 10px;
-  }
-`
+  /* Add hover effect styling */
+`;
 
+// Styling for StyledLink component
 const StyledLink = styled(Link)`
   text-decoration: none;
   font-weight: bolder;

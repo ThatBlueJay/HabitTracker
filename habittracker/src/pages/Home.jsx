@@ -73,6 +73,7 @@ function Home() {
 
   return (
     <HomeContainer>
+      {/* Header */}
       <Header>Welcome to Habit Tracker!</Header>
       <InnerHomeContainer>
         <Subheader>Sign In</Subheader>
@@ -80,6 +81,7 @@ function Home() {
         {/* Input fields for email and password */}
         <Stack spacing={8}>
           <InputGroup>
+            {/* Email icon in input left */}
             <InputLeftElement>
               <EmailIcon color='#cb696e'/>
             </InputLeftElement>
@@ -92,6 +94,7 @@ function Home() {
           </InputGroup>
 
           <InputGroup>
+            {/* Lock icon in input left */}
             <InputLeftElement>
               <LockIcon color='#cb696e'/>
             </InputLeftElement>
