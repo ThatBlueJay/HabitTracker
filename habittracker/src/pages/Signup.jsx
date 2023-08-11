@@ -80,12 +80,14 @@ function SignUp() {
 
   return (
     <SignUpContainer>
+      {/* Header */}
       <Header>Welcome to Habit Tracker!</Header>
       <InnerSignupContainer>
         <Subheader>Sign Up</Subheader>
         <Stack spacing={8}>
           {/* Input field for username */}
           <InputGroup>
+            {/* Star icon in input left */}
             <InputLeftElement>
               <StarIcon color='#cb696e'/>
             </InputLeftElement>
@@ -99,6 +101,7 @@ function SignUp() {
 
           {/* Input field for email */}
           <InputGroup>
+            {/* Email icon in input left */}
             <InputLeftElement>
               <EmailIcon color='#cb696e'/>
             </InputLeftElement>
@@ -112,6 +115,7 @@ function SignUp() {
 
           {/* Input field for password */}
           <InputGroup>
+            {/* Lock icon in input left */}
             <InputLeftElement>
               <LockIcon color='#cb696e'/>
             </InputLeftElement>
@@ -125,6 +129,7 @@ function SignUp() {
 
           {/* Input field to confirm password */}
           <InputGroup>
+            {/* Lock icon in input left */}
             <InputLeftElement>
               <LockIcon color='#cb696e'/>
             </InputLeftElement>
@@ -138,6 +143,7 @@ function SignUp() {
 
           {/* Input field for phone number */}
           <InputGroup>
+            {/* Phone icon in input left */}
             <InputLeftElement>
               <PhoneIcon color='#cb696e'/>
             </InputLeftElement>

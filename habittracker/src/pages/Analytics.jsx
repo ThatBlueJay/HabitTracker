@@ -18,7 +18,7 @@ function Analytics() {
   const [checkedItems, setCheckedItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Check if user is logged in; if not, redirect to home page
+  // Check if the user is logged in; if not, redirect to the home page
   if (!login) {
     return <Navigate to="/" />
   }
@@ -55,14 +55,14 @@ function Analytics() {
   // Update chart data based on selected habits
   const updateGraph = async (checkedItems) => {
     try {
-      console.log("checked" , checkedItems);
+      console.log("checked", checkedItems);
       var allIds = "";
       if (checkedItems.length === 0) {
         allIds = "-1";
       } else {
         for (let i = 0; i < checkedItems.length; i++) {
           allIds += checkedItems[i];
-          if(i < checkedItems.length-1) {
+          if (i < checkedItems.length - 1) {
             allIds += ",";
           }
         }
@@ -81,8 +81,10 @@ function Analytics() {
   // Return JSX for the Analytics page
   return (
     <AnalyticsContainer>
+      {/* Header */}
       <Header>Analytics Page</Header>
       <ChartContainer>
+        {/* Subheader */}
         <Subheader>Select habits to view your consistency over time</Subheader>
         <HStack spacing={5}>
           <CheckBoxesHabits>
@@ -107,6 +109,7 @@ function Analytics() {
 
 // Styled components for different parts of the Analytics page
 
+// Styling for the main Analytics container
 const AnalyticsContainer = styled.div`
   position: relative;
   overflow: hidden;
@@ -115,6 +118,7 @@ const AnalyticsContainer = styled.div`
   background-color: #F4E285;
 `;
 
+// Styling for the chart container
 const ChartContainer = styled.div`
   width: 70%;
   background-color: #FFFFFF;
@@ -129,6 +133,7 @@ const ChartContainer = styled.div`
   margin-bottom: 50px;
 `;
 
+// Styling for the header
 const Header = styled.h1`
   font-size: 50px;
   margin: 20px;
@@ -138,28 +143,31 @@ const Header = styled.h1`
   text-align: center;
 `;
 
+// Styling for the subheader
 const Subheader = styled.h2`
   font-size: 30px;
   font-weight: bold;
   margin: auto;
   margin-bottom: 20px;
   color: #213a32;
-`
+`;
 
+// Styling for the sub-subheader
 const Subsubheader = styled.h2`
   font-size: 20px;
   font-weight: bold;
   margin: auto;
   margin-bottom: 20px;
   color: #213a32;
-`
+`;
 
+// Styling for the checkboxes and habits container
 const CheckBoxesHabits = styled.div`
   display: flex;
   flex-direction: column;
   margin: 30px;
   width: 200px;
-`
+`;
 
 // Export the Analytics component as the default export of this module
 export default Analytics;

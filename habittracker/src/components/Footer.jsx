@@ -6,15 +6,19 @@ import { IconButton } from '@chakra-ui/react'
 // Define a functional component called Footer
 function Footer() {
   return (
+    // Main container for the footer
     <FooterContainer>
       <FooterInnerContainer>
         {/* Left side of the footer */}
         <FooterLeft>
+          {/* Text at the center of the left footer section */}
           <CenteredText>A Software Design and Documentation Project</CenteredText>
         </FooterLeft>
         {/* Right side of the footer */}
         <FooterRight>
+          {/* Container for "Created by Ascension" section */}
           <Created>
+            {/* Text indicating the creator */}
             <FooterText>Created by Ascension:</FooterText>
             {/* GitHub icon link */}
             <IconButton variant="none" as="a" href="/" aria-label="Github" icon={<FaGithubSquare fontSize="1.5rem" color="#FFFFFF" />} />
@@ -32,7 +36,7 @@ const FooterContainer = styled.nav`
   width: 100%;
   height: 80px;
   background-color: white;
-  display: block;
+  display: flex;
   flex-direction: column;
   color: #BC4B51;
   font-family: 'Work Sans', sans-serif;

@@ -8,6 +8,7 @@ import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepp
 import { Select } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
 
+// Define the Habits component
 function Habits() {
   // Get the login and id state from the context
   const { login } = useContext(LoginContext);
@@ -106,6 +107,7 @@ function Habits() {
 
   return(
     <HabitContainer>
+      {/* Header */}
       <Header>Add a habit here!</Header>
       <Content>
         {/* Display existing habits */}
@@ -142,6 +144,7 @@ function Habits() {
             <HabitsDisplayText>Enter a new habit</HabitsDisplayText>
             <VStack spacing='5'>
               <InputGroup>
+                {/* Input for Habit Name */}
                 <Input 
                   variant='filled'
                   type="text"
@@ -151,6 +154,7 @@ function Habits() {
               </InputGroup>
               
               <HStack spacing='3'>
+                {/* Text and NumberInput for recurrence */}
                 <InputSubText>every</InputSubText>
                 <NumberInput 
                   size='sm' 
