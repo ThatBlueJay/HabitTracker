@@ -1,3 +1,7 @@
+//This entire file is just the index for the API, setting up the port and wrapping the functions with the request types.
+//To find actual information on the functions, check their corresponding files.
+
+
 const express = require("express");
 const app = express();
 const port = 3000;

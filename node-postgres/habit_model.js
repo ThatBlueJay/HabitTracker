@@ -51,7 +51,6 @@ const createHabit = (body) => {
         if (error) {
           reject(error);
         }
-        //resolve(`A new habit has been added with ID:!`)
         pool.query("SELECT recordGenerator()", (error, rez) => {
           if (error) {
             reject(error);
@@ -84,6 +83,7 @@ const deleteHabit = (id) => {
           reject(error);
         }
         const name = results.rows[0].title;
+        //First delete all the records associated with the habit
         pool.query(
           "DELETE FROM records WHERE habit_id = $1",
           [id],
@@ -91,6 +91,7 @@ const deleteHabit = (id) => {
             if (error) {
               reject(error);
             }
+            //Then we can delete the habit itself
             pool.query(
               "DELETE FROM habits WHERE habit_id = $1",
               [id],
@@ -142,10 +143,6 @@ const getHabit = (id) => {
 const getCurrentHabits = (query) => {
   return new Promise(function (resolve, reject) {
     const { id, begin, end } = query;
-    // const newBegin = new Date(begin + " 00:00:00");
-    // const newEnd = new Date(end + " 11:59:59");
-    // const strBegin = newBegin.toString();
-    // const strEnd = newEnd.toString();
 
     pool.query(
       "SELECT * FROM records WHERE due_date >= $1 AND due_date < $2 AND habit_id = $3",
@@ -155,6 +152,7 @@ const getCurrentHabits = (query) => {
           reject(error);
         }
         for(var i = 0; i < results.rowCount; i++) {
+          //Offsetting the timezone from UTC to EST to return proper current due dates in the results
           var offset = 4 * 60 * 60 * 1000;
           var current = results.rows[i].due_date.getTime();
           results.rows[i].due_date = new Date(current - offset);
@@ -189,6 +187,7 @@ const confirmHabit = (id) => {
         } else if (results.rowCount < 1) {
           resolve(`${-1}`);
         }
+        //Habit should be complete regardless since the API function is called.
         pool.query(
           "UPDATE records set complete = true where record_id = $1",
           [id],
@@ -206,7 +205,7 @@ const confirmHabit = (id) => {
                 (60 * 60)
             )
           )
-        );
+        ); //Set the date complete to the current date.
         pool.query(
           "UPDATE records set datet_complete = $2 where record_id = $1",
           [id, today],
@@ -215,7 +214,8 @@ const confirmHabit = (id) => {
               reject(err);
             }
           }
-        );
+        ); 
+        //Set the hours spent to be the hours between the current time and the time of the due date timestamp
         pool.query(
           "UPDATE records set hours_spent = $2 where record_id = $1",
           [
@@ -234,6 +234,7 @@ const confirmHabit = (id) => {
             }
           }
         );
+        //If the current date is earlier than the due date, then the record was complete on time. if not it wasnt.
         if (results.rows[0].due_date.getTime() > today.getTime()) {
           pool.query(
             "UPDATE records set complete_on_time = true where record_id = $1; ",

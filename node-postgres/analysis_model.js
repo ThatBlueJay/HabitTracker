@@ -29,8 +29,8 @@ const getData = (query) => {
         }
         const analyzer = new Analyzer();
         if (results == null) {
-          //resolve([]);
         } else {
+          //Create custom Record objects for all the record entries we're gathering from the database using its data
           for (let i = 0; i < results.rowCount; i++) {
             const rec = new Record(
               results.rows[i].record_id,
@@ -41,9 +41,11 @@ const getData = (query) => {
               results.rows[i].hours_spent,
               results.rows[i].habit_id
             );
+            //Place those new Record objects in thw analyzer object.
             analyzer.addRecord(rec);
           }
         }
+        //With the records now inside, call the function to retrieve the datapoints and return them.
         const list = analyzer.getData();
         resolve({ list });
       }

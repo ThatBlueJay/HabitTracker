@@ -56,6 +56,7 @@ class Record {
    * @return double - the fraction position of the Record in between the time
    **/
   getX(start, end) {
+    //Gets the fraction that the due date is between the given start and end for uniform bounds
     const totalTime = end - start;
     const duepos = this.duedate - start;
     const pos = duepos / totalTime;
@@ -69,10 +70,15 @@ class Record {
   getY() {
     const currentDate = new Date();
     const dueDate = new Date(this.duedate);
+    //If the record was done on time, give a perfect score.
     if (this.completetimed) {
       return 1;
+      //if the record hasn't even been completed, give a failing score.
     } else if (currentDate > dueDate && !this.complete) {
       return 0;
+      //Now if the record was done but late, calculate the consistency score as the equation e^(-0.1 * x)
+      //where x is the hours late. This will be a function of exponential decay so the score will decrease
+      //at an accelerated rate the greater the delay but not reach 0 as that's only for utter failure.
     } else if (currentDate > dueDate && this.complete && !this.completetimed) {
       if (isNaN(Math.exp(-0.1 * this.hoursspent))) console.log(this.hoursspent);
       return Math.exp(-0.1 * this.hoursspent);
@@ -157,8 +163,7 @@ class Analyzer {
     const start = this.getEarliest();
     const current = new Date();
     const end = Math.min(current, this.getLatest());
-    //const end = new Date();
-    //console.log(records[0].getX(start, end))
+    //The list is of the coordinates, where the x is the time and the y is the consistency score.
     const pairs = this.records.map((record) => {
       return { x: record.getX(start, end), y: record.getY() };
     });
@@ -171,7 +176,13 @@ class Analyzer {
    **/
   getAveragedData() {
     const resultPairs = [];
+    //Creates a new list with set datapoints of x values between 0 and 1 in increments of 0.1 (0, 0.1. 0.2,...1.0)
     for (let position = 0; position <= 1; position += 0.1) {
+      //Dynamic range to change the clumping of the raw data with the range being 0.05 * (1+e^(-5 * (x-0.7))) where x is the fraction
+      //of the record between the endpoints. This is an exponential decay function so the range will shrink towards 1.0 but not reach 0.
+      
+      //This is so the past data will be clumped together and the newer data will not be as much so newer data can be distinguished better
+      //given it's higher priority as individual record data.
       const range = 0.05 * (1 + Math.exp(-5 * (position - 0.7)));
 
       const lowerBound = Math.max(0, position - range / 2);
@@ -182,10 +193,12 @@ class Analyzer {
         return pairPosition >= lowerBound && pairPosition <= upperBound;
       });
 
+      //Average all of the raw data points within the range to fit in the fixed x points (also will allow for analyzing multiple habits together)
       const totalHours = filteredPairs.reduce((sum, pair) => sum + pair.y, 0);
       const averageHours =
         filteredPairs.length > 0 ? totalHours / filteredPairs.length : 0;
 
+      //New names for easier axis labeling
       resultPairs.push({
         Time: position.toFixed(2),
         Consistency: averageHours.toFixed(2),
