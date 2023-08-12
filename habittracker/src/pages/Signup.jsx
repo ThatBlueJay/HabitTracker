@@ -20,6 +20,25 @@ function verify(password, confirmPassword) {
   return true;
 }
 
+// async function userInDatabase(email) {
+//   const response = await fetch('http://localhost:3000/users/?email=' + email, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       email: email
+//     })
+//   });
+//   if (response.ok) {
+//     const json = await response.json();
+//     return json;
+//   } else {
+//     console.error(`Server error: ${response.status}`);
+//     return null;
+//   }
+// }
+
 // Function to create a new user
 async function createUser({ username, password, email, phone }) {
   const response = await fetch('http://localhost:3000/users', {
@@ -34,7 +53,10 @@ async function createUser({ username, password, email, phone }) {
       phone: phone,
     })
   });
-
+  console.log(username);
+  console.log(password);
+  console.log(email);
+  console.log(phone);
   if (response.ok) {
     const json = await response.json();
     return json;
@@ -60,12 +82,20 @@ function SignUp() {
       if (verify(password)) {
         try {
           // Call createUser function to create a new user
+          // const inDatabase = await userInDatabase(email);
+          // if (inDatabase == -2) {
+          //   alert("an account is already registered for the email: " + email + ". Returning you to the log in page.");
+          //   return <Navigate to="/Home" />; // Redirect to sign in page
+          // }
           const response = await createUser({ username, password, email, phone });
-          if (response === "Success") {
-            alert("Account created successfully!");
-            return <Navigate to="/Profile" />; // Redirect to profile page
-          } else {
-            alert("Failed to create account");
+          console.log("userID ", response);
+          if (response >= 0) {
+            alert("Account created successfully! Please log in now.");
+            return <Navigate to="/Home" />; // Redirect to sign in page
+           
+          } 
+          else {
+            alert("Failed to create account, ensure all fields are filled out");
           }
         } catch (error) {
           console.error(error);

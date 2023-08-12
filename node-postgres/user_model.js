@@ -19,6 +19,7 @@ const pool = new Pool({
 const createUser = (body) => {
   return new Promise(function (resolve, reject) {
     const { username, password, email, phone } = body;
+    console.log("I ran");
     pool.query(
       "INSERT INTO users (user_id, username, password, email, phone) VALUES (DEFAULT, $1, $2, $3, $4) RETURNING user_id",
       [username, password, email, phone],
@@ -35,6 +36,25 @@ const createUser = (body) => {
     );
   });
 };
+
+// const userSignedUp = (email) => {
+//   return new Promise(function (resolve, reject) {
+//     pool.query(
+//       "SELECT * FROM users WHERE email = $1",
+//       [email],
+//       (error, results) => {
+//         if (error) {
+//           console.log("I errored before new resolve");
+//           reject(error);
+//         }
+//         if(results.rowCount >= 1) {
+//           console.log("I ran before new resolve");
+//           resolve(`${-2}`);
+//         }
+//       }
+//     );
+//   });
+// };
 
 /**
  * Method - Deletes the user of the given ID

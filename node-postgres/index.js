@@ -108,6 +108,17 @@ app.get("/users/:id", (req, res) => {
     });
 });
 
+// app.get("/users/:email", (req, res) => {
+//   user_model
+//     .userSignedUp(req.params.email)
+//     .then((response) => {
+//       res.status(200).send(response);
+//     })
+//     .catch((error) => {
+//       res.status(500).send(error);
+//     });
+// });
+
 app.post("/users", (req, res) => {
   user_model
     .createUser(req.body)
