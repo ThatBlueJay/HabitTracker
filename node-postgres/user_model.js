@@ -14,23 +14,40 @@ const pool = new Pool({
  * @param String email - the email of the user
  * @param String password - the phone of the user
  * @modifies User Table
- * @effects User Table - Add this new user into the database
+ * @effects User Table - Add this new user into the database if the email isn't used in any accounts,
+ *            returns -2 if there is already a user with the email (for error handling)
  **/
 const createUser = (body) => {
   return new Promise(function (resolve, reject) {
     const { username, password, email, phone } = body;
+
     pool.query(
-      "INSERT INTO users (user_id, username, password, email, phone) VALUES (DEFAULT, $1, $2, $3, $4) RETURNING user_id",
-      [username, password, email, phone],
+      "SELECT * FROM users WHERE email = $1",
+      [email],
       (error, results) => {
         if (error) {
           reject(error);
         }
         if (results == null) {
           resolve(`${-1}`);
-        } else if (results.rowCount < 1) {
-          resolve(`${-1}`);
-        } else resolve(`${results.rows[0].user_id}`);
+        } else if (results.rowCount > 0) {
+          resolve(`${-2}`);
+        } else {
+          pool.query(
+            "INSERT INTO users (user_id, username, password, email, phone) VALUES (DEFAULT, $1, $2, $3, $4) RETURNING user_id",
+            [username, password, email, phone],
+            (error, results) => {
+              if (error) {
+                reject(error);
+              }
+              if (results == null) {
+                resolve(`${-1}`);
+              } else if (results.rowCount < 1) {
+                resolve(`${-1}`);
+              } else resolve(`${results.rows[0].user_id}`);
+            }
+          );
+        }
       }
     );
   });
