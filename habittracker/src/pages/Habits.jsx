@@ -85,8 +85,16 @@ function Habits() {
       user_id: id
     };
 
-    if (Date(startDate + "T" + startTime) > Date(endDate + "T" + endTime)) {
-      alert("The start date/time cannot be later than the end date/time!");
+    const sdate = new Date(startDate);
+    const edate = new Date(endDate);
+    if (sdate > edate) {
+      alert("The start date cannot be later than the end date!");
+      return;
+    }
+    const stime = new Date(sdate + "T" + startTime);
+    const etime = new Date(sdate + "T" + endTime);
+    if (stime > etime) {
+      alert("The start time cannot be later than the end time!");
       return;
     }
     alert("Your habit has been added!"); // Show success message
