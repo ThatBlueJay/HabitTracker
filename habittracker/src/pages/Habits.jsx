@@ -85,6 +85,10 @@ function Habits() {
       user_id: id
     };
 
+    if (Date(startDate + "T" + startTime) > Date(endDate + "T" + endTime)) {
+      alert("The start date/time cannot be later than the end date/time!");
+      return;
+    }
     alert("Your habit has been added!"); // Show success message
     try {
       const response = await fetch('http://localhost:3000/habits', {
