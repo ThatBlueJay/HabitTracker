@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import Logo from '../assets/habittracker.png';
 import { LoginContext, IdContext } from "../App.js";
 import { Navigate } from "react-router-dom";
 import Chart from "../components/Chart.jsx";

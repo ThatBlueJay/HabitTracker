@@ -17,13 +17,6 @@ const styles = {
   }
 };
 
-// Helper function to get the name of a month based on its number
-function getMonthName(monthNumber) {
-  const date = new Date();
-  date.setMonth(monthNumber - 1);
-  return date.toLocaleString('en-US', { month: 'long' });
-}
-
 // Helper function to extract data from a promise
 function getDataFromPromise(json) {
   return json;
@@ -49,11 +42,8 @@ function formatData(title, start, end, data) {
 
 // Get habits data for the specified time range
 async function getHabits(id) {
-  const today = new Date();
   const start = "January 1, 2023";
   const end = "December 31, 2023";
-  //const start = getMonthName(today.getMonth()-8) + " " + 1 + ", " + today.getFullYear();
-  //const end = getMonthName(today.getMonth()+) + " " + 1 + ", " + today.getFullYear();
   console.log(start, end);
   var allHabitsToPutOnCalendar = [];
   var allHabits = [];
