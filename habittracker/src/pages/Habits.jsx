@@ -11,8 +11,7 @@ import { Textarea } from '@chakra-ui/react'
 // Define the Habits component
 function Habits() {
   // Get the login and id state from the context
-  const login = true;
-  //const { login } = useContext(LoginContext);
+  const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
   // State variables to hold habit information
@@ -100,21 +99,21 @@ function Habits() {
       return;
     }
     alert("Your habit ("+ title +") has been added!"); // Show success message
-    // try {
-    //   const response = await fetch('http://localhost:3000/habits', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(habit)
-    //   });
-    //   await response.json();
-    //   if (!response.ok) {
-    //     throw new Error(data.message || 'Could not save the habit.');
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const response = await fetch('http://localhost:3000/habits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(habit)
+      });
+      await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Could not save the habit.');
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   console.log("habits page: ", login, id);
