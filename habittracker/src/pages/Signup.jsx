@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import { LoginContext } from "../App.js";
 import { Navigate } from "react-router-dom";
 import { Button, Stack, Input, InputLeftElement, InputGroup } from '@chakra-ui/react'
 import { EmailIcon, LockIcon, StarIcon, PhoneIcon } from '@chakra-ui/icons'
@@ -51,6 +52,8 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const { login, handleLogin } = useContext(LoginContext);
+
 
   // Function to handle sign-up button click
   const onSignUp = async () => {
@@ -63,7 +66,8 @@ function SignUp() {
           const response = await createUser({ username, password, email, phone });
           if (response > 0) {
             alert("Account created successfully!");
-            return <Navigate to="/Calendar" /> // Redirect to profile page
+            handleLogin(response); // Update login context
+            //return <Navigate to="/Calendar" /> // Redirect to profile page
           } else if (response === -2){
             alert("There is already an account associated with that email");
           } else {
@@ -80,6 +84,10 @@ function SignUp() {
     }
   };
 
+  if (login) {
+    return <Navigate to="/Calendar" />
+  }
+  
   return (
     <SignUpContainer>
       {/* Header */}
