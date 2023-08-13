@@ -88,16 +88,17 @@ function Habits() {
     const sdate = new Date(startDate);
     const edate = new Date(endDate);
     if (sdate > edate) {
-      alert("The start date cannot be later than the end date!");
+      alert("ERROR ADDING HABIT: \n The start date ("+ startDate + ") cannot be later than the end ("+ endDate +") date!");
       return;
     }
     const stime = new Date(startDate + "T" + startTime);
-    const etime = new Date(endDate + "T" + endTime);
+    const etime = new Date(startDate + "T" + endTime);
+    console.log(stime, etime);
     if (stime > etime) {
-      alert("The start time cannot be later than the end time!");
+      alert("ERROR ADDING HABIT:\nThe start time cannot be later than the end time!");
       return;
     }
-    alert("Your habit has been added!"); // Show success message
+    alert("Your habit ("+ title +") has been added!"); // Show success message
     try {
       const response = await fetch('http://localhost:3000/habits', {
         method: 'POST',
