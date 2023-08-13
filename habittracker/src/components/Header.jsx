@@ -127,6 +127,14 @@ const ButtonGroup = styled.div`
   font-family: 'Arvo', serif;
   opacity: 1!important;
   /* Add hover effect styling */
+  &:hover {
+    background-color: #BC4B51; 
+    border-radius: 25px;
+    color: #FFFFFF;
+    opacity: 1;
+    transform: scale(1.2);
+    margin: 10px;
+  }
 `;
 
 // Styling for StyledLink component
