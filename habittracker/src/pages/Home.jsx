@@ -56,7 +56,7 @@ function Home() {
       try {
         const userId = JSON.stringify(await authorize({ email, password }));
         console.log(userId);
-        if (userId !== "None") {
+        if (userId > 0) {
           handleLogin(userId); // Update login context
           alert("Login successful!"); // Show success message
           console.log(login);
