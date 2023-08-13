@@ -80,6 +80,10 @@ function SignUp() {
     }
   };
 
+  if (login) {
+    return <Navigate to="/Calendar" />
+  }
+
   return (
     <SignUpContainer>
       {/* Header */}
