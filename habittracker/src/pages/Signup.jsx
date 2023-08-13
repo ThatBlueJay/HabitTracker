@@ -63,7 +63,7 @@ function SignUp() {
           const response = await createUser({ username, password, email, phone });
           if (response > 0) {
             alert("Account created successfully!");
-            return <Navigate to="/Profile" />; // Redirect to profile page
+            return <Navigate to="/Calendar" /> // Redirect to profile page
           } else if (response === -2){
             alert("There is already an account associated with that email");
           } else {
@@ -79,10 +79,6 @@ function SignUp() {
       alert("Passwords do not match!");
     }
   };
-
-  if (login) {
-    return <Navigate to="/Calendar" />
-  }
 
   return (
     <SignUpContainer>
