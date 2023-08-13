@@ -91,8 +91,8 @@ function Habits() {
       alert("The start date cannot be later than the end date!");
       return;
     }
-    const stime = new Date(sdate + "T" + startTime);
-    const etime = new Date(sdate + "T" + endTime);
+    const stime = new Date(startDate + "T" + startTime);
+    const etime = new Date(endDate + "T" + endTime);
     if (stime > etime) {
       alert("The start time cannot be later than the end time!");
       return;
