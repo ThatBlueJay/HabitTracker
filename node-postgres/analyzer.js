@@ -80,7 +80,6 @@ class Record {
       //where x is the hours late. This will be a function of exponential decay so the score will decrease
       //at an accelerated rate the greater the delay but not reach 0 as that's only for utter failure.
     } else if (currentDate > dueDate && this.complete && !this.completetimed) {
-      if (isNaN(Math.exp(-0.1 * this.hoursspent))) console.log(this.hoursspent);
       return Math.exp(-0.1 * this.hoursspent);
     } else {
       return 0.5;

@@ -158,7 +158,6 @@ const getCurrentHabits = (query) => {
           results.rows[i].due_date = new Date(current - offset);
           
         }
-        console.log(results.rows)
         resolve(results.rows);
       }
     );
@@ -197,15 +196,7 @@ const confirmHabit = (id) => {
             }
           }
         );
-        console.log(
-          Math.abs(
-            Math.round(
-              (today.getTime() - results.rows[0].due_date.getTime()) /
-                1000 /
-                (60 * 60)
-            )
-          )
-        ); //Set the date complete to the current date.
+        //Set the date complete to the current date.
         pool.query(
           "UPDATE records set datet_complete = $2 where record_id = $1",
           [id, today],
