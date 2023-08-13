@@ -129,12 +129,12 @@ const Calendar = () => {
   // Fetch and update habit data on component mount
   useEffect(() => {
     async function updateCalendar() {
-      const events = await getHabits(id);
-      const startDate = new Date();
-      calendarRef.current?.control.update({startDate, events});
-    }
+        const events = await getHabits(id);
+        const startDate = new Date();
+        calendarRef.current?.control.update({startDate, events});
+      }
     updateCalendar();
-  }, []);
+  }, [login, id]);
 
   // If not logged in, redirect to the home page
   if (!login) {
