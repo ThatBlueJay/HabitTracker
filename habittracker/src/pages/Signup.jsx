@@ -61,9 +61,11 @@ function SignUp() {
         try {
           // Call createUser function to create a new user
           const response = await createUser({ username, password, email, phone });
-          if (response === "Success") {
+          if (response > 0) {
             alert("Account created successfully!");
             return <Navigate to="/Profile" />; // Redirect to profile page
+          } else if (response === -2){
+            alert("There is already an account associated with that email");
           } else {
             alert("Failed to create account");
           }
