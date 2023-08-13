@@ -11,7 +11,8 @@ import { Textarea } from '@chakra-ui/react'
 // Define the Habits component
 function Habits() {
   // Get the login and id state from the context
-  const { login } = useContext(LoginContext);
+  const login = true;
+  //const { login } = useContext(LoginContext);
   const { id } = useContext(IdContext);
 
   // State variables to hold habit information
@@ -88,31 +89,32 @@ function Habits() {
     const sdate = new Date(startDate);
     const edate = new Date(endDate);
     if (sdate > edate) {
-      alert("The start date cannot be later than the end date!");
+      alert("ERROR ADDING HABIT: \n The start date ("+ startDate + ") cannot be later than the end ("+ endDate +") date!");
       return;
     }
     const stime = new Date(startDate + "T" + startTime);
-    const etime = new Date(endDate + "T" + endTime);
+    const etime = new Date(startDate + "T" + endTime);
+    console.log(stime, etime);
     if (stime > etime) {
-      alert("The start time cannot be later than the end time!");
+      alert("ERROR ADDING HABIT:\nThe start time cannot be later than the end time!");
       return;
     }
-    alert("Your habit has been added!"); // Show success message
-    try {
-      const response = await fetch('http://localhost:3000/habits', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(habit)
-      });
-      await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || 'Could not save the habit.');
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    alert("Your habit ("+ title +") has been added!"); // Show success message
+    // try {
+    //   const response = await fetch('http://localhost:3000/habits', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(habit)
+    //   });
+    //   await response.json();
+    //   if (!response.ok) {
+    //     throw new Error(data.message || 'Could not save the habit.');
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    // }
   }
 
   console.log("habits page: ", login, id);
